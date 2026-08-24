@@ -1,0 +1,1 @@
+﻿WINGET: C:\Users\likunyuan\AppData\Local\Microsoft\WindowsApps\winget.exe
