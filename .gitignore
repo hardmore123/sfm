@@ -6,3 +6,7 @@
 # docx 也比较大
 专利/*.docx
 专利/*.doc
+
+# Python 缓存
+__pycache__/
+*.pyc
