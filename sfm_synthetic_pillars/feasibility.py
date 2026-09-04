@@ -46,6 +46,8 @@ def check_feasibility(
     fov_elev_hi: float,    # 仰角孔径上界（rad）
     d: float,              # 目标水平距离 (m)
     h: float,              # 目标高度 (m)
+    z_s_min: float = None, # AUV 起伏最小 z（瞬时），默认 = z_s
+    z_s_max: float = None, # AUV 起伏最大 z（瞬时），默认 = z_s
 ) -> FeasibilityResult:
     """
     单目标可反演性判定。
@@ -57,53 +59,113 @@ def check_feasibility(
         fov_elev_lo, fov_elev_hi: 仰角孔径 (rad)
         d: 目标到声呐的水平距离 (m)
         h: 目标高度 (m)
+        z_s_min, z_s_max: AUV 起伏瞬时 z 范围（默认 = z_s，无起伏）
+
+    **改进**：考虑 AUV heave 起伏对瞬时 z_s 的影响。
+    - 严格场景：要求**所有**瞬时 z_s 都能反演 → 用 z_s_min 算
+    - 概率场景：要求**部分**瞬时 z_s 能反演 → 用 z_s_max 算并报告概率
     """
+    # 默认值
+    if z_s_min is None:
+        z_s_min = z_s
+    if z_s_max is None:
+        z_s_max = z_s
+
     # 1) 目标存在
     if h <= 0:
         return FeasibilityResult(False, 0.0, "目标高度 h<=0", 0, 0, 0, False, "C-I (h<=0)")
 
-    # 2) 仰角孔径
-    elev_top = np.arctan2(h - z_s, d)  # 物理上：sonar 看柱顶的角度
-    if not (fov_elev_lo <= elev_top <= fov_elev_hi):
+    # 2) 严格场景：用最小 z_s 判定（C-II）
+    #    若 AUV 起伏最小 z_s 时 h>z_s_min，则整个起伏区间都可反演
+    if h >= z_s_min:
         return FeasibilityResult(False, 0.0,
-            f"柱顶仰角 {np.degrees(elev_top):.1f}° 不在声呐孔径 [{np.degrees(fov_elev_lo):.1f}°, {np.degrees(fov_elev_hi):.1f}°] 内",
-            0, elev_top, 0, False, "C-II (elev_top 越界)")
+            f"目标高度 h={h:.2f}m >= z_s_min={z_s_min:.2f}m (AUV 起伏最小时), 仰角向上无阴影",
+            0, np.arctan2(h - z_s_min, d), 0, False, "C-IV (h>=z_s_min 仰角向上)")
+    elev_top_strict = np.arctan2(h - z_s_min, d)  # 最严格仰角
+    if not (fov_elev_lo <= elev_top_strict <= fov_elev_hi):
+        return FeasibilityResult(False, 0.0,
+            f"严格场景柱顶仰角 {np.degrees(elev_top_strict):.1f}° (用 z_s_min={z_s_min}) 不在声呐孔径内",
+            0, elev_top_strict, 0, False, "C-II (elev_top 越界)")
 
-    # 3) 距离在量程内
-    D_max = np.sqrt(rho_max**2 - z_s**2) if rho_max > z_s else 0
+    # 3) 距离在量程内（用 z_s_min 算最严格的 D_max）
+    D_max = np.sqrt(rho_max**2 - z_s_min**2) if rho_max > z_s_min else 0
     if d > D_max:
         return FeasibilityResult(False, 0.0,
-            f"目标距离 d={d:.2f}m 超出 D_max={D_max:.2f}m", D_max, elev_top, 0, False, "C-III (d>D_max)")
+            f"目标距离 d={d:.2f}m 超出 D_max={D_max:.2f}m (用 z_s_min={z_s_min})", D_max, elev_top_strict, 0, False, "C-III (d>D_max)")
 
-    # 4) 阴影长度
-    if h >= z_s:
-        return FeasibilityResult(False, 0.0,
-            f"目标高度 h={h:.2f}m >= z_s={z_s:.2f}m, 仰角向上无阴影",
-            D_max, elev_top, 0, False, "C-IV (h>=z_s 仰角向上)")
-    L_s = d * h / (z_s - h)
+    # 4) 阴影长度（用最严格的 z_s_min）
+    L_s = d * h / (z_s_min - h)
+    elev_top_loose = np.arctan2(h - z_s_max, d)  # 概率场景的仰角（AUV 起伏最大时）
 
     # 5) 阴影不超出量程
     L_s_clipped = L_s > (rho_max - d)
     if L_s_clipped:
-        # 即使 L_s 被截断，仍能反演出 h（公式 h = L_s × tan(elev_top) 仅在 L_s<截断时有效）
-        # 这是论文 T0.7 标注的"物理边界"：截断场景反演会有偏
-        # 算一个"实际可反演 h_max"：当 L_s = rho_max - d 时 h = ?
-        h_max = (rho_max - d) * z_s / rho_max
+        h_max = (rho_max - d) * z_s_min / rho_max
         binding = "C-V (L_s 被 range_max 截断)"
     else:
-        h_max = z_s  # 理论上 h 可以等于 z_s（仰角水平）
+        h_max = z_s_min  # 理论上 h 可以等于 z_s_min（仰角水平）
         binding = ""
 
+    # 概率场景信息：z_s_max 时是否还能反演
+    loose_feasible = h < z_s_max  # z_s_max > h 时
     return FeasibilityResult(
         is_feasible=True,
         h_max=h_max,
         reason="",
         D_max=D_max,
-        elev_top=elev_top,
+        elev_top=elev_top_strict,  # 用最严格的
         L_s=L_s,
         L_s_clipped=L_s_clipped,
         binding_constraint=binding,
+        # 扩展字段（向后兼容）
     )
+
+
+def check_feasibility_with_heave(
+    z_s_center: float,
+    heave_amp: float,
+    rho_max: float,
+    theta_p: float,
+    fov_elev_lo: float,
+    fov_elev_hi: float,
+    d: float,
+    h: float,
+) -> dict:
+    """
+    考虑 AUV heave 起伏的可行性判定（推荐用于 S6 等负例）。
+
+    AUV 实际 z ∈ [z_s_center - heave_amp, z_s_center + heave_amp]
+    - 严格场景：用 z_s_min = z_s_center - heave_amp 判定（最严）
+    - 概率场景：算瞬时可反演概率
+
+    Returns: dict 含 'strict_feasible', 'loose_feasible', 'fraction_feasible', 'binding'
+    """
+    z_s_min = z_s_center - heave_amp
+    z_s_max = z_s_center + heave_amp
+
+    # 严格场景
+    strict = check_feasibility(z_s_center, rho_max, theta_p, fov_elev_lo, fov_elev_hi, d, h,
+                                z_s_min=z_s_min, z_s_max=z_s_max)
+
+    # 概率场景：模拟 AUV 起伏 100 帧，统计可反演比例
+    n_frames = 100
+    n_feasible = 0
+    for i in range(n_frames):
+        t = i / n_frames
+        z_s_inst = z_s_center + heave_amp * np.sin(2 * np.pi * t)
+        r = check_feasibility(z_s_inst, rho_max, theta_p, fov_elev_lo, fov_elev_hi, d, h)
+        if r.is_feasible:
+            n_feasible += 1
+    frac_feasible = n_feasible / n_frames
+
+    return {
+        "strict_feasible": strict.is_feasible,
+        "loose_feasible": frac_feasible > 0.5,  # 概率 > 50% 判 loose 可反演
+        "fraction_feasible": frac_feasible,
+        "binding": strict.binding_constraint,
+        "z_s_min": z_s_min,
+        "z_s_max": z_s_max,
+    }
 
 
 def check_current_16_scenes():
