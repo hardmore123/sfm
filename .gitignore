@@ -1,12 +1,63 @@
-# 大文件排除（论文 PDF、二进制）
+# ============================================================
+# 大文件与数据排除
+# 说明：仓库只跟踪源码、Markdown 文档与小体积配置。
+#      仿真数据、真实数据集、论文 PDF 一律不入库。
+# ============================================================
+
+# ---- 仿真工作区（约 17.6 GB，含 .npy/.png/.ply 海量中间产物）----
+sfm_synthetic_pillars/
+
+# ---- 真实数据集（约 1.43 GB，目录名已声明不上传）----
+数据集（不上传git）/
+数据集(准备上传git版)/
+
+# ---- 论文库（PDF 与 Blender 资产，约 0.30 GB）----
 论文集/*.pdf
+论文集/ACSim-master/
+*.blend
+*.blend1
+
+# ---- BA 代码的仿真输入（每个 sim_input* 目录都是数据）----
+BA代码/sim_input*/
+
+# ---- 二进制与大体积产物 ----
 *.exe
 *.npy
+*.zip
+*.ply
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.ckpt
 
-# docx 也比较大
+# ---- 文档类大文件 ----
 专利/*.docx
 专利/*.doc
+*.docx
+*.doc
 
-# Python 缓存
+# ---- Python 缓存与虚拟环境 ----
 __pycache__/
 *.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ---- 临时与迁移脚本 ----
+_tmp*
+_kiro_migrate*
+_probe.py
+AGENT_ADDRESS.txt
+
+# ---- 编辑器与系统 ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- 递归排除所有 PDF 与废弃目录（补 论文集/*.pdf 只匹配直接子级的漏洞）----
+**/*.pdf
+**/_junk_to_delete/
