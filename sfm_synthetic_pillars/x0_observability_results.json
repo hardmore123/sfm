@@ -1,0 +1,36 @@
+{
+  "unit_test": {
+    "test_name": "零矩阵 → insufficient",
+    "n_landmarks": 5,
+    "n_insufficient": 5,
+    "n_well": 0,
+    "passed": true
+  },
+  "s1": {
+    "scene": "S1_single_well_constrained",
+    "n_landmarks": 12,
+    "n_insufficient": 0,
+    "n_blind": 12,
+    "n_weak": 0,
+    "n_well": 0,
+    "summary_text": "=== 可观测性分析 [S1_single_well_constrained] ===\nlandmarks: 12\n四分类统计:\n  insufficient (obs<2):    0 (0.0%)\n  blind (σ_Pz>5τ_z):       12 (100.0%)\n  weak (τ_z<σ_Pz≤5τ_z):    0 (0.0%)\n  well (σ_Pz≤τ_z):         0 (0.0%)\nλ3 分布: min=2.57e-01, median=2.14e+00, max=2.15e+00\nλ3/λ2 分布: min=0.0015, median=0.0063, max=0.0063\nσ_Pz 分布: min=0.683, median=0.683, max=1.973\n"
+  },
+  "s2": {
+    "scene": "S2_single_forward_degenerate",
+    "n_landmarks": 12,
+    "n_insufficient": 0,
+    "n_blind": 12,
+    "n_weak": 0,
+    "n_well": 0,
+    "summary_text": "=== 可观测性分析 [S2_single_forward_degenerate] ===\nlandmarks: 12\n四分类统计:\n  insufficient (obs<2):    0 (0.0%)\n  blind (σ_Pz>5τ_z):       12 (100.0%)\n  weak (τ_z<σ_Pz≤5τ_z):    0 (0.0%)\n  well (σ_Pz≤τ_z):         0 (0.0%)\nλ3 分布: min=6.51e-02, median=2.91e-01, max=2.92e-01\nλ3/λ2 分布: min=0.0002, median=0.0005, max=0.0005\nσ_Pz 分布: min=1.852, median=1.852, max=3.918\n"
+  },
+  "sigma_med": {
+    "s1": 0.683,
+    "s2": 1.852
+  },
+  "verdict": {
+    "unit_test_pass": true,
+    "degenerate_identified": true,
+    "all_pass": true
+  }
+}

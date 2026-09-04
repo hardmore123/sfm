@@ -1,0 +1,24 @@
+{
+  "scene": "02_simple_two_pillars",
+  "A_只多视几何": {
+    "pose_err_mean_cm": 2.376426470873284,
+    "lm_err_mean_cm": 6.934657138970597,
+    "lm_z_err_mean_cm": 3.458450296135487,
+    "lm_z_err_median_cm": 2.6045219329925153,
+    "time_s": 2.0726330280303955,
+    "rms_px": 0.663075775387296
+  },
+  "B_多视+阴影高度先验": {
+    "pose_err_mean_cm": 2.376426470873284,
+    "lm_err_mean_cm": 6.934657138970597,
+    "lm_z_err_mean_cm": 3.458450296135487,
+    "lm_z_err_median_cm": 2.6045219329925153,
+    "time_s": 1.9281907081604004,
+    "rms_px": 0.663075775387296
+  },
+  "delta_lm_cm": 0.0,
+  "delta_lm_z_mean_cm": 0.0,
+  "delta_lm_z_median_cm": 0.0,
+  "K_used": 10,
+  "n_prior": 0
+}

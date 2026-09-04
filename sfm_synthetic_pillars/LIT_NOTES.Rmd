@@ -1,0 +1,795 @@
+---
+title: "大论文文献阅读笔记 — 鲁棒声呐 BA + 阴影→高度反演"
+subtitle: "Underwater Forward-Looking Sonar 3D Reconstruction"
+author: "Mavis 整理 | for MiniMax397863"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    number_sections: true
+    theme: flatly
+    highlight: tango
+    code_folding: show
+    df_print: paged
+  pdf_document:
+    toc: true
+    number_sections: true
+    latex_engine: xelatex
+    keep_tex: false
+  word_document:
+    toc: true
+    number_sections: true
+bibliography: refs.bib
+biblio-style: apalike
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE, message = FALSE, warning = FALSE,
+  fig.width = 8, fig.height = 5, dpi = 110
+)
+library(knitr)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+```
+
+```{r load-data, include=FALSE}
+# 论文元数据（手工整理 + 论文集扫描）
+papers <- read.csv(textConnection("
+id,short_name,year,group,venue,priority,size_mb,sha16,status
+A1,Wang 2023 Motion Degeneracy,2023,A,arXiv 2307.16160,P0,1.68,E009CF1C,downloaded
+A2,Westman 2025 Stereo Sonar,2025,A,arXiv 2507.05410,P0,6.69,12F03E6E,downloaded
+A3,Aykin 2017 Space Carving,2017,A,IEEE JOE 42(3):574-589,P0,2.32,6AB600D4,downloaded
+A4,Tang 2020 Applied Acoustics,2020,A,App Acoust 169:107459,P0,2.26,15715104,downloaded
+A5,ACSim 2025 T-RO,2025,A,IEEE T-RO 41:2970-2989,P0,7.45,1D42812E,downloaded
+A6,Negahdaripour 2012 3D Scene,2012,A,OCEANS 2012,P1,1.08,25D7ED4C,downloaded
+A7,Aykin 2013 Image Formation,2013,A,OCEANS 2013,P1,0.0,—,missing
+A8,Aykin 2016 Lens-Based,2016,A,IEEE JOE 2016,P2,4.14,2955606B,downloaded
+A9,Negahdaripour 2020 FLS Stereo,2020,A,IEEE JOE 45:547-562,P2,10.20,9686E2B7,downloaded
+A10,Zhou 2025 Shadow Extraction,2025,A,IEEE TIM 2025,P2,5.82,D6234AD5,downloaded
+A11,Feng 2024 Diff Space Carving,2024,A,IEEE RA-L 9(11):10065-10072,P2,2.34,36AFE338,downloaded
+B1,Yang 2020 GNC RA-L,2020,B,IEEE RA-L 5(2):3297-3304,P0,3.71,CC2CB78B,downloaded
+B2,Yang 2019 GNC arXiv,2019,B,arXiv 1909.08605v3,P0,9.02,6A39C6CC,downloaded
+B3,Yang 2020 Certifiable Perception,2020,B,ICRA 2020,P1,3.84,93CA41D8,downloaded
+B4,Yang 2019 TEASER,2019,B,IEEE T-RO 2020,P1,4.42,56F3C96A,downloaded
+B5,Sunderhauf 2012 SC,2012,B,IROS 2012,P2,0.60,2AE2D00D,downloaded
+B6,Agarwal 2013 DCS,2013,B,ICRA 2013,P2,1.14,4D9F77D6,downloaded
+B7,Zhang 2016 Degeneracy,2016,B,IEEE TRO 2016,P2,2.25,E6EAD94F,downloaded
+B8,Zhang 2016 Init Filters,2016,B,IEEE TRO 2016,P2,0.81,246CCA01,downloaded
+H1,Kearney 2022 NSEA,2022,H,arXiv 2211.09092,P0,2.20,72316DCC,downloaded
+H2,Potokar 2022 HoloOcean ICRA,2022,H,ICRA 2022,P0,5.85,E1A489F3,downloaded
+H3,Potokar 2022 HoloOcean IROS,2022,H,IROS 2022,P0,5.83,7DE0B6FE,downloaded
+H4,Romrell 2025 HoloOcean 2.0,2025,H,arXiv 2510.06160,P0,4.63,CFF219A7,downloaded
+H5,Wang 2024 FLS Ground Echo,2024,H,arXiv 2304.08146v2,P0,1.29,D5E4851B,downloaded
+H6,Wu 2014 Ocean Reverberation (cn),2014,H,Wuli 43(11):731-740,P0,3.00,73B5DD0F,downloaded
+H7,Stanic 1998 Jackson vs BOGGART,1998,H,IEEE JOE 23(3):199-215,P2,0.0,—,missing
+H8,Jackson 1986 JASA,1986,H,JASA 80(4):1188,P2,0.0,—,missing
+H9,Parnum 2004 ACOUSTICS,2004,H,ACOUSTICS 2004,P2,0.0,—,missing
+C1,Westman 2020 Fermat Paths,2020,C,ICRA 2020,P0,1.21,7672D650,downloaded
+C2-14,Other C Group (12 papers),—,C,various,—,—,—,downloaded
+D1,Lin 2025 Acoustic Neural 3D,2025,D,—,-,4.79,65702557,downloaded
+D2,NeuSIS 2024 arXiv,2024,D,arXiv 2209.08221,-,5.68,063BFB58,downloaded
+D2b,NeuSIS 2024 simulated,2024,D,IEEE,-,1.90,E2D9B905,downloaded
+D3,Book chapter 978-981,—,D,book,-,0.45,C4516D59,downloaded
+F1,Kazhdan 2013 Screened Poisson,2013,F,ACM TOG 32(3):29,P4,19.85,857106C3,downloaded
+F2,Hoppe 1992 Surface Recon,1992,F,SIGGRAPH 1992,P4,0.0,—,missing
+G1-4,G Group (Wang 2023, Westman 2025, Westman 2020, Zhang 2016),—,G,various,-,—,—,downloaded
+"), stringsAsFactors = FALSE)
+papers$size_mb <- as.numeric(papers$size_mb)
+```
+
+# 摘要 {.unnumbered}
+
+本笔记为大论文「水下声呐三维重建（创新一：置信度贯穿的鲁棒 BA；创新二：基于 ViT+LoRA 分割的语义-结构引导）」服务的**完整文献库**。
+
+- **论文集**：`F:\sfm\论文集\`（52 PDF / 249.81 MB / **48 唯一论文**）
+- **覆盖**：9 个主题组（A-I），P0 立即 4 篇全部到位
+- **配套笔记**：`LIT_NOTES.md`（Markdown 格式）、`README_论文清单.md`、`WANTED_PAPERS.md`
+
+# 全局统计
+
+```{r global-stats}
+total_papers <- nrow(papers)
+downloaded <- sum(papers$status == "downloaded")
+total_size <- sum(papers$size_mb, na.rm = TRUE)
+group_summary <- papers %>%
+  group_by(group) %>%
+  summarise(
+    n_papers = n(),
+    n_downloaded = sum(status == "downloaded"),
+    n_missing = sum(status == "missing"),
+    total_size_mb = round(sum(size_mb, na.rm = TRUE), 2)
+  ) %>%
+  arrange(group)
+priority_summary <- papers %>%
+  filter(priority %in% c("P0", "P1", "P2", "P4", "P5")) %>%
+  group_by(priority) %>%
+  summarise(
+    n_total = n(),
+    n_downloaded = sum(status == "downloaded"),
+    n_missing = sum(status == "missing")
+  )
+
+knitr::kable(group_summary, caption = "按组别覆盖")
+knitr::kable(priority_summary, caption = "按阶段优先级")
+```
+
+# 论文集可视化
+
+## 按组别覆盖（柱状图）
+
+```{r group-bar, fig.cap="按组别论文数与下载状态"}
+papers %>%
+  count(group, status) %>%
+  ggplot(aes(x = group, y = n, fill = status)) +
+  geom_col(position = "stack") +
+  geom_text(aes(label = n), position = position_stack(vjust = 0.5), color = "white", size = 4) +
+  scale_fill_manual(values = c("downloaded" = "#2c7fb8", "missing" = "#e34a33")) +
+  labs(x = "组别", y = "论文数", fill = "状态") +
+  theme_minimal()
+```
+
+## 论文年份分布
+
+```{r year-dist, fig.cap="论文发表年份分布"}
+papers %>%
+  filter(!is.na(year) & year > 2010) %>%
+  count(year) %>%
+  ggplot(aes(x = year, y = n)) +
+  geom_col(fill = "#41ab5d") +
+  geom_text(aes(label = n), vjust = -0.5) +
+  labs(x = "年份", y = "论文数") +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 8)) +
+  theme_minimal()
+```
+
+## 文件大小分布（TOP 15）
+
+```{r size-top, fig.cap="文件大小 TOP 15"}
+papers %>%
+  arrange(desc(size_mb)) %>%
+  head(15) %>%
+  mutate(short_name = str_wrap(short_name, 35)) %>%
+  ggplot(aes(x = reorder(short_name, size_mb), y = size_mb)) +
+  geom_col(fill = "#f03b20") +
+  coord_flip() +
+  labs(x = "", y = "文件大小 (MB)") +
+  theme_minimal()
+```
+
+# 创新点 → 论文映射
+
+## 创新一：置信度贯穿的鲁棒 BA
+
+**核心需求**：
+1. 鲁棒核（GNC / SC / DCS）
+2. 可观测性判据
+3. BA 框架
+
+**关键论文**：
+
+```{r innov1-table}
+innov1 <- papers %>% filter(id %in% c("B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "G1-4", "C1"))
+knitr::kable(innov1 %>% select(id, short_name, year, group, priority, size_mb),
+             caption = "创新一相关论文")
+```
+
+## 创新二：声学阴影→高度反演
+
+**核心需求**：
+1. 阴影几何（visibility carving / SFS）
+2. 海底散射物理（Lambert / Jackson）
+3. 仿真器对比
+
+**关键论文**：
+
+```{r innov2-table}
+innov2 <- papers %>% filter(id %in% c("A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A11", "H1", "H2", "H3", "H4", "H5", "H6"))
+knitr::kable(innov2 %>% select(id, short_name, year, group, priority, size_mb),
+             caption = "创新二相关论文")
+```
+
+# A 组：声学阴影几何与高度反演
+
+## A1. Aykin & Negahdaripour 2017 — Space Carving ⭐⭐⭐🔴
+
+**完整标题**：Three-Dimensional Target Reconstruction From Multiple 2-D Forward-Scan Sonar Views by Space Carving
+
+**作者**：Murat D. Aykin, Shahriar Negahdaripour (Univ. of Miami, UVIL)
+
+**出版**：IEEE Journal of Oceanic Engineering, 42(3): 574-589, 2017
+
+**DOI**：`10.1109/JOE.2016.2591738`
+
+**引用**：92 次
+
+**文件**：`Aykin_Negahdaripour_2017_Space_Carving_JOE.pdf` (2.32 MB, SHA256: 6AB600D4...)
+
+**核心贡献**：多视 2D FLS 图像 → 声学不透明目标 3D 形状
+
+**关键算法**：
+- **空间雕刻条件**：voxel $V$ 在 frame $i$ 中若被任何 2D 像素"投影覆盖"且未命中回波 → 被剔除
+- **收敛条件**：新的不同视角 + 声纳滚转（roll motion）比绕行更优
+- **计算复杂度**：每帧 $O(N^2)$ 投影检测，N 帧后 $O(N^3)$ 总成本
+
+**实验**：
+- 凸/凹多边形仿真（验证收敛性）
+- 真实珊瑚石 + 微缩木桌图像
+
+**对大论文的作用**：
+- T0.7 shadow.py 重写的物理基础
+- T3.5 创新二 Aykin 基线对比
+- 创新二"语义-结构引导"模块可借鉴 visibility carving 思路
+
+**R 代码示例** — 提取 PDF 元数据：
+
+```{r pdf-meta-A3, eval=FALSE}
+library(pdftools)
+meta <- pdftools::pdf_info("F:/sfm/论文集/Aykin_Negahdaripour_2017_Space_Carving_JOE.pdf")
+print(meta$keys)
+print(meta$metadata)
+# 提取前 5 页文本
+txt <- pdftools::pdf_text("F:/sfm/论文集/Aykin_Negahdaripour_2017_Space_Carving_JOE.pdf", n = 5)
+cat(substr(txt, 1, 2000))
+```
+
+## A2. Tang et al. 2020 — Applied Acoustics ⭐⭐⭐🔴
+
+**完整标题**：Three dimensional height information reconstruction based on mobile active sonar detection
+
+**作者**：Zhijie Tang, Jiaqi Lu, Zhen Wang, Gaoqian Ma
+
+**出版**：Applied Acoustics, 169: 107459, 2020
+
+**DOI**：`10.1016/j.apacoust.2020.107459`
+
+**文件**：`Tang_2020_Mobile_Active_Sonar_Height_AppliedAcoustics.pdf` (2.26 MB)
+
+**核心贡献**：单 FLS 图像 + 阴影 + 回波距离 → 3D 高度
+
+**关键算法**：
+- **SFS（Shape from Shadow）** 用于声呐图像
+- ROV 配置 active sonar + viewpoint software
+- 算法四步：ROI 选择 → 阴影提取 → 阴影匹配 → 高度反演
+- 关键假设：声呐距离河床深度已知
+
+**关键公式**（待精读后补充）：
+$$h = f(L_s, \theta, d)$$
+
+**对大论文的作用**：
+- 创新二 T3.5 高度反演对比基线
+- 创新二"单帧 vs 多帧"对比实验
+
+## A3. Wang et al. 2025 — ACSim ⭐⭐⭐🔴
+
+**完整标题**：ACSim: A Novel Acoustic Camera Simulator With Recursive Ray Tracing, Artifact Modeling, and Ground Truthing
+
+**作者**：Yusheng Wang, Yonghoon Ji, Hiroshi Tsuchiya, Jun Ota, Hajime Asama, Atsushi Yamashita (Univ. Tokyo + JAIST + Wakachiku)
+
+**出版**：IEEE Transactions on Robotics, 41: 2970-2989, 2025
+
+**DOI**：`10.1109/TRO.2025.3562048`
+
+**文件**：`Wang_2025_ACSim_Acoustic_Camera_TRO.pdf` (7.45 MB)
+
+**核心贡献**：
+- **递归光线追踪** + 物理着色（多路径反射 + 散射 + 衍射）
+- **抗锯齿重采样**（针对等角采样带来的混叠）
+- **Artifact 建模**：rolling shutter distortion + crosstalk noise
+- Blender add-on 用户界面
+- sim-to-real：合成训练的模型可迁移到真实
+
+**对大论文的作用**：
+- T0.5 渲染器补海底散射+阴影衰减的**金标准对比**
+- T0.7 shadow.py 的物理依据
+- 创新二可参考 Blender add-on 的 sim-to-real 思路
+
+## A4. Wang et al. 2023 — Motion Degeneracy ⭐⭐⭐
+
+**完整标题**：Motion Degeneracy in Self-supervised Learning of Elevation Angle Estimation for 2D Forward-Looking Sonar
+
+**作者**：Yusheng Wang et al. (Univ. Tokyo)
+
+**出版**：arXiv: 2307.16160v1, 2023
+
+**文件**：`Wang_2023_motion_degeneracy_FLS_self_supervised_arXiv.pdf` (1.68 MB)
+
+**核心贡献**：FLS 仰角自监督学习的运动退化分析
+- 仰角在某些运动模式下**不可观测**（与 Westman 2020 Fermat 退化一致）
+- 自监督学习没有 ground truth 时**会学到错误的几何**
+
+**对大论文的作用**：创新一可观测性判据 T1.0/T2.3
+
+## A5. Westman 2025 — Stereo Sonar Feature Geometry ⭐⭐⭐
+
+**完整标题**：Feature Geometry for Stereo Sidescan and Forward-looking Sonar
+
+**作者**：Westman et al. (CMU)
+
+**出版**：arXiv: 2507.05410v1, 2025
+
+**文件**：`Westman_2025_Feature_Geometry_Stereo_Sidescan_FLS.pdf` (6.69 MB)
+
+**核心贡献**：FLS + SSS 立体声呐几何 + 特征反投影体积估计
+
+**关键公式**：
+- **FLS 投影模型**：$\Pi_{fl}(r,\theta,\phi) = [r, \theta]^T$
+- **SSS 投影模型**：$\Pi_{ss}(r,\theta,\phi) = r$
+
+**对大论文的作用**：创新一多视几何 + 创新二阴影几何的理论基础
+
+## A6. Negahdaripour 2012 — 3D Scene Interpretation ⭐⭐
+
+**完整标题**：On 3-D scene interpretation from F-S sonar imagery
+
+**作者**：Shahriar Negahdaripour (Univ. of Miami)
+
+**出版**：OCEANS 2012 MTS/IEEE Hampton Roads, 2012
+
+**DOI**：`10.1109/OCEANS.2012.6404921`
+
+**文件**：`On_3-D_scene_interpretation_from_F-S_sonar_imagery.pdf` (1.08 MB)
+
+**核心贡献**：单 FLS 图像阴影 + 几何线索 → 3D 物体大小、轮廓、相对位置
+
+**对大论文的作用**：T0.7 单帧阴影反演的早期参考
+
+## A7. Aykin & Negahdaripour 2013 — Image Formation ⭐⭐ ❌ 未下
+
+**完整标题**：Forward-look 2-D sonar image formation and 3-D reconstruction
+
+**出版**：OCEANS 2013 MTS/IEEE San Diego, 2013
+
+**DOI**：`10.23919/OCEANS.2013.6741270`
+
+**核心贡献**：高频 2D FS 声呐图像形成模型（前置工作）
+
+**建议**：A1（2017）的前置工作，已知结论可从 2017 反推，**优先级降为 P2**
+
+## A8. Aykin & Negahdaripour 2016 — Lens-Based ⭐
+
+**完整标题**：Modeling 2-D Lens-Based Forward-Scan Sonar Imagery for Targets With Diffuse Reflectance
+
+**出版**：IEEE JOE 2016, DOI: `10.1109/JOE.2016.2518838`, 引用 35
+
+**文件**：`Modeling_2-D_Lens-Based_..._Diffuse_Reflectance.pdf` (4.14 MB)
+
+**核心贡献**：透镜式 FLS 漫反射目标图像形成建模
+
+**对大论文的作用**：T0.5 渲染器参考（ARIS 透镜式匹配）
+
+## A9. Negahdaripour 2020 — FLS Stereo ⭐
+
+**完整标题**：Application of Forward-Scan Sonar Stereo for 3-D Scene Reconstruction
+
+**出版**：IEEE JOE 45: 547-562, 2020, DOI: `10.1109/JOE.2018.2875574`, 引用 45
+
+**文件**：`Application_of_Forward-Scan_Sonar_Stereo_..._Scene_Reconstruction.pdf` (10.20 MB)
+
+**核心贡献**：双 FLS 立体几何（双相机/单相机两位置）
+
+**对大论文的作用**：创新一多视几何补充
+
+## A10. Zhou et al. 2025 — Automatic Shadow Extraction ⭐⭐
+
+**完整标题**：An Automatic Sonar Target Shadow Extraction Approach for Rapid Seafloor 3-D Perception Using a Single Acoustic Camera
+
+**出版**：IEEE TIM 2025
+
+**文件**：`An_Automatic_Sonar_Target_Shadow_Extraction_Approach_..._Acoustic_Camera.pdf` (5.82 MB)
+
+**核心贡献**：单帧声呐目标阴影**自动**提取 → 3D 感知
+
+**对大论文的作用**：T0.7 shadow 自动检测模块参考
+
+## A11. Feng et al. 2024 — Differentiable Space Carving ⭐⭐
+
+**完整标题**：Differentiable Space Carving for 3D Reconstruction Using Imaging Sonar
+
+**出版**：IEEE RA-L 9(11): 10065-10072, 2024, DOI: `10.1109/LRA.2024.3469778`
+
+**文件**：`Differentiable_Space_Carving_..._Imaging_Sonar.pdf` (2.34 MB)
+
+**核心贡献**：可微空间雕刻（DSC）+ 占用概率网格 + 多分辨率 hash 编码
+- 渲染回波概率（不是回波强度）
+- 多分辨率 hash 编码 → 占用概率网格
+- 比 NeRF 快 10×，细节更多
+
+**对大论文的作用**：创新二 D 组对比基线，T0.8 神经隐式阴影反演参考
+
+# B 组：鲁棒估计（创新一关键）
+
+## B1. Yang et al. 2020 — GNC RA-L ⭐⭐⭐🔴
+
+**完整标题**：Graduated Non-Convexity for Robust Spatial Perception: From Non-Minimal Solvers to Global Outlier Rejection
+
+**作者**：Heng Yang, Pasquale Antonante, Vasileios Tzoumas, Luca Carlone (MIT LIDS)
+
+**出版**：IEEE RA-L 5(2): 3297-3304, 2020, DOI: `10.1109/LRA.2020.2975425`, 引用 ~500
+
+**文件**：`Graduated_Non-Convexity_..._Rejection.pdf` (3.71 MB)
+
+**核心贡献**：
+- **GNC 算法**：将非凸鲁棒问题通过 Geman-McClure / TLS / Huber 损失"凸化"
+- 全局最优 outlier rejection
+- 适用：SLAM / 旋转平均 / PnP
+
+**关键算法**：
+- **凸化参数控制**：连续从凸损失（L2）过渡到非凸损失（Geman-McClure / TLS）
+- **迭代过程**：每个 outlier 慢慢从内点变成外点
+- **全局最优保证**：在中等 outlier 比例下（< 50%）
+
+**对大论文的作用**：
+- **创新一"置信度贯穿的鲁棒 BA"的核心候选方案**
+- T2.1 鲁棒 BA 权重更新式的实现基础
+- 可与 BA-Based SIO 2024 比较
+
+## B2. Yang, Carlone 2019 — GNC arXiv 完整版 ⭐⭐⭐
+
+**完整标题**：Graduated Non-Convexity for Robust Spatial Perception (RSS 2019 完整版)
+
+**出版**：arXiv: 1909.08605v3, 2019
+
+**文件**：`Yang_Carlone_GNC_TLS_RSS2019.pdf` (9.02 MB)
+
+**核心贡献**：B1 论文的最完整扩展版
+- 13 页 + 7 页附录
+- 大量实验对比（与 L2 / Huber / Cauchy / TLS 等多种核）
+- 理论收敛性证明
+
+## B3. Yang, Carlone 2020 — Certifiable Perception ⭐⭐
+
+**完整标题**：Certifiable Perception: A Framework for Trustworthy Machine Learning for Safety-Critical Aerospace and Ground Applications
+
+**出版**：ICRA 2020
+
+**文件**：`Yang_Carlone_Certifiable_Perception_ICRA2020.pdf` (3.84 MB)
+
+**核心贡献**：认证感知（Certifiable Perception）框架
+
+## B4. Yang et al. 2019 — TEASER ⭐⭐
+
+**完整标题**：TEASER: Fast and Certifiable Point Cloud Registration
+
+**出版**：IEEE T-RO 2020, arXiv: 2001.07715
+
+**文件**：`Yang_Carlone_TEASER_IROS_2019.pdf` (4.42 MB)
+
+**核心贡献**：TEASER：快速可认证的点云配准
+
+## B5. Sünderhauf 2012 — Switchable Constraints ⭐⭐
+
+**完整标题**：Switchable Constraints for Robust Pose Graph SLAM
+
+**出版**：IROS 2012, DOI: `10.1109/IROS.2012.6385566`
+
+**文件**：`Sunderhauf_Switchable_Constraints_IROS_2012.pdf` (0.60 MB)
+
+**核心贡献**：SC（Switchable Constraints）鲁棒核
+- 损失函数：$\psi \cdot \rho(e^2) + (1 - \psi) \cdot c$
+
+## B6. Agarwal 2013 — Dynamic Covariance Scaling ⭐⭐
+
+**完整标题**：Robust Map Optimization using Dynamic Covariance Scaling
+
+**出版**：ICRA 2013
+
+**文件**：`Robust_map_optimization_using_dynamic_covariance_scaling.pdf` (1.14 MB)
+
+**核心贡献**：DCS（Dynamic Covariance Scaling）鲁棒核
+- 损失函数：$\rho(e^2) = c^2 \cdot \frac{e^2}{c^2 + e^2}$
+
+## B7. Zhang 2016 — Degeneracy Detection ⭐⭐
+
+**完整标题**：On degeneracy of optimization-based state estimation problems
+
+**作者**：Ji Zhang, Michael Kaess, Stefan Williams
+
+**出版**：IEEE TRO 2016
+
+**文件**：`On_degeneracy_of_optimization-based_state_estimation_problems.pdf` (2.25 MB)
+
+**核心贡献**：退化检测（基于 Hessian 矩阵特征值）
+- $\lambda_{min}$ 阈值依据
+
+## B8. Zhang 2016 — Initialization Filters ⭐
+
+**完整标题**：On the Initialization of Statistical Optimum Filters with Application to Motion Estimation
+
+**文件**：`On_the_initialization_of_statistical_optimum_filters_..._motion_estimation.pdf` (0.81 MB)
+
+# H 组：海底散射与声呐成像仿真
+
+## H1. Kearney & Penko 2022 — NSEA ⭐⭐⭐
+
+**完整标题**：The Naval Seafloor Evolution Architecture: A Platform for Predicting Dynamic Seafloor Roughness
+
+**出版**：arXiv: 2211.09092v1, 2022
+
+**文件**：`Kearney_2022_NSEA_seafloor_backscatter_Lambert_Rayleigh.pdf` (2.20 MB)
+
+**核心贡献**：Lambert 散射模型 + Rayleigh 噪声概率模型 + FLS 完整仿真
+
+**关键公式**（**极重要**，已读）：
+- **Lambert cosine-squared 散射**：
+$$\sigma = \frac{\rho}{\pi} \cos^2(\theta_i) \propto \sin^2(\theta_g)$$
+- **FLS 图像形成**：
+$$Y(r,\theta) = B(r) \cdot \sigma(r,\theta)$$
+- **Rayleigh 噪声**：
+$$Y(r,\theta) \sim \text{Rayleigh}(B(r) \cdot \sigma(r,\theta))$$
+
+**适用条件**：
+- Lambert 适用 **掠射角 < 45°**
+- NSEA 文档：Lambert 不是真正的声学模型
+
+**对大论文的作用**：
+- T0.4 海底 Lambert 散射直接公式
+- T0.5 Rayleigh 噪声概率模型
+- 对比度阈值：阴影 vs 海底强度比
+
+## H2. Potokar 2022 — HoloOcean ICRA ⭐⭐⭐
+
+**完整标题**：HoloOcean: An Underwater Robotics Simulator
+
+**作者**：Easton Potokar, Spencer Ashford, Michael Kaess, Joshua G. Mangelson (BYU + CMU)
+
+**出版**：ICRA 2022, pp. 3040-3046, DOI: `10.1109/ICRA46639.2022.9812353`
+
+**文件**：`Potokar_2022_HoloOcean_ICRA.pdf` (5.85 MB)
+
+**核心贡献**：HoloOcean 开源水下机器人仿真器（UE4 + Holodeck）
+- 八叉树声呐成像
+- pip 安装 + Python 接口
+- 性能：2× 实时
+
+## H3. Potokar 2022 — HoloOcean Sonar IROS ⭐⭐⭐
+
+**完整标题**：HoloOcean: Realistic Sonar Simulation
+
+**出版**：IROS 2022, pp. 8450-8456
+
+**文件**：`Potokar_2022_HoloOcean_Sonar_IROS.pdf` (5.83 MB)
+
+**核心贡献**：成像声呐的具体实现细节
+
+## H4. Romrell 2025 — HoloOcean 2.0 ⭐
+
+**完整标题**：A Preview of HoloOcean 2.0
+
+**出版**：arXiv: 2510.06160, 2025
+
+**文件**：`Romrell_2025_HoloOcean_2.0_preview.pdf` (4.63 MB)
+
+**核心贡献**：HoloOcean 2.0 预览（UE5 + GPU 加速）
+
+## H5. Wang 2024 — FLS Ground Echo ⭐⭐
+
+**完整标题**：2D Forward Looking Sonar Simulation with Ground Echo Modeling
+
+**出版**：arXiv: 2304.08146v2, 2024
+
+**文件**：`Wang_2024_FLS_ground_echo_simulation_arXiv.pdf` (1.29 MB)
+
+**核心贡献**：FLS 仿真 + 海底回波建模
+
+## H6. 吴金荣 2014 — 海洋混响（中文）⭐⭐⭐
+
+**完整标题**：海洋混响特性研究
+
+**作者**：吴金荣, 彭大勇, 张建兰（中科院声学所）
+
+**出版**：物理（Wuli）, 43(11): 731-740, 2014
+
+**文件**：`Wu_2014_ocean_reverberation_Lambert_Jackson_wuli_cn.pdf` (3.00 MB)
+
+**核心贡献**：中文综述：Lambert + Jackson + 实测对比
+
+**关键公式**（**极重要**，已读）：
+- **Lambert 定律**：
+$$S_B = 10 \log_{10}(\mu) + 10 \log_{10}(\sin^2 \theta)$$
+- **泥质海底**：$\mu = -27$ dB（530Hz/1030Hz 实测）
+- **Jackson 三域模型**：
+  - D1 0-10°：Kirchhoff 切平面近似
+  - D2 15-50°：Bragg 散射
+  - D3 55-70°：体积散射
+
+# C 组：多视几何（14 篇，详见 Markdown 笔记）
+
+C1. Westman 2020 Fermat Paths ⭐⭐⭐（已列 G3）
+C2-14. 其余 12 篇（Huang ASfM×2、DISO×2、BA-SIO、Feature-Based SLAM 等）
+
+# D 组：神经隐式（3 篇）
+
+- D1. Lin 2025 — Acoustic Neural 3D
+- D2. NeuSIS 2024 (arXiv + simulated)
+- D3. 978-981-95-4049-5 书籍章节
+
+# F 组：网格评价 Poisson
+
+## F1. Kazhdan & Hoppe 2013 — Screened Poisson ⭐⭐⭐
+
+**完整标题**：Screened Poisson Surface Reconstruction
+
+**作者**：Michael Kazhdan, Hugues Hoppe
+
+**出版**：ACM TOG 32(3): 29, 2013, DOI: `10.1145/2487228.2487237`, 引用 ~1000
+
+**文件**：`Kazhdan_Hoppe_2013_Screened_Poisson_CGF.pdf` (19.85 MB)
+
+**核心贡献**：Screened Poisson 表面重建
+- 隐式函数（指示函数）→ 等值面提取
+- 抗噪声 + 保持细节
+
+**对大论文的作用**：T4.4 创新二网格输出（点云 → mesh）
+
+## F2. Hoppe 1992 — Surface Reconstruction ❌ 未下
+
+- ACM SIGGRAPH 1992, 引用 ~2000
+
+# G 组：可观测性（4 篇）
+
+- G1. Wang 2023 Motion Degeneracy（已列 A4）
+- G2. Westman 2025 Stereo Sonar（已列 A5）
+- G3. Westman 2020 Fermat Paths（已列 C1）
+- G4. Zhang 2016 退化检测（已列 B7）
+
+# 论文集整理备忘
+
+## V12 审计发现（详见 `_AUDIT_REPORT.md`）
+
+- 52 文件 → 48 唯一
+- 3 组 SHA256 完全重复
+- 1 个损坏文件（HTML 残留）
+- 2 组疑似重复（同名不同源）
+
+## 必删清单
+
+```bash
+# 损坏
+mavis-trash "F:\sfm\论文集\Aykin_Negahdaripour_2017_3D_target_recon_FLS_space_carving.pdf"
+# 完全重复
+mavis-trash "F:\sfm\论文集\2507.05410v1.pdf"
+mavis-trash "F:\sfm\论文集\ACSim_A_Novel_Acoustic_Camera_Simulator_With_Recursive_Ray_Tracing_Artifact_Modeling_and_Ground_Truthing.pdf"
+mavis-trash "F:\sfm\论文集\Towards_acoustic_structure_from_motion_for_imaging_sonar.pdf"
+# 同名疑似
+mavis-trash "F:\sfm\论文集\Three-Dimensional_Target_Reconstruction_From_Multiple_2-D_Forward-Scan_Sonar_Views_by_Space_Carving.pdf"
+mavis-trash "F:\sfm\论文集\Three-Dimensional_Target_Reconstruction_From_Multiple_2-D_Forward-Scan_Sonar_Views_by_Space_Carving (1).pdf"
+mavis-trash "F:\sfm\论文集\Three-Dimensional_Target_Reconstruction_From_Multiple_2-D_Forward-Scan_Sonar_Views_by_Space_Carving (2).pdf"
+mavis-trash "F:\sfm\论文集\Motion_Degeneracy_in_Self-supervised_Learning_of_Elevation_Angle_Estimation_for_2D_Forward-Looking_Sonar.pdf"
+mavis-trash "F:\sfm\论文集\1-s2.0-S0003682X20305636-main.pdf"
+```
+
+清理后：52 → 43 文件，~225 MB
+
+# 关键发现速查表
+
+| 创新点需求 | 关键公式/算法 | 来源论文 |
+|------------|---------------|----------|
+| 阴影空间雕刻 | visibility carving | Aykin 2017 |
+| 阴影→高度反演 | SFS for sonar | Tang 2020 |
+| 海底散射 Lambert | $\sigma = \frac{\rho}{\pi} \cos^2(\theta_i)$ | Kearney 2022 + Wu 2014 |
+| 海底散射 Jackson | 三域 D1/D2/D3 | Wu 2014 |
+| 海底强度比 | $\mu = -27$ dB（泥底） | Wu 2014 |
+| 噪声模型 | Rayleigh$(B \cdot \sigma)$ | Kearney 2022 |
+| 鲁棒 BA | GNC | Yang 2020 |
+| 退化检测 | Hessian $\lambda_3$ 阈值 | Zhang 2016 + Westman 2020 |
+| 网格生成 | Screened Poisson | Kazhdan 2013 |
+| FLS 投影模型 | $\Pi_{fl} = [r,\theta]^T$ | Westman 2025 |
+| 仿真器对比 | Octree + Lambert | HoloOcean (Potokar 2022) |
+| 最新 ray tracing | 递归 + 物理着色 | ACSim 2025 |
+| 透镜 FLS 建模 | 漫反射假设 | Aykin 2016 |
+| SC 鲁棒核 | $\psi \cdot \rho(e^2) + (1-\psi) \cdot c$ | Sünderhauf 2012 |
+| DCS 鲁棒核 | $\rho(e^2) = c^2 \cdot e^2/(c^2 + e^2)$ | Agarwal 2013 |
+
+# 实用 R 工具函数
+
+## 提取所有 PDF 元数据
+
+```{r pdf-meta-util, eval=FALSE}
+library(pdftools)
+library(dplyr)
+
+pdf_dir <- "F:/sfm/论文集"
+files <- list.files(pdf_dir, pattern = "\\.pdf$", full.names = TRUE)
+
+pdf_meta <- lapply(files, function(f) {
+  tryCatch({
+    info <- pdftools::pdf_info(f)
+    txt <- pdftools::pdf_text(f, n = 1)
+    first_page <- substr(paste(txt, collapse = " "), 1, 500)
+    data.frame(
+      file = basename(f),
+      size_kb = round(file.size(f) / 1024, 1),
+      pages = info$pages,
+      title = info$keys$Title,
+      author = info$keys$Author,
+      created = info$created,
+      first_page_text = first_page
+    )
+  }, error = function(e) {
+    data.frame(file = basename(f), size_kb = round(file.size(f) / 1024, 1),
+               pages = NA, title = NA, author = NA, created = NA,
+               first_page_text = paste("ERROR:", e$message))
+  })
+}) %>% bind_rows()
+
+write.csv(pdf_meta, file.path(pdf_dir, "_pdf_metadata.csv"), row.names = FALSE)
+```
+
+## 关键词搜索（跨所有 PDF）
+
+```{r pdf-search, eval=FALSE}
+# 跨所有 PDF 搜索关键词
+search_keyword <- function(pattern, pdf_dir = "F:/sfm/论文集") {
+  files <- list.files(pdf_dir, pattern = "\\.pdf$", full.names = TRUE)
+  results <- list()
+  for (f in files) {
+    txt <- tryCatch(pdftools::pdf_text(f), error = function(e) "")
+    if (any(grepl(pattern, txt, ignore.case = TRUE))) {
+      results[[basename(f)]] <- length(grep(pattern, txt, ignore.case = TRUE))
+    }
+  }
+  return(results)
+}
+
+# 搜索 "shadow"
+hits <- search_keyword("shadow")
+print(hits)
+```
+
+# 配套文档链
+
+```
+F:\sfm\sfm_synthetic_pillars\
+├── LIT_NOTES.Rmd               ← 本文件（R Markdown 源）
+├── LIT_NOTES.md                ← Markdown 版（人类可读）
+├── README_论文清单.md          ← 论文清单 V12
+├── PAPER_SEARCH_PLAN.md        ← 论文查找计划
+├── WANTED_PAPERS.md            ← 校园网行动手册
+├── campus_fetch.ps1            ← 校园网下载脚本
+└── WORK_LOG.md                 ← 工作日志
+
+F:\sfm\论文集\
+├── README_论文清单.md          ← 论文库自维护清单
+├── _AUDIT_REPORT.md            ← 审计报告 V12
+├── WANTED_PAPERS.md            ← 行动手册（副本）
+└── *.pdf                       ← 52 PDF（含 9 个待清理）
+```
+
+# 编译方法
+
+## RStudio
+1. 打开 `LIT_NOTES.Rmd`
+2. 点击 **Knit** 按钮
+3. 选择输出格式（HTML / PDF / Word）
+
+## 命令行
+
+```{bash compile, eval=FALSE}
+# HTML
+Rscript -e "rmarkdown::render('LIT_NOTES.Rmd', output_format = 'html_document')"
+
+# PDF
+Rscript -e "rmarkdown::render('LIT_NOTES.Rmd', output_format = 'pdf_document')"
+
+# Word
+Rscript -e "rmarkdown::render('LIT_NOTES.Rmd', output_format = 'word_document')"
+```
+
+需要的 R 包：
+- `rmarkdown`, `knitr`, `dplyr`, `ggplot2`, `stringr`, `pdftools`, `scales`
+
+安装：
+```r
+install.packages(c("rmarkdown", "knitr", "dplyr", "ggplot2", "stringr", "pdftools", "scales"))
+```
+
+---
+
+*本笔记由 Session 12 阶段产出（V12 R Markdown 版），与 `LIT_NOTES.md`（Markdown 版）内容对应但增加 R 可视化*

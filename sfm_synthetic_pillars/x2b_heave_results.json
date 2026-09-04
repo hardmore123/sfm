@@ -1,0 +1,40 @@
+{
+  "t12_general_data": [
+    {
+      "heave": 0.4,
+      "well_pct": 3.3,
+      "n_obs": 1657
+    },
+    {
+      "heave": 0.8,
+      "well_pct": 30.0,
+      "n_obs": 1562
+    },
+    {
+      "heave": 1.2,
+      "well_pct": 80.0,
+      "n_obs": 1360
+    }
+  ],
+  "t12_forward_data": [
+    {
+      "heave": 0.4,
+      "well_pct": 6.7,
+      "n_obs": 1650
+    },
+    {
+      "heave": 0.8,
+      "well_pct": 6.7,
+      "n_obs": 1650
+    },
+    {
+      "heave": 1.2,
+      "well_pct": 6.7,
+      "n_obs": 1650
+    }
+  ],
+  "A_opt_theory": 3.6687681775039245,
+  "best_A_data": 1.2,
+  "deviation_pct": 67.29147381515858,
+  "passed": false
+}

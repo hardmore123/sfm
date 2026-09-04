@@ -1,0 +1,23 @@
+{
+  "A_只多视几何": {
+    "pose_err_mean_cm": 5.204711812475002,
+    "lm_err_mean_cm": 2.766076680925924,
+    "lm_z_err_mean_cm": 2.1355902472238886,
+    "lm_z_err_median_cm": 0.0,
+    "time_s": 6.398065090179443,
+    "rms_px": 0.3721384630577267
+  },
+  "B_多视+阴影高度先验": {
+    "pose_err_mean_cm": 5.204711812475002,
+    "lm_err_mean_cm": 2.766076680925924,
+    "lm_z_err_mean_cm": 2.1355902472238886,
+    "lm_z_err_median_cm": 0.0,
+    "time_s": 6.346756935119629,
+    "rms_px": 0.3721384630577267
+  },
+  "delta_lm_cm": 0.0,
+  "delta_lm_z_mean_cm": 0.0,
+  "delta_lm_z_median_cm": 0.0,
+  "K_used": 12,
+  "n_prior": 3
+}

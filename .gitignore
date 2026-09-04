@@ -4,8 +4,14 @@
 #      仿真数据、真实数据集、论文 PDF 一律不入库。
 # ============================================================
 
-# ---- 仿真工作区（约 17.6 GB，含 .npy/.png/.ply 海量中间产物）----
-sfm_synthetic_pillars/
+# ---- 仿真工作区：只跟踪源码/报告/小结果 JSON，数据子目录全部排除 ----
+#      （数据子目录合计约 18.3 GB，源码与报告合计 < 1 MB）
+sfm_synthetic_pillars/big_paper_scene_set/
+sfm_synthetic_pillars/big_paper_sim/
+sfm_synthetic_pillars/innov2_ablations/
+sfm_synthetic_pillars/_tmp_heave_baseline/
+sfm_synthetic_pillars/scene_set_v2/
+sfm_synthetic_pillars/**/__pycache__/
 
 # ---- 真实数据集（约 1.43 GB，目录名已声明不上传）----
 数据集（不上传git）/

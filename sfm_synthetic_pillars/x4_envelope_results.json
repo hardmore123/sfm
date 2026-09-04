@@ -1,0 +1,91 @@
+{
+  "per_scene": [
+    {
+      "scene": "S1_single_well_constrained",
+      "expected_feasible": true,
+      "is_feasible_predicted": true,
+      "predicted_binding": "",
+      "is_feasible_actual": true,
+      "err_med_m": 0.003582596778869629,
+      "n_valid_pixels": 35196,
+      "failure_mode": "",
+      "actual_binding": "无 binding（反演成功）",
+      "binding_match": true
+    },
+    {
+      "scene": "S2_single_forward_degenerate",
+      "expected_feasible": true,
+      "is_feasible_predicted": true,
+      "predicted_binding": "",
+      "is_feasible_actual": true,
+      "err_med_m": 0.0030291080474853516,
+      "n_valid_pixels": 66690,
+      "failure_mode": "",
+      "actual_binding": "无 binding（反演成功）",
+      "binding_match": true
+    },
+    {
+      "scene": "S3_mixed_shapes",
+      "expected_feasible": true,
+      "is_feasible_predicted": true,
+      "predicted_binding": "",
+      "is_feasible_actual": true,
+      "err_med_m": 0.005788207054138184,
+      "n_valid_pixels": 44765,
+      "failure_mode": "",
+      "actual_binding": "无 binding（反演成功）",
+      "binding_match": true
+    },
+    {
+      "scene": "S4_low_snr",
+      "expected_feasible": true,
+      "is_feasible_predicted": true,
+      "predicted_binding": "",
+      "is_feasible_actual": true,
+      "err_med_m": 0.003621697425842285,
+      "n_valid_pixels": 35196,
+      "failure_mode": "",
+      "actual_binding": "无 binding（反演成功）",
+      "binding_match": true
+    },
+    {
+      "scene": "S5_envelope_edge",
+      "expected_feasible": true,
+      "is_feasible_predicted": true,
+      "predicted_binding": "",
+      "is_feasible_actual": true,
+      "err_med_m": 0.0037642717361450195,
+      "n_valid_pixels": 28634,
+      "failure_mode": "",
+      "actual_binding": "无 binding（反演成功）",
+      "binding_match": true
+    },
+    {
+      "scene": "S6_envelope_outlier",
+      "expected_feasible": false,
+      "is_feasible_predicted": false,
+      "predicted_binding": "C-IV (h>=z_s 仰角向上)",
+      "is_feasible_actual": false,
+      "err_med_m": null,
+      "n_valid_pixels": 0,
+      "failure_mode": "no_valid_pixels",
+      "actual_binding": "判不可反演（预测正确）",
+      "binding_match": true
+    }
+  ],
+  "summary": {
+    "n_inside": 5,
+    "n_outside": 1,
+    "inside_success_rate": 1.0,
+    "outside_success_rate": 0.0,
+    "outside_false_positive_rate": 0.0,
+    "binding_accuracy_rate": 1.0,
+    "verdict": {
+      "inside_pass": true,
+      "outside_pass": true,
+      "outside_fp_pass": true,
+      "binding_pass": true,
+      "all_pass": true
+    }
+  }
+}
