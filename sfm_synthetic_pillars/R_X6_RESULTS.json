@@ -1,0 +1,69 @@
+{
+  "results": [
+    {
+      "scene": "S1_single_well_constrained",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_coverage_pct": 0.4206730769230769,
+      "n_carved": 2215,
+      "n_carved_pct": 51.27314814814815,
+      "V_recon": 1.7665000000000006,
+      "V_gt": 1.2520465799219662,
+      "volumetric_error": 0.3326343982996157,
+      "inclusion_pct": 65.21739130434783
+    },
+    {
+      "scene": "S2_single_forward_degenerate",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_coverage_pct": 0.42519531250000003,
+      "n_carved": 1743,
+      "n_carved_pct": 40.34722222222222,
+      "V_recon": 1.332000000000001,
+      "V_gt": 1.2513236284266835,
+      "volumetric_error": 0.16156815220080423,
+      "inclusion_pct": 50.0
+    },
+    {
+      "scene": "S3_mixed_shapes",
+      "h_pillar": 1.2,
+      "n_poses": 6,
+      "form_coverage_pct": 0.88544921875,
+      "n_carved": 3648,
+      "n_carved_pct": 84.44444444444444,
+      "V_recon": 3.0358333333333336,
+      "V_gt": 8.929387401915625,
+      "volumetric_error": 0.9960150033776799,
+      "inclusion_pct": 0.0
+    },
+    {
+      "scene": "S4_low_snr",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_coverage_pct": 0.4206730769230769,
+      "n_carved": 2215,
+      "n_carved_pct": 51.27314814814815,
+      "V_recon": 1.7665000000000006,
+      "V_gt": 1.252178827974084,
+      "volumetric_error": 0.34523257598634904,
+      "inclusion_pct": 65.21739130434783
+    },
+    {
+      "scene": "S5_envelope_edge",
+      "h_pillar": 2.4,
+      "n_poses": 6,
+      "form_coverage_pct": 0.4200994318181818,
+      "n_carved": 2310,
+      "n_carved_pct": 53.47222222222222,
+      "V_recon": 1.8540000000000008,
+      "V_gt": 1.2015741612324855,
+      "volumetric_error": 0.36234662290143016,
+      "inclusion_pct": 66.66666666666666
+    }
+  ],
+  "summary": {
+    "n_scenes": 5,
+    "n_E_le_010": 0,
+    "n_inclusion_ge_90": 0
+  }
+}

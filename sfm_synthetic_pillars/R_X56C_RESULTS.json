@@ -1,0 +1,253 @@
+[
+  {
+    "scene": "S1_main_single",
+    "h_pillar": 2.5,
+    "z_s1": 4.5,
+    "z_s2": 4.697513508336881,
+    "delta_z_s": 0.19751350833688086,
+    "modes": {
+      "gt_mask": {
+        "v2_raw": {
+          "scene": "S1_main_single",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 3.3785343170166016,
+          "rmse_cm": 3.3785343170166016,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S1_main_single",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 3.786349296569824,
+          "rmse_cm": 3.786349296569824,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S1_main_single",
+          "method": "Zhou_raw",
+          "n": 12,
+          "mae_cm": 64.49676752090454,
+          "rmse_cm": 64.49676752090454,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_a3": {
+          "scene": "S1_main_single",
+          "method": "Zhou_a3",
+          "n": 12,
+          "mae_cm": 82.87749290466309,
+          "rmse_cm": 82.87749290466309,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        }
+      },
+      "sonar_auto": {
+        "v2_raw": {
+          "scene": "S1_main_single",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 3.3785343170166016,
+          "rmse_cm": 3.3785343170166016,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S1_main_single",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 3.786349296569824,
+          "rmse_cm": 3.786349296569824,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S1_main_single",
+          "method": "Zhou_raw",
+          "n": 12,
+          "mae_cm": 64.49676752090454,
+          "rmse_cm": 64.49676752090454,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_a3": {
+          "scene": "S1_main_single",
+          "method": "Zhou_a3",
+          "n": 12,
+          "mae_cm": 82.87749290466309,
+          "rmse_cm": 82.87749290466309,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        }
+      }
+    }
+  },
+  {
+    "scene": "S2_main_forward_degenerate",
+    "h_pillar": 2.5,
+    "z_s1": 4.5,
+    "z_s2": 4.5,
+    "delta_z_s": 0.0,
+    "modes": {
+      "gt_mask": {
+        "v2_raw": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 3.3785343170166016,
+          "rmse_cm": 3.3785343170166016,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 3.786349296569824,
+          "rmse_cm": 3.786349296569824,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "Zhou_raw",
+          "n": 0,
+          "mae_cm": null,
+          "rmse_cm": null,
+          "status": "no_data"
+        },
+        "zhou_a3": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "Zhou_a3",
+          "n": 0,
+          "mae_cm": null,
+          "rmse_cm": null,
+          "status": "no_data"
+        }
+      },
+      "sonar_auto": {
+        "v2_raw": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 3.3785343170166016,
+          "rmse_cm": 3.3785343170166016,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 3.786349296569824,
+          "rmse_cm": 3.786349296569824,
+          "h_pillar_cm": 250.0,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "Zhou_raw",
+          "n": 0,
+          "mae_cm": null,
+          "rmse_cm": null,
+          "status": "no_data"
+        },
+        "zhou_a3": {
+          "scene": "S2_main_forward_degenerate",
+          "method": "Zhou_a3",
+          "n": 0,
+          "mae_cm": null,
+          "rmse_cm": null,
+          "status": "no_data"
+        }
+      }
+    }
+  },
+  {
+    "scene": "S5_main_envelope_edge",
+    "h_pillar": 2.4,
+    "z_s1": 4.5,
+    "z_s2": 4.697513508336881,
+    "delta_z_s": 0.19751350833688086,
+    "modes": {
+      "gt_mask": {
+        "v2_raw": {
+          "scene": "S5_main_envelope_edge",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 0.37391185760498047,
+          "rmse_cm": 0.37391188088804483,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S5_main_envelope_edge",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 7.827901840209961,
+          "rmse_cm": 7.827901840209961,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S5_main_envelope_edge",
+          "method": "Zhou_raw",
+          "n": 12,
+          "mae_cm": 16.57273769378662,
+          "rmse_cm": 16.57273769378662,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "zhou_a3": {
+          "scene": "S5_main_envelope_edge",
+          "method": "Zhou_a3",
+          "n": 12,
+          "mae_cm": 2.4036407470703125,
+          "rmse_cm": 2.4036405608057976,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        }
+      },
+      "sonar_auto": {
+        "v2_raw": {
+          "scene": "S5_main_envelope_edge",
+          "method": "V2_raw",
+          "n": 12,
+          "mae_cm": 0.37391185760498047,
+          "rmse_cm": 0.37391188088804483,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "v2_a3": {
+          "scene": "S5_main_envelope_edge",
+          "method": "V2_a3",
+          "n": 12,
+          "mae_cm": 7.827901840209961,
+          "rmse_cm": 7.827901840209961,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "zhou_raw": {
+          "scene": "S5_main_envelope_edge",
+          "method": "Zhou_raw",
+          "n": 12,
+          "mae_cm": 16.57273769378662,
+          "rmse_cm": 16.57273769378662,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        },
+        "zhou_a3": {
+          "scene": "S5_main_envelope_edge",
+          "method": "Zhou_a3",
+          "n": 12,
+          "mae_cm": 2.4036407470703125,
+          "rmse_cm": 2.4036405608057976,
+          "h_pillar_cm": 240.00000953674316,
+          "status": "ok"
+        }
+      }
+    }
+  }
+]

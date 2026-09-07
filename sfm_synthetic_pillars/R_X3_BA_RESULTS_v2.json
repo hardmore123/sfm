@@ -1,0 +1,45 @@
+{
+  "M_mc": 200,
+  "well_lm_count": 9,
+  "summaries": [
+    {
+      "label": "A_原版_bug",
+      "lmprior": 100.0,
+      "M_mc": 200,
+      "well_lm_count": 9,
+      "s_z_median_cm": 1.3322676295501878e-13,
+      "sigma_Pz_median_cm": 0.029482375259391742,
+      "ratio_median": 2.1562821909506565e-12,
+      "ratio_min": 0.0,
+      "ratio_max": 3.6254661331281835e-11,
+      "n_in_range": 0,
+      "n_total": 9
+    },
+    {
+      "label": "B_修复版",
+      "lmprior": 0.0,
+      "M_mc": 200,
+      "well_lm_count": 9,
+      "s_z_median_cm": 1.4432899320127035e-13,
+      "sigma_Pz_median_cm": 0.029482375259391742,
+      "ratio_median": 4.8954330148583844e-12,
+      "ratio_min": 9.566680745448658e-13,
+      "ratio_max": 3.753705176864591e-11,
+      "n_in_range": 0,
+      "n_total": 9
+    },
+    {
+      "label": "C_极弱先验",
+      "lmprior": 0.01,
+      "M_mc": 200,
+      "well_lm_count": 9,
+      "s_z_median_cm": 9.992007221626409e-14,
+      "sigma_Pz_median_cm": 0.029482375259391742,
+      "ratio_median": 3.4274073113559005e-12,
+      "ratio_min": 7.648351541708583e-13,
+      "ratio_max": 4.918648162788085e-11,
+      "n_in_range": 0,
+      "n_total": 9
+    }
+  ]
+}

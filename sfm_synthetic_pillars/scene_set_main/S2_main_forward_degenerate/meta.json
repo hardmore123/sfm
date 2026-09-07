@@ -1,0 +1,90 @@
+{
+  "name": "S2_main_forward_degenerate",
+  "title": "主档·S2_main_forward_degenerate",
+  "description": "ARIS 主档: ±7.5° / 128 波束 / σ_ρ=1cm / ρ_max=40m. 几何 z_s=4.5, h=2.5, d=16.0, heave=0.0.",
+  "category": "feasible",
+  "config": {
+    "z_s_m": 4.5,
+    "rho_max_m": 40.0,
+    "pitch_deg": 0.0,
+    "heave_m": 0.0,
+    "forward_m": 0.0,
+    "speckle_sigma": 0.2,
+    "noise_floor_db": 45.0,
+    "fov_elev_deg": [
+      -7.5,
+      7.5
+    ],
+    "beam_count": 128,
+    "range_bin_count": 600
+  },
+  "scene": {
+    "n_pillars": 1,
+    "n_cubes": 0,
+    "n_spheres": 0,
+    "pillar_heights": [
+      2.5
+    ],
+    "cube_heights": [],
+    "sphere_diameters": [],
+    "h_avg_m": 2.5,
+    "d_avg_m": 16.0
+  },
+  "feasibility": {
+    "is_feasible": true,
+    "h_max_m": 4.5,
+    "elev_top_deg": -7.125016348901798,
+    "L_s_m": 20.0,
+    "L_s_clipped": false,
+    "expected_feasible": true,
+    "feas_match": true
+  },
+  "stats": {
+    "n_frames": 120,
+    "n_keyframes": 24,
+    "n_target_pixels_total": 1680,
+    "n_shadow_pixels_total": 514080,
+    "n_gt_surface_points": 1500
+  },
+  "gt_quality": {
+    "max_dist_to_analytic_m": 0.0,
+    "max_normal_error_rad": 0.0,
+    "std_over_mean_nn": 0.7235881322823063,
+    "std_over_mean_face_max": 0.692967347866605,
+    "per_face_n": {
+      "side": 869,
+      "top": 303,
+      "bot": 300
+    },
+    "per_face_std_over_mean": {
+      "side": 0.558,
+      "top": 0.693,
+      "bot": 0.68
+    },
+    "ok": true,
+    "ok_per_face": true
+  },
+  "inversion": {
+    "n_valid_pixels": 514080,
+    "mae_v2_median_m": 0.0,
+    "rmse_v2_m": 0.0,
+    "mae_v2_median_cm": 0.0,
+    "mae_v2_noisy_median_m": 0.0018749237060546875,
+    "rmse_v2_noisy_m": 0.0027793110348284245,
+    "mae_v2_noisy_median_cm": 0.18749237060546875,
+    "mae_v1_median_cm": null
+  },
+  "timing": {
+    "shadow_s": 0.45,
+    "render_s": 4.82,
+    "gt_sample_s": 0.01,
+    "total_s": 9.2
+  },
+  "aperture_tier": "main_aris_7p5deg",
+  "aperture_elev_deg": 7.5,
+  "aperture_azim_deg": 15.0,
+  "aperture_n_beams": 128,
+  "aperture_sigma_rho_m": 0.01,
+  "aperture_rho_max_m": 40.0,
+  "aperture_note": "V2 独立 factory: 主档 ARIS ±7.5° / 128 波束 / σ_ρ=1cm / ρ_max=40m. 几何 z_s=4.5, h=2.5, d=16.0 兼容主档（elev_top = arctan((h-z_s)/d) = -7.13°). "
+}

@@ -1,0 +1,73 @@
+{
+  "aperture_tier": "main_aris_7p5deg",
+  "sonar": {
+    "phi_max_deg": 7.5,
+    "fov_azim_deg": 30,
+    "n_beams": 128,
+    "rho_min_m": 0.5,
+    "rho_max_m": 15.0,
+    "range_bin_count": 1600,
+    "dbin_mm": 9.06816760475297,
+    "sigma_rho_m": 0.01,
+    "sigma_rho_source": "aris_spec_mid",
+    "sigma_rho_bin_m": 0.00906816760475297,
+    "sigma_rho_quant_m": 0.0026177545038303857
+  },
+  "base_geometry": {
+    "z_s_m": 4.5,
+    "pitch_deg": 19.0,
+    "D_t_m": 10.6,
+    "h_m": 0.85,
+    "L_s_m": 3.0267123287671236,
+    "rho_target_m": 10.974743732771167,
+    "rho_end_m": 14.113342365527393,
+    "elev_top_deg": -19.42555522789989
+  },
+  "scenes": [
+    {
+      "name": "M1_well_constrained",
+      "role": "★I-1 良约束基准",
+      "heave_m": 1.2,
+      "h_m": 0.85,
+      "D_t_m": 10.6,
+      "note": "std(φ) ≥ Δφ_min"
+    },
+    {
+      "name": "M2_blind_low_spread",
+      "role": "★I-1 盲（低离散度）",
+      "heave_m": 0.1,
+      "h_m": 0.85,
+      "D_t_m": 10.6,
+      "note": "std(φ) < Δφ_min"
+    },
+    {
+      "name": "M3_envelope_inside",
+      "role": "★I-2 包线内（近边）",
+      "heave_m": 1.2,
+      "h_m": 1.05,
+      "D_t_m": 10.6,
+      "note": "包线内但距 binding 仅 3 cm"
+    },
+    {
+      "name": "M4_envelope_outside",
+      "role": "★I-2 包线外（应判不可反演）",
+      "heave_m": 1.2,
+      "h_m": 1.12,
+      "D_t_m": 10.6,
+      "note": "H2 阴影远端斜距 15.01 > 15.0"
+    },
+    {
+      "name": "M5_low_snr",
+      "role": "★II 低 SNR",
+      "heave_m": 1.2,
+      "h_m": 0.85,
+      "D_t_m": 10.6,
+      "note": "speckle/noise_floor 加重"
+    }
+  ],
+  "acceptance": {
+    "dbin_within_aris_spec": true,
+    "tau_z_crit_cm": 4.184292118554341,
+    "L_s_in_bins": 333.77331128956075
+  }
+}

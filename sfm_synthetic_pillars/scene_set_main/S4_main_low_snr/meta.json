@@ -1,0 +1,93 @@
+{
+  "name": "S4_main_low_snr",
+  "title": "主档·S4_main_low_snr",
+  "description": "ARIS 主档 + 低 SNR: ±7.5° / 128 波束 / σ_ρ=1cm / ρ_max=40m. speckle=0.35, 噪声底 55dB, p_false_alarm=0.05, p_miss=0.10. 几何 z_s=4.5, h=2.5, d=16 (elev_top=-7.13° < 7.5° ✓).",
+  "category": "feasible",
+  "config": {
+    "z_s_m": 4.5,
+    "rho_max_m": 40.0,
+    "pitch_deg": 0.0,
+    "heave_m": 1.2,
+    "forward_m": 0.0,
+    "speckle_sigma": 0.35,
+    "noise_floor_db": 55.0,
+    "fov_elev_deg": [
+      -7.5,
+      7.5
+    ],
+    "beam_count": 128,
+    "range_bin_count": 600
+  },
+  "scene": {
+    "n_pillars": 1,
+    "n_cubes": 0,
+    "n_spheres": 0,
+    "pillar_heights": [
+      2.5
+    ],
+    "cube_heights": [],
+    "sphere_diameters": [],
+    "h_avg_m": 2.5,
+    "d_avg_m": 16.0
+  },
+  "feasibility": {
+    "is_feasible": true,
+    "h_max_m": 4.5,
+    "elev_top_deg": -7.125016348901798,
+    "L_s_m": 20.0,
+    "L_s_clipped": false,
+    "expected_feasible": true,
+    "feas_match": true
+  },
+  "stats": {
+    "n_frames": 120,
+    "n_keyframes": 24,
+    "n_target_pixels_total": 106,
+    "n_shadow_pixels_total": 31682,
+    "n_gt_surface_points": 1500
+  },
+  "gt_quality": {
+    "max_dist_to_analytic_m": 0.0,
+    "max_normal_error_rad": 0.0,
+    "std_over_mean_nn": 0.6870124525286233,
+    "std_over_mean_face_max": 0.6775971304483249,
+    "per_face_n": {
+      "side": 870,
+      "top": 300,
+      "bot": 301
+    },
+    "per_face_std_over_mean": {
+      "side": 0.528,
+      "top": 0.64,
+      "bot": 0.678
+    },
+    "ok": true,
+    "ok_per_face": true
+  },
+  "inversion": {
+    "n_valid_pixels": 31682,
+    "mae_v2_median_m": 0.0,
+    "rmse_v2_m": 0.0,
+    "mae_v2_median_cm": 0.0,
+    "mae_v2_noisy_median_m": 0.0019065141677856445,
+    "rmse_v2_noisy_m": 0.0028442954644560814,
+    "mae_v2_noisy_median_cm": 0.19065141677856445,
+    "mae_v1_median_cm": null
+  },
+  "timing": {
+    "shadow_s": 0.31,
+    "render_s": 6.32,
+    "gt_sample_s": 0.99,
+    "total_s": 12.31
+  },
+  "aperture_tier": "main_aris_7p5deg",
+  "aperture_elev_deg": 7.5,
+  "aperture_azim_deg": 15.0,
+  "aperture_n_beams": 128,
+  "aperture_sigma_rho_m": 0.01,
+  "aperture_rho_max_m": 40.0,
+  "snr_tier": "low",
+  "speckle_sigma": 0.35,
+  "noise_floor_db": 55.0,
+  "aperture_note": "S4 主档低 SNR：ARIS ±7.5° / 128 波束 / σ_ρ=1cm / ρ_max=40m. speckle=0.35, 噪声底 55dB (与 sensitivity 档 S4 同 SNR). 验证主档硬件 + 低 SNR 联合工况下的可反演性."
+}

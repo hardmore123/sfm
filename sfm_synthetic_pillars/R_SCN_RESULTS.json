@@ -1,0 +1,61 @@
+{
+  "scenes": [
+    "S1_single_well_constrained",
+    "S2_single_forward_degenerate",
+    "S3_mixed_shapes",
+    "S4_low_snr",
+    "S5_envelope_edge",
+    "S6_envelope_outlier"
+  ],
+  "n_scenes_generated": 6,
+  "envelope_check": [
+    {
+      "scene": "S1_single_well_constrained",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 2.5,
+      "margin_pct": 0,
+      "binding": "C-II (elev_top 越界)"
+    },
+    {
+      "scene": "S2_single_forward_degenerate",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 2.5,
+      "margin_pct": 0,
+      "binding": "C-II (elev_top 越界)"
+    },
+    {
+      "scene": "S3_mixed_shapes",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 1.2,
+      "margin_pct": 0,
+      "binding": "C-II (elev_top 越界)"
+    },
+    {
+      "scene": "S4_low_snr",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 2.5,
+      "margin_pct": 0,
+      "binding": "C-II (elev_top 越界)"
+    },
+    {
+      "scene": "S5_envelope_edge",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 2.4,
+      "margin_pct": 0,
+      "binding": "C-II (elev_top 越界)"
+    },
+    {
+      "scene": "S6_envelope_outlier",
+      "is_feasible": false,
+      "h_max_m": 0.0,
+      "h_pillar_m": 5.5,
+      "margin_pct": 0,
+      "binding": "C-IV (h>=z_s_min 仰角向上)"
+    }
+  ]
+}

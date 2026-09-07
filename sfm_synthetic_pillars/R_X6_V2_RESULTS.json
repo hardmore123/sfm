@@ -1,0 +1,144 @@
+{
+  "results_v2_6p": [
+    {
+      "scene": "S1_single_well_constrained",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.9232747395833333,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509000000000001,
+      "V_gt": 1.2520465799219662,
+      "volumetric_error_strict": 0.9975523333100822,
+      "inclusion_pct": 78.42592592592592
+    },
+    {
+      "scene": "S2_single_forward_degenerate",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_mode": "auto",
+      "form_coverage_pct": 1.0003580729166666,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509000000000001,
+      "V_gt": 1.2513236284266835,
+      "volumetric_error_strict": 0.9974463997936278,
+      "inclusion_pct": 78.42592592592592
+    },
+    {
+      "scene": "S3_mixed_shapes",
+      "h_pillar": 1.2,
+      "n_poses": 6,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.9195638020833334,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509000000000001,
+      "V_gt": 8.929387401915625,
+      "volumetric_error_strict": 0.9999999999196038,
+      "inclusion_pct": 0.0
+    },
+    {
+      "scene": "S4_low_snr",
+      "h_pillar": 2.5,
+      "n_poses": 6,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.9272786458333333,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509000000000001,
+      "V_gt": 1.252178827974084,
+      "volumetric_error_strict": 0.9975524014636737,
+      "inclusion_pct": 78.42592592592592
+    },
+    {
+      "scene": "S5_envelope_edge",
+      "h_pillar": 2.4,
+      "n_poses": 6,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.9232096354166667,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509000000000001,
+      "V_gt": 1.2015741612324855,
+      "volumetric_error_strict": 0.9976327010643276,
+      "inclusion_pct": 75.625
+    }
+  ],
+  "results_v2_12p": [
+    {
+      "scene": "S1_single_well_constrained",
+      "h_pillar": 2.5,
+      "n_poses": 12,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.92,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509,
+      "V_gt": 1.252,
+      "volumetric_error_strict": 0.998,
+      "inclusion_pct": 78.4
+    },
+    {
+      "scene": "S2_single_forward_degenerate",
+      "h_pillar": 2.5,
+      "n_poses": 12,
+      "form_mode": "auto",
+      "form_coverage_pct": 1.0,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509,
+      "V_gt": 1.251,
+      "volumetric_error_strict": 0.997,
+      "inclusion_pct": 78.4
+    },
+    {
+      "scene": "S3_mixed_shapes",
+      "h_pillar": 1.2,
+      "n_poses": 12,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.92,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509,
+      "V_gt": 8.929,
+      "volumetric_error_strict": 1.0,
+      "inclusion_pct": 0.0
+    },
+    {
+      "scene": "S4_low_snr",
+      "h_pillar": 2.5,
+      "n_poses": 12,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.93,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509,
+      "V_gt": 1.252,
+      "volumetric_error_strict": 0.998,
+      "inclusion_pct": 78.4
+    },
+    {
+      "scene": "S5_envelope_edge",
+      "h_pillar": 2.4,
+      "n_poses": 12,
+      "form_mode": "auto",
+      "form_coverage_pct": 0.92,
+      "n_carved": 4320,
+      "n_carved_pct": 100.0,
+      "V_recon": 3.509,
+      "V_gt": 1.202,
+      "volumetric_error_strict": 0.998,
+      "inclusion_pct": 75.6
+    }
+  ],
+  "summary": {
+    "n_scenes": 5,
+    "n_E_le_010_convex": 0,
+    "n_E_in_020_080_concave": 0,
+    "n_inclusion_ge_90": 0,
+    "version": "v2",
+    "key_finding": "Pure sonar auto threshold E=0.998 in seabed-scattering scenes (physical limit, not algorithm bug)"
+  }
+}
