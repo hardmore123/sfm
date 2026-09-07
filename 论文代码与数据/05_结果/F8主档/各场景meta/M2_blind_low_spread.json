@@ -1,0 +1,80 @@
+{
+  "name": "M2_blind_low_spread",
+  "role": "★I-1 盲（低离散度）",
+  "aperture_tier": "main_aris_7p5deg",
+  "generator": "gen_scenes_main_f8.py",
+  "design_source": "_f8_sceneset_design.json",
+  "audit_ref": "审计_20260906_阴影反演恒等式与孔径未裁剪.md",
+  "config": {
+    "z_s_m": 4.5,
+    "pitch_deg": 19.0,
+    "D_t_m": 10.6,
+    "h_m": 0.85,
+    "heave_m": 0.1,
+    "n_frames": 60,
+    "fov_elev_deg": [
+      -7.5,
+      7.5
+    ],
+    "fov_azim_deg": 30.0,
+    "beam_count": 128,
+    "range_min_m": 0.5,
+    "range_max_m": 15.0,
+    "rho_max_m": 15.0,
+    "range_bin_count": 1600,
+    "sigma_rho_m": 0.01,
+    "sigma_rho_source": "aris_spec_mid",
+    "sigma_rho_bin_m": 0.00906816760475297,
+    "sigma_rho_quant_m": 0.0026177545038303857,
+    "sigma_rho_note": "★I-1 链用 sigma_rho_m（tracks 的 rho_m 连续）；★II-1 链用 sigma_rho_quant_m = Δρ_bin/√12（L_s 沿距离轴量化）。见 sigma_rho_ledger.md §1b",
+    "sigma_Dt_m": 0.02,
+    "sigma_zs_m": 0.02,
+    "speckle_sigma": 0.2,
+    "noise_floor_db": 45.0
+  },
+  "aris_compliance": {
+    "dbin_mm": 9.06816760475297,
+    "dbin_within_spec_3_19mm": true,
+    "rho_max_within_spec_15m": true
+  },
+  "observability": {
+    "std_phi_world_ray_deg": 0.15229415528477774,
+    "delta_phi_min_deg": 1.4793706657475996,
+    "is_well_constrained": false,
+    "sigma_Pz_m": 0.4856951545452602,
+    "tau_z_m": 0.05,
+    "tau_z_crit_m": 0.017082301042012252
+  },
+  "stats": {
+    "n_target_px": 720,
+    "n_shadow_px": 210884,
+    "n_unlit_px": 8300254,
+    "n_floor_px": 3776862,
+    "n_measurements": 720,
+    "target_px_per_frame": 12.0
+  },
+  "envelope_per_frame": {
+    "n_frames": 60,
+    "n_pairs_evaluated": 720,
+    "n_pred_feasible": 720,
+    "n_actually_measured": 720,
+    "TP": 720,
+    "FP": 0,
+    "FN": 0,
+    "TN": 0,
+    "agreement": 1.0,
+    "note": "逐 (帧,列) 包线判据 vs 实际是否量到远端。粒度必须到列：各列轮廓远边缘 d_far 随方位偏移不同，按帧聚合会产生虚假 FN/FP。"
+  },
+  "inversion": {
+    "expected_invertible": true,
+    "n_valid": 720,
+    "h_true_m": 0.85,
+    "mae_cm": 0.5766059613534346,
+    "bias_cm": -0.01974148184202662,
+    "std_cm": 0.723810393780792,
+    "sigma_h_pred_cm": 0.7160136030722866,
+    "leak_free": true,
+    "leak_note": "L_s 由 obs/shadow_masks 量测远端跳变得到；D_t 与 z_s 由 ★I(BA) 提供并注入定位噪声。反演路径不读任何解析几何量 ⇒ 非恒等式（C7）。"
+  },
+  "timing_s": 133.0
+}

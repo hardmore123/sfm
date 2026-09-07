@@ -67,3 +67,14 @@ desktop.ini
 # ---- 递归排除所有 PDF 与废弃目录（补 论文集/*.pdf 只匹配直接子级的漏洞）----
 **/*.pdf
 **/_junk_to_delete/
+
+# ---- 论文交付目录：只提交文档与代码，不提交数据 ----
+# 04_数据 的 469MB 掩码由 gen_scenes_main_f8.py 确定性重建，不入库
+论文代码与数据/04_数据/scene_set_main_f8/
+# 02_代码 下的 4 个目录联接（由 _setup_data.py 建立）。
+# git 会把 junction 当真实目录遍历，若不排除会把作废场景集的 meta 复制进库。
+论文代码与数据/02_代码/scene_set_main_f8/
+论文代码与数据/02_代码/scene_set_v2/
+论文代码与数据/02_代码/scene_set_main/
+论文代码与数据/02_代码/innov2_ablations/
+论文代码与数据/02_代码/__pycache__/
