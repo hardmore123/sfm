@@ -150,31 +150,53 @@ def blind_angle_std(sigma_rho: float, N: int, tau_z: float) -> float:
     return min_elev_spread(sigma_rho, N, tau_z)
 
 
-def tau_z_crit(sigma_rho: float, N: int, phi_max: float) -> float:
+def tau_z_crit(sigma_rho: float, N: int, phi_max: float,
+               mode: str = "uniform") -> float:
     """
-    R-X1 临界精度 τ_z^crit：
-    当 τ_z = τ_z^crit 时，盲区角 Δφ_min = φ_max / √3
-    （盲区占比在三角分布假设下从 0 突变为有）。
+    临界精度 τ_z^crit（R1 修正 2026-09-07：**必须区分两个界**）。
 
-    推导（F-2 修正后的正确表述）：
-      仰角离散度受垂直孔径硬限制——目标若均匀扫过整个孔径 [-φ_max, +φ_max]，
-      则 std(φ) 达到其最大可能值 φ_max/√3（均匀分布的标准差）。
-      把该上界代入 σ_Pz = σ_ρ/(√N·std(φ)) 并令其等于 τ_z：
-        τ_z^crit = σ_ρ / (√N · φ_max/√3) = √3·σ_ρ / (√N · φ_max)
-      含义：**低于此精度要求时，任何运动方式都无法达成**（孔径是硬上界）。
-      ARIS 主档（φ_max=7.5°、σ_ρ=10mm、N=10）⇒ 4.2 cm，与 Aykin 的
-      横向可分辨距离 d_R = R·dθ = 4.4 cm 几乎相同。
+    权威推导见 ../大论文思想路线/理论修正_T1-T6.md §1.2d。
+
+    mode="abs"（硬界，任何运动方式都无法突破）
+        对区间 [-φ_max, +φ_max] 上的有界量，方差最大的分布是**两端点各半**
+        的二点分布（Popoviciu 不等式 Var ≤ (M-m)²/4），故
+            std(φ) ≤ φ_max
+            τ_z^crit,abs = σ_ρ / (√N · φ_max)
+        ARIS 主档（φ_max=7.5°、σ_ρ=10mm、N=10）⇒ **2.42 cm**
+        达到它需要"观测集中在孔径两端"的 bang-bang 采集，所需起伏幅度
+        A = D_t·tan(φ_max)，恰为 T6 独立给出的 A_opt（两条理论吻合）。
+
+    mode="uniform"（默认；均匀扫过孔径的可达值，工程参考）
+        目标均匀扫过整个孔径时 std(φ) = φ_max/√3，故
+            τ_z^crit,unif = √3·σ_ρ / (√N · φ_max)
+        ARIS 主档 ⇒ **4.18 cm**，与 Aykin 的横向可分辨距离
+        d_R = R·dθ = 4.4 cm 几乎相同 ⇒ 常规采集下垂直与横向精度同量级。
+
+    ⚠️ 首版只有 uniform 版且**误称其为硬界**。二者差 √3 倍，
+       该差距正是采集规划可挖掘的空间。
+
+    ⚠️ 数值巧合警告：τ_z^crit,abs = 2.42 cm 与**已作废的 sin 版**
+       σ_ρ/(√N·sin φ_max) = 2.41 cm 几乎相同（sin7.5°≈0.1309 rad），
+       但推导完全不同（sin 版错在把 1/Λ_zz 当后验方差，低估 15 倍）。
+       不得因数值接近而认为 sin 版其实是对的。
 
     Args:
         sigma_rho: 测距噪声 (m)
         N: 观测数
-        phi_max: 仰角孔径 (rad)
+        phi_max: 仰角孔径半宽 (rad)
+        mode: "abs" 硬界 / "uniform" 均匀扫过（默认，保持向后兼容）
     Returns:
         tau_z_crit: 临界精度 (m)
     """
     if N < 1 or phi_max <= 0 or sigma_rho < 0:
         return np.inf
-    return np.sqrt(3) * sigma_rho / (np.sqrt(N) * phi_max)
+    if mode == "abs":
+        std_max = phi_max
+    elif mode == "uniform":
+        std_max = phi_max / np.sqrt(3)
+    else:
+        raise ValueError(f"mode 必须是 'abs' 或 'uniform'，收到 {mode!r}")
+    return sigma_rho / (np.sqrt(N) * std_max)
 
 
 def blind_landmark_fraction(std_phi_per_landmark, sigma_rho: float, N,
