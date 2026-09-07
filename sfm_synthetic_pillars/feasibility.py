@@ -1,6 +1,6 @@
 """
-T0.9 可反演性判据
-==================
+T0.9 可反演性判据 + R-X1 std(φ) 版判据
+========================================
 
 根据几何参数判定"声学阴影→高度"反演是否可行。
 
@@ -18,12 +18,262 @@ T0.9 可反演性判据
   4. d <= D_max (目标在量程内)
   5. L_s <= rho_max - d (阴影不超出量程)
 
+R-X1（2026-09-05）：新增 std(φ) 版盲区角判据与临界精度。
+  - Δφ_min = σ_ρ / (√N · τ_z)         替代旧 arcsin 版
+  - τ_z^crit = √3 · σ_ρ / (√N · φ_max)  临界精度（盲区占比从 0 突变为有）
+  - blind_fraction_curve: τ_z 三档 {2,5,10} cm 盲区占比曲线
+
 输出：布尔 + h_max
 """
 from __future__ import annotations
 import numpy as np
 from dataclasses import dataclass
 from typing import Tuple
+
+
+# ---- R-X1 新增：ARIS Explorer 3000 主档预设（TH7 决策）
+ARIS_MAIN = {
+    "phi_max_deg": 7.5,       # 主档孔径 ±7.5°
+    "phi_max_rad": np.deg2rad(7.5),
+    "fov_azim_deg": 30,       # 方位孔径
+    "n_beams": 128,            # 主档波束数
+    "sigma_rho_m": 0.01,       # 测距噪声 1cm（ARIS 标称 3-19mm 取中）
+    "tau_z_m": 0.05,           # 高度精度要求 5cm
+    "N_obs_default": 10,       # 默认观测数（多次通过累计）
+}
+
+# ---- R-X1 新增：宽孔径敏感性档（TH7 决策）
+#      注：现有 S1–S6 场景为 600 bin / 25 m ⇒ Δρ_bin = 40.9 mm（采样受限），
+#      理论计算用规格值 10 mm，实验须按 sigma_rho_ledger.md 从 meta.json 读取。
+ARIS_WIDE = {
+    "phi_max_deg": 17.0,
+    "phi_max_rad": np.deg2rad(17.0),
+    "fov_azim_deg": 30,
+    "n_beams": 128,
+    "sigma_rho_m": 0.01,
+    "tau_z_m": 0.05,
+    "N_obs_default": 10,
+}
+
+
+# ============================================================
+# F-7：σ_ρ 台账读取接口（唯一来源，禁止脚本内硬编码）
+#      台账文档：sigma_rho_ledger.md
+# ============================================================
+
+SIGMA_RHO_SPEC_MID = 0.010     # ARIS 规格 3–19 mm 取中，用于主档理论计算
+SOUND_SPEED = 1500.0           # m/s
+
+
+def sigma_rho_bandwidth_limited(bandwidth_hz: float) -> float:
+    """物理分辨率 c/(2B)。"""
+    return SOUND_SPEED / (2.0 * bandwidth_hz)
+
+
+def sigma_rho_bin_limited(rho_max: float, n_bins: int, rho_min: float = 0.5) -> float:
+    """采样受限分辨率（range bin 间隔）。"""
+    if n_bins < 2:
+        return float("inf")
+    return (rho_max - rho_min) / (n_bins - 1)
+
+
+def resolve_sigma_rho(meta: dict, bandwidth_hz: float = 0.3e6,
+                      strict: bool = False) -> tuple:
+    """
+    按 sigma_rho_ledger.md 的约定解析场景应使用的 σ_ρ。
+
+    读取顺序：
+      1. meta['config']['sigma_rho_m']（生成时落盘的权威值）
+      2. 缺失 ⇒ 由 range_bin_count / rho_max 按采样受限回填，并**告警**
+      3. strict=True 时缺失直接报错（用于正式实验，防静默默认值）
+
+    Returns:
+        (sigma_rho_m, source_tag)
+    """
+    cfg = (meta or {}).get("config", {}) or {}
+    if "sigma_rho_m" in cfg:
+        return float(cfg["sigma_rho_m"]), cfg.get("sigma_rho_source", "meta")
+
+    msg = ("meta.json 缺少 config.sigma_rho_m —— 按 sigma_rho_ledger.md，"
+           "正式实验不得静默使用默认值")
+    if strict:
+        raise KeyError(msg)
+
+    rho_max = cfg.get("rho_max_m")
+    n_bins = cfg.get("range_bin_count")
+    if rho_max and n_bins:
+        s_bin = sigma_rho_bin_limited(float(rho_max), int(n_bins))
+        s = max(sigma_rho_bandwidth_limited(bandwidth_hz), s_bin)
+        import warnings
+        warnings.warn(f"{msg}；已按采样受限回填 σ_ρ={s*1000:.1f} mm", stacklevel=2)
+        return float(s), "range_bin_limited(fallback)"
+
+    import warnings
+    warnings.warn(f"{msg}；已回退到规格中值 {SIGMA_RHO_SPEC_MID*1000:.0f} mm",
+                  stacklevel=2)
+    return SIGMA_RHO_SPEC_MID, "aris_spec_mid(fallback)"
+
+
+def min_elev_spread(sigma_rho: float, N: int, tau_z: float) -> float:
+    """
+    仰角离散度门限 Δφ_min（F-2 修正版，权威公式见
+    ../大论文思想路线/理论修正_T1-T6.md §1.2b）。
+
+    ⚠️ 返回值是对「各视角仰角的标准差 std(φ_k)」的门限，
+       **不是**对「仰角本身 |φ|」的门限。二者物理含义不同：
+         std(φ_k) 由轨迹决定；φ 由地标位置决定。
+       位于 φ=5° 的地标，轨迹给它 std(φ)=3° 则可观测、给 0.1° 则盲，
+       与它在孔径中的位置无关。因此**不存在"盲区占孔径 X%"这种量**。
+
+    物理：CRLB  σ_Pz ≈ σ_ρ / (√N · std(φ_k))
+    ⇒ 门限   Δφ_min = σ_ρ / (√N · τ_z)
+    判据：std(φ_k) < Δφ_min  ⇒  该地标高度不可观测（σ_Pz > τ_z）
+
+    Args:
+        sigma_rho: 测距噪声 (m)
+        N: 观测数
+        tau_z: 高度精度要求 (m)
+    Returns:
+        Δφ_min: 仰角离散度门限 (rad)
+    """
+    if N < 1 or tau_z <= 0 or sigma_rho < 0:
+        return np.inf
+    return sigma_rho / (np.sqrt(N) * tau_z)
+
+
+# 向后兼容别名（旧名有误导性：它不是"角度"而是"离散度门限"）
+def blind_angle_std(sigma_rho: float, N: int, tau_z: float) -> float:
+    """已弃用，请改用 min_elev_spread（名称更准确）。"""
+    import warnings
+    warnings.warn("blind_angle_std 已弃用，请改用 min_elev_spread",
+                  DeprecationWarning, stacklevel=2)
+    return min_elev_spread(sigma_rho, N, tau_z)
+
+
+def tau_z_crit(sigma_rho: float, N: int, phi_max: float) -> float:
+    """
+    R-X1 临界精度 τ_z^crit：
+    当 τ_z = τ_z^crit 时，盲区角 Δφ_min = φ_max / √3
+    （盲区占比在三角分布假设下从 0 突变为有）。
+
+    推导（F-2 修正后的正确表述）：
+      仰角离散度受垂直孔径硬限制——目标若均匀扫过整个孔径 [-φ_max, +φ_max]，
+      则 std(φ) 达到其最大可能值 φ_max/√3（均匀分布的标准差）。
+      把该上界代入 σ_Pz = σ_ρ/(√N·std(φ)) 并令其等于 τ_z：
+        τ_z^crit = σ_ρ / (√N · φ_max/√3) = √3·σ_ρ / (√N · φ_max)
+      含义：**低于此精度要求时，任何运动方式都无法达成**（孔径是硬上界）。
+      ARIS 主档（φ_max=7.5°、σ_ρ=10mm、N=10）⇒ 4.2 cm，与 Aykin 的
+      横向可分辨距离 d_R = R·dθ = 4.4 cm 几乎相同。
+
+    Args:
+        sigma_rho: 测距噪声 (m)
+        N: 观测数
+        phi_max: 仰角孔径 (rad)
+    Returns:
+        tau_z_crit: 临界精度 (m)
+    """
+    if N < 1 or phi_max <= 0 or sigma_rho < 0:
+        return np.inf
+    return np.sqrt(3) * sigma_rho / (np.sqrt(N) * phi_max)
+
+
+def blind_landmark_fraction(std_phi_per_landmark, sigma_rho: float, N,
+                            tau_z_list=(0.02, 0.05, 0.10)) -> dict:
+    """
+    盲地标比例曲线（F-2 重构版，替代已作废的 blind_fraction_curve）。
+
+    ⚠️ 与旧版的本质区别：
+      旧版按 f = Δφ_min/φ_max 从**孔径几何**算出"盲区占孔径比例"——
+      这是把 std 门限当成角度位置门限用，无物理意义（审计 20260905 P2）。
+      新版是**经验量**：必须传入该轨迹下每个地标实际达到的 std(φ_jk)，
+      统计其中低于门限的比例。
+
+    Args:
+        std_phi_per_landmark: (M,) 每个地标在该轨迹下实际的 std(φ_k)，单位 rad
+        sigma_rho: 测距噪声 (m)
+        N: 观测数；标量或 (M,) 每地标观测数
+        tau_z_list: 精度档 (m)
+    Returns:
+        dict：每档的 Δφ_min 与盲地标比例
+    """
+    sp = np.asarray(std_phi_per_landmark, dtype=float)
+    sp = sp[np.isfinite(sp)]
+    M = sp.size
+    Narr = np.full(M, N, dtype=float) if np.isscalar(N) else np.asarray(N, float)
+
+    curve = {}
+    for tz in tau_z_list:
+        dmin = sigma_rho / (np.sqrt(np.maximum(Narr, 1)) * tz)   # 逐地标门限
+        blind = sp < dmin
+        curve[float(tz)] = {
+            "delta_phi_min_rad_median": float(np.median(dmin)) if M else float("nan"),
+            "delta_phi_min_deg_median": float(np.degrees(np.median(dmin))) if M else float("nan"),
+            "n_blind": int(blind.sum()),
+            "n_total": int(M),
+            "fraction_blind": float(blind.mean()) if M else float("nan"),
+            "fraction_blind_pct": float(blind.mean() * 100) if M else float("nan"),
+        }
+    return {
+        "sigma_rho_m": sigma_rho,
+        "n_landmarks": int(M),
+        "std_phi_deg_median": float(np.degrees(np.median(sp))) if M else float("nan"),
+        "std_phi_deg_max": float(np.degrees(sp.max())) if M else float("nan"),
+        "by_tau_z": curve,
+        "note": "盲地标比例为经验量，依赖具体轨迹；不存在'盲区占孔径比例'这种量",
+    }
+
+
+def blind_fraction_curve(*args, **kwargs):
+    """已作废：原按 Δφ_min/φ_max 算"盲区占孔径比例"，无物理意义。
+
+    Δφ_min 是对 std(φ_k) 的门限（由轨迹决定），不是对 |φ| 的门限
+    （由地标位置决定）。详见 审计_20260905_文档倒挂与雕刻错误.md P2。
+    请改用 blind_landmark_fraction()，并传入实际的 std(φ_jk) 数组。
+    """
+    raise NotImplementedError(
+        "blind_fraction_curve 已作废（把 std 门限当角度位置门限用）。\n"
+        "请改用 blind_landmark_fraction(std_phi_per_landmark, sigma_rho, N, tau_z_list)，\n"
+        "需传入该轨迹下每个地标实际的 std(φ_k)。\n"
+        "孔径相关的正确结论只有 tau_z_crit()。"
+    )
+
+
+def aris_main_profile(N: int = 10) -> dict:
+    """ARIS 主档的孔径能力剖面（论文可直接引用的速查表，F-2 重构）。"""
+    return _aperture_profile(ARIS_MAIN, N, "main_aris_7p5deg")
+
+
+def aris_wide_profile(N: int = 10) -> dict:
+    """ARIS 宽孔径敏感性档的孔径能力剖面（F-2 后只报孔径相关的正确结论）。"""
+    return _aperture_profile(ARIS_WIDE, N, "sensitivity_17deg")
+
+
+def _aperture_profile(preset: dict, N: int, tier: str) -> dict:
+    """
+    孔径能力剖面（F-2 重构）：只报孔径能决定的量。
+
+    ⚠️ 不再输出"盲区占孔径比例"——该量无物理意义（审计 20260905 P2）。
+    孔径能决定的唯一结论是精度硬上限 τ_z^crit；
+    盲地标比例是经验量，须用 blind_landmark_fraction() 并传入实际 std(φ_jk)。
+    """
+    sr = preset["sigma_rho_m"]
+    pm = preset["phi_max_rad"]
+    tc = tau_z_crit(sr, N, pm)
+    return {
+        "aperture_tier": tier,
+        "sigma_rho_m": sr,
+        "N": N,
+        "phi_max_deg": float(np.degrees(pm)),
+        "max_achievable_std_phi_deg": float(np.degrees(pm / np.sqrt(3))),
+        "tau_z_crit_m": float(tc),
+        "tau_z_crit_cm": float(tc * 100),
+        "delta_phi_min_deg_by_tau_z": {
+            f"{tz:.2f}m": float(np.degrees(min_elev_spread(sr, N, tz)))
+            for tz in (0.02, 0.05, 0.10)
+        },
+        "note": ("τ_z^crit 是孔径决定的精度硬上限；盲地标比例请用 "
+                 "blind_landmark_fraction() 传入实际 std(φ_jk) 计算"),
+    }
 
 
 @dataclass
