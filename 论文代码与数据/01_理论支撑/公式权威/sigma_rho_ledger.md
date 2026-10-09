@@ -1,6 +1,7 @@
 # σ_ρ 台账（测距噪声口径的唯一来源）
 
 > 任务 F-7。**所有涉及 $\sigma_\rho$ 的脚本一律从本台账取值，禁止硬编码。**
+> 配套：方位噪声见 `sigma_theta_ledger.md`（2026-09-09，T7 之后 σ_θ 也影响高度精度）。
 > 起因：审计 20260905 P6 发现三处口径不一致——ARIS 规格 3–19 mm、X3 用 0.05 m、场景采样 41.7 mm。
 > 而 $\tau_z^{\text{crit}}=\sqrt3\sigma_\rho/(\sqrt N\varphi_{\max})$ 与 $\Delta\varphi_{\min}=\sigma_\rho/(\sqrt N\tau_z)$ **均正比于 $\sigma_\rho$**，口径不统一则所有数字不可比。
 > 版本：2026-09-05

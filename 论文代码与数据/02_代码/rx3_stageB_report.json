@@ -1,0 +1,73 @@
+{
+  "generated_at": "2026-09-09 16:55:54",
+  "n_trial": 200,
+  "n_keyframe": 12,
+  "criterion": "s_z/joint_CRLB in [0.8, 1.3]",
+  "variants": [
+    {
+      "name": "B1_M1_pose_tight",
+      "heave": 1.2,
+      "odomT": 10000.0,
+      "odomR": 10000.0,
+      "K": 12,
+      "M": 17,
+      "n_obs": 198,
+      "s_z_cm": 12.677798198625382,
+      "bias_cm": -1.0773943898523042,
+      "joint_crlb_cm": 7.643794370703196,
+      "ratio": 1.6585739468890344,
+      "n_effective": 200,
+      "n_fail": 0,
+      "passed": false
+    },
+    {
+      "name": "B1_M2_pose_tight",
+      "heave": 0.1,
+      "odomT": 10000.0,
+      "odomR": 10000.0,
+      "K": 12,
+      "M": 17,
+      "n_obs": 204,
+      "s_z_cm": 28.90416495584769,
+      "bias_cm": 2.2280777870629986,
+      "joint_crlb_cm": 27.138894359347944,
+      "ratio": 1.0650457816418635,
+      "n_effective": 200,
+      "n_fail": 0,
+      "passed": true
+    },
+    {
+      "name": "B2_M1_pose_free",
+      "heave": 1.2,
+      "odomT": 1.0,
+      "odomR": 1.0,
+      "K": 12,
+      "M": 17,
+      "n_obs": 193,
+      "s_z_cm": 51.18959581813143,
+      "bias_cm": 34.306853317927946,
+      "joint_crlb_cm": 1006.7621049396877,
+      "ratio": 0.05084577137634522,
+      "n_effective": 200,
+      "n_fail": 0,
+      "passed": false
+    },
+    {
+      "name": "B2_M2_pose_free",
+      "heave": 0.1,
+      "odomT": 1.0,
+      "odomR": 1.0,
+      "K": 12,
+      "M": 17,
+      "n_obs": 204,
+      "s_z_cm": 259.09509181881737,
+      "bias_cm": 55.694682833988566,
+      "joint_crlb_cm": 344.4669628030712,
+      "ratio": 0.7521623836156961,
+      "n_effective": 200,
+      "n_fail": 0,
+      "passed": false
+    }
+  ],
+  "overall_passed": false
+}

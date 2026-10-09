@@ -29,6 +29,12 @@
     "sigma_rho_note": "★I-1 链用 sigma_rho_m（tracks 的 rho_m 连续）；★II-1 链用 sigma_rho_quant_m = Δρ_bin/√12（L_s 沿距离轴量化）。见 sigma_rho_ledger.md §1b",
     "sigma_Dt_m": 0.02,
     "sigma_zs_m": 0.02,
+    "sigma_theta_rad": 0.003141592653589793,
+    "sigma_theta_deg": 0.18,
+    "sigma_theta_source": "ledger_main_0p18deg",
+    "sigma_theta_beam_spacing_deg": 0.23622047244094488,
+    "sigma_theta_beam_quant_deg": 0.06819097667594005,
+    "sigma_theta_note": "★I-1 方位通道 ∝ σ_θ（T7）；连续 theta_rad 用注入值，beam_index 需叠加量化项。见 sigma_theta_ledger.md",
     "speckle_sigma": 0.2,
     "noise_floor_db": 45.0
   },
@@ -42,8 +48,17 @@
     "delta_phi_min_deg": 1.4793706657475996,
     "is_well_constrained": true,
     "sigma_Pz_m": 0.04131393605720563,
+    "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+    "sigma_Pz_strict_m": 0.0367465824050853,
+    "sigma_Pz_dual_m": 0.03710756950143459,
+    "sigma_Pz_range_channel_m": 0.03849955541271524,
+    "sigma_Pz_azimuth_channel_m": 0.13925777190429256,
+    "std_roll_deg": 2.0087598508921127,
+    "n_visible": 60,
+    "is_well_constrained_strict": true,
+    "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
     "tau_z_m": 0.05,
-    "tau_z_crit_m": 0.017082301042012252
+    "tau_z_crit_m": 0.01708230104201225
   },
   "stats": {
     "n_target_px": 720,
@@ -76,5 +91,5 @@
     "leak_free": true,
     "leak_note": "L_s 由 obs/shadow_masks 量测远端跳变得到；D_t 与 z_s 由 ★I(BA) 提供并注入定位噪声。反演路径不读任何解析几何量 ⇒ 非恒等式（C7）。"
   },
-  "timing_s": 99.7
+  "timing_s": 141.2
 }

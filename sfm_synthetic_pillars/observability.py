@@ -43,9 +43,15 @@ def _landmark_JTJ(landmark_world: np.ndarray, observations: list, calib, K: int,
     R_wb = np.array([euler_to_matrix(p[3], p[4], p[5]) for p in poses6])   # (K, 3, 3)
     t_wb = poses6[:, :3]                                                    # (K, 3)
     if sigma_theta is None:
-        # 从 calib 推：beam 残差单位是 rad，sigma_theta 与 A 的乘积应对应米级定位精度
-        # 经验上 ARIS 的 σ_θ ≈ 0.32° = 5.6e-3 rad（128 波束 / 30° H）
-        sigma_theta = max(abs(D) * 5e-3, 1e-3)
+        # ⚠️ 2026-09-09 修正（sigma_theta_ledger.md §4.1）：
+        #   旧默认 max(abs(D)*5e-3, 1e-3) 用 range 映射的截距 D 推角度噪声，量纲错误。
+        #   T7 后 σ_θ 直接缩放高度精度的方位通道，不得静默取值。
+        #   现回退到台账主值 0.18°，并告警。调用方应显式传 sigma_theta。
+        import warnings
+        warnings.warn("observability: 未传 sigma_theta，回退到台账主值 0.18°"
+                      "（sigma_theta_ledger.md）。含时变横滚的轨迹下该值直接影响 σ_Pz，"
+                      "正式实验请显式传入。", stacklevel=2)
+        sigma_theta = np.deg2rad(0.18)
     if len(observations) < 2:
         return np.zeros((3, 3))
     J_list = []
@@ -89,7 +95,7 @@ def compute_observability_per_landmark(
     poses6: np.ndarray,           # (K, 6)
     tau_z: float = 0.05,          # 高度精度要求 (m)
     sigma_rho: float = 0.05,      # 测距噪声 (m)
-    sigma_theta: float = None,    # 测角噪声 (rad)，默认从 calib 推
+    sigma_theta: float = None,    # 测角噪声 (rad)；None ⇒ 台账主值 0.18° 并告警
 ) -> dict:
     """
     对每个 landmark 计算 A^TA 特征值 + CRLB 高度精度 + **四分类**判据。

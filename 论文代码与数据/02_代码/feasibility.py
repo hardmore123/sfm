@@ -114,6 +114,53 @@ def resolve_sigma_rho(meta: dict, bandwidth_hz: float = 0.3e6,
     return SIGMA_RHO_SPEC_MID, "aris_spec_mid(fallback)"
 
 
+# ---- σ_θ 台账（sigma_theta_ledger.md，2026-09-09）----
+SIGMA_THETA_LEDGER_MAIN_DEG = 0.18          # 主档主值
+SIGMA_THETA_RANGE_DEG = (0.072, 0.30)       # 合理区间：波束量化下界 / 波束宽上界
+ARIS_BEAM_SPACING_DEG = 0.25
+
+
+def sigma_theta_beam_quant(beam_spacing_deg: float = ARIS_BEAM_SPACING_DEG) -> float:
+    """按波束索引取整的量化噪声 Δ/√12（rad）。主档 0.25° ⇒ 0.072°。"""
+    return np.deg2rad(beam_spacing_deg) / np.sqrt(12.0)
+
+
+def sigma_theta_effective(sigma_inj_rad: float, uses_beam_index: bool,
+                          beam_spacing_deg: float = ARIS_BEAM_SPACING_DEG) -> float:
+    """
+    下游实际承受的 σ_θ（台账 §2.1）：
+      读连续 theta_rad   ⇒ 注入值
+      读取整 beam_index  ⇒ sqrt(注入² + 量化²)
+    """
+    if not uses_beam_index:
+        return float(sigma_inj_rad)
+    q = sigma_theta_beam_quant(beam_spacing_deg)
+    return float(np.hypot(sigma_inj_rad, q))
+
+
+def resolve_sigma_theta(meta: dict, strict: bool = False) -> tuple:
+    """
+    按 sigma_theta_ledger.md 解析场景应使用的 σ_θ（rad）。与 resolve_sigma_rho 同一约定：
+      1. meta['config']['sigma_theta_rad']（生成时落盘）
+      2. 缺失 ⇒ 回填台账主值 0.18° 并**告警**
+      3. strict=True 时缺失直接报错
+
+    T7 后 σ_θ 线性缩放高度精度的方位通道，不得静默取值。
+    Returns:
+        (sigma_theta_rad, source_tag)
+    """
+    cfg = (meta or {}).get("config", {}) or {}
+    if "sigma_theta_rad" in cfg:
+        return float(cfg["sigma_theta_rad"]), cfg.get("sigma_theta_source", "meta")
+    msg = ("meta.json 缺少 config.sigma_theta_rad —— 按 sigma_theta_ledger.md，"
+           "正式实验不得静默使用默认值")
+    if strict:
+        raise KeyError(msg)
+    import warnings
+    warnings.warn(f"{msg}；已回填台账主值 {SIGMA_THETA_LEDGER_MAIN_DEG}°", stacklevel=2)
+    return float(np.deg2rad(SIGMA_THETA_LEDGER_MAIN_DEG)), "ledger_main_0p18deg(fallback)"
+
+
 def min_elev_spread(sigma_rho: float, N: int, tau_z: float) -> float:
     """
     仰角离散度门限 Δφ_min（F-2 修正版，权威公式见
@@ -151,9 +198,15 @@ def blind_angle_std(sigma_rho: float, N: int, tau_z: float) -> float:
 
 
 def tau_z_crit(sigma_rho: float, N: int, phi_max: float,
-               mode: str = "uniform") -> float:
+               mode: str = "uniform", cos_phi_bar: float = 1.0) -> float:
     """
     临界精度 τ_z^crit（R1 修正 2026-09-07：**必须区分两个界**）。
+
+    ⚠️ T7 修正（2026-09-09，理论修正 §9）：本函数给的是**斜距通道**的上限。
+       - "任何运动方式都无法突破"作废：时变横滚会打开方位通道，从而突破它
+         （完整式见 sigma_pz_dual_channel）。
+       - 严格式含 cos φ̄ 因子。传 cos_phi_bar=cos(平均射线俯角) 即得严格值。
+         默认 1.0 保持与旧调用向后兼容（主档 φ̄≈19.3° 时值偏大 6%）。
 
     权威推导见 ../大论文思想路线/理论修正_T1-T6.md §1.2d。
 
@@ -196,7 +249,45 @@ def tau_z_crit(sigma_rho: float, N: int, phi_max: float,
         std_max = phi_max / np.sqrt(3)
     else:
         raise ValueError(f"mode 必须是 'abs' 或 'uniform'，收到 {mode!r}")
-    return sigma_rho / (np.sqrt(N) * std_max)
+    if not (0.0 < cos_phi_bar <= 1.0):
+        raise ValueError(f"cos_phi_bar 必须在 (0, 1]，收到 {cos_phi_bar!r}")
+    return sigma_rho * cos_phi_bar / (np.sqrt(N) * std_max)
+
+
+def sigma_pz_dual_channel(sigma_rho: float, sigma_theta: float, N: int,
+                          std_phi: float, phi_bar: float,
+                          std_roll: float, rho_bar: float,
+                          theta_p: float) -> dict:
+    """
+    高度精度的双通道近似式（T7，理论修正 §9.1，正式式）。
+
+        σ_rng = σ_ρ·cos φ̄ / (√N·std φ)                 斜距通道（受垂直孔径限制）
+        σ_az  = ρ̄·σ_θ / (√N·std(roll)·cos θ_p)          时变横滚激活的方位通道
+        σ_Pz  = (σ_rng⁻² + σ_az⁻²)^(-1/2)
+
+    验证：verify_t7_roll_channel.py。与严格 [Λ⁺]_zz 的比值 ∈ [1.00, 1.12]，
+    合成式**偏保守**（忽略的交叉项只会增加信息）。报告具体精度时仍优先用严格 CRLB。
+
+    Args:
+        sigma_rho, sigma_theta: 测距(m) / 测角(rad) 噪声
+        N: 观测数
+        std_phi, phi_bar: 世界系射线俯角的标准差与均值 (rad)
+        std_roll: 横滚角的标准差 (rad)；0 表示横滚恒定，此时方位通道关闭
+        rho_bar: 平均斜距 (m)
+        theta_p: 下俯角 (rad)
+    Returns:
+        dict(sigma_pz, sigma_range, sigma_azimuth)，单位 m；关闭的通道为 inf
+    """
+    if N < 1:
+        return dict(sigma_pz=np.inf, sigma_range=np.inf, sigma_azimuth=np.inf)
+    s_rng = (sigma_rho * np.cos(phi_bar) / (np.sqrt(N) * std_phi)
+             if std_phi > 1e-12 else np.inf)
+    s_az = (rho_bar * sigma_theta / (np.sqrt(N) * std_roll * np.cos(theta_p))
+            if std_roll > 1e-12 else np.inf)
+    inv2 = (0.0 if np.isinf(s_rng) else s_rng ** -2) + \
+           (0.0 if np.isinf(s_az) else s_az ** -2)
+    s = inv2 ** -0.5 if inv2 > 0 else np.inf
+    return dict(sigma_pz=float(s), sigma_range=float(s_rng), sigma_azimuth=float(s_az))
 
 
 def blind_landmark_fraction(std_phi_per_landmark, sigma_rho: float, N,

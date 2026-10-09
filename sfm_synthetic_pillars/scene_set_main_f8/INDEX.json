@@ -7,8 +7,17 @@
       "delta_phi_min_deg": 1.4793706657475996,
       "is_well_constrained": true,
       "sigma_Pz_m": 0.04203545398237252,
+      "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+      "sigma_Pz_strict_m": 0.037024061559145054,
+      "sigma_Pz_dual_m": 0.03742535861034305,
+      "sigma_Pz_range_channel_m": 0.03882844344885594,
+      "sigma_Pz_azimuth_channel_m": 0.14048929532581156,
+      "std_roll_deg": 2.0087598508921127,
+      "n_visible": 60,
+      "is_well_constrained_strict": true,
+      "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
       "tau_z_m": 0.05,
-      "tau_z_crit_m": 0.017082301042012252
+      "tau_z_crit_m": 0.01708230104201225
     },
     "stats": {
       "n_target_px": 720,
@@ -38,8 +47,17 @@
       "delta_phi_min_deg": 1.4793706657475996,
       "is_well_constrained": false,
       "sigma_Pz_m": 0.4856951545452602,
+      "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+      "sigma_Pz_strict_m": 0.11850763567270754,
+      "sigma_Pz_dual_m": 0.13162734715353805,
+      "sigma_Pz_range_channel_m": 0.45839294479114373,
+      "sigma_Pz_azimuth_channel_m": 0.13741445369084906,
+      "std_roll_deg": 2.0087598508921127,
+      "n_visible": 60,
+      "is_well_constrained_strict": false,
+      "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
       "tau_z_m": 0.05,
-      "tau_z_crit_m": 0.017082301042012252
+      "tau_z_crit_m": 0.01708230104201225
     },
     "stats": {
       "n_target_px": 720,
@@ -69,8 +87,17 @@
       "delta_phi_min_deg": 1.4793706657475996,
       "is_well_constrained": true,
       "sigma_Pz_m": 0.04149650767944107,
+      "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+      "sigma_Pz_strict_m": 0.036817329265729365,
+      "sigma_Pz_dual_m": 0.03718819997753084,
+      "sigma_Pz_range_channel_m": 0.038582994330517394,
+      "sigma_Pz_azimuth_channel_m": 0.13957059511331,
+      "std_roll_deg": 2.0087598508921127,
+      "n_visible": 60,
+      "is_well_constrained_strict": true,
+      "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
       "tau_z_m": 0.05,
-      "tau_z_crit_m": 0.017082301042012252
+      "tau_z_crit_m": 0.01708230104201225
     },
     "stats": {
       "n_target_px": 720,
@@ -100,8 +127,17 @@
       "delta_phi_min_deg": 1.4793706657475996,
       "is_well_constrained": true,
       "sigma_Pz_m": 0.04131393605720563,
+      "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+      "sigma_Pz_strict_m": 0.0367465824050853,
+      "sigma_Pz_dual_m": 0.03710756950143459,
+      "sigma_Pz_range_channel_m": 0.03849955541271524,
+      "sigma_Pz_azimuth_channel_m": 0.13925777190429256,
+      "std_roll_deg": 2.0087598508921127,
+      "n_visible": 60,
+      "is_well_constrained_strict": true,
+      "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
       "tau_z_m": 0.05,
-      "tau_z_crit_m": 0.017082301042012252
+      "tau_z_crit_m": 0.01708230104201225
     },
     "stats": {
       "n_target_px": 720,
@@ -131,8 +167,17 @@
       "delta_phi_min_deg": 1.4793706657475996,
       "is_well_constrained": true,
       "sigma_Pz_m": 0.04203545398237252,
+      "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+      "sigma_Pz_strict_m": 0.037024061559145054,
+      "sigma_Pz_dual_m": 0.03742535861034305,
+      "sigma_Pz_range_channel_m": 0.03882844344885594,
+      "sigma_Pz_azimuth_channel_m": 0.14048929532581156,
+      "std_roll_deg": 2.0087598508921127,
+      "n_visible": 60,
+      "is_well_constrained_strict": true,
+      "sigma_Pz_note": "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3",
       "tau_z_m": 0.05,
-      "tau_z_crit_m": 0.017082301042012252
+      "tau_z_crit_m": 0.01708230104201225
     },
     "stats": {
       "n_target_px": 720,

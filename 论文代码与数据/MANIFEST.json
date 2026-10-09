@@ -1,621 +1,813 @@
 {
-  "generated_by": "_organize_deliverable.py",
+  "generated_by": "minimax任务分发/工具/regen_manifest.py",
+  "generated_at": "2026-10-09 17:35:30",
+  "note": "按当前实际交付布局（02_代码 扁平）重建；旧版按早期嵌套布局生成，已备份为 MANIFEST.json.bak",
   "items": [
     {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/公式权威/理论修正_T1-T6.md",
-      "src": "F:\\sfm\\大论文思想路线\\理论修正_T1-T6.md",
-      "bytes": 25504,
-      "sha1": "261de1793236",
-      "status": "已复制"
+      "group": "00_效力分级与作废清单.md",
+      "rel": "00_效力分级与作废清单.md",
+      "bytes": 9764,
+      "sha1": "021763106ad6",
+      "status": "有效"
     },
     {
       "group": "01_理论支撑",
-      "rel": "01_理论支撑/公式权威/sigma_rho_ledger.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\sigma_rho_ledger.md",
-      "bytes": 6655,
-      "sha1": "c18ee5c89f0e",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/审计链/A1-A6_审计报告_逻辑与可靠性_20260904.md",
-      "src": "F:\\sfm\\大论文思想路线\\审计报告_逻辑与可靠性_20260904.md",
-      "bytes": 14937,
-      "sha1": "dc6ad93537b0",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/审计链/P星阶段结果复核_20260904.md",
-      "src": "F:\\sfm\\大论文思想路线\\审计_P星阶段结果复核_20260904.md",
-      "bytes": 11096,
-      "sha1": "328eaba92dc5",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/审计链/P1-P6_审计_20260905_文档倒挂与雕刻错误.md",
-      "src": "F:\\sfm\\大论文思想路线\\审计_20260905_文档倒挂与雕刻错误.md",
-      "bytes": 13849,
-      "sha1": "e4a330bd7628",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/审计链/Q1-Q6_审计_20260906_阴影反演恒等式与孔径未裁剪.md",
-      "src": "F:\\sfm\\大论文思想路线\\审计_20260906_阴影反演恒等式与孔径未裁剪.md",
-      "bytes": 22570,
-      "sha1": "be61ded78ba4",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/审计链/_CORRECTION_NOTICE.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_CORRECTION_NOTICE.md",
-      "bytes": 6760,
-      "sha1": "272b2a9b66bb",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/创新点设计/创新点内容设计_定稿.md",
-      "src": "F:\\sfm\\大论文思想路线\\创新点内容设计_定稿.md",
-      "bytes": 65672,
-      "sha1": "2f578b1a06cc",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/创新点设计/创新点一_问题定义与模块分解.md",
-      "src": "F:\\sfm\\大论文思想路线\\创新点一_问题定义与模块分解.md",
-      "bytes": 9236,
-      "sha1": "2d109ee3fdc2",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/创新点设计/创新点二_问题定义与模块分解.md",
-      "src": "F:\\sfm\\大论文思想路线\\创新点二_问题定义与模块分解.md",
-      "bytes": 10687,
-      "sha1": "1134c1192ca9",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/创新点设计/稠密化模块_点云生成内容设计.md",
-      "src": "F:\\sfm\\大论文思想路线\\稠密化模块_点云生成内容设计.md",
-      "bytes": 32531,
-      "sha1": "11aaee3892e7",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/文献/文献分析与思路重构_v3.md",
-      "src": "F:\\sfm\\大论文思想路线\\文献分析与思路重构_v3.md",
-      "bytes": 27113,
-      "sha1": "1ea771350bb9",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/文献/LIT_NOTES_精读笔记.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\LIT_NOTES.md",
-      "bytes": 22633,
-      "sha1": "82160402d560",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/文献/WANTED_PAPERS_待找文献.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\WANTED_PAPERS.md",
-      "bytes": 12289,
-      "sha1": "e7487b2652dd",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/文献/PAPER_SEARCH_PLAN.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\PAPER_SEARCH_PLAN.md",
-      "bytes": 7511,
-      "sha1": "fd5eb16c441d",
-      "status": "已复制"
-    },
-    {
-      "group": "01_理论支撑",
-      "rel": "01_理论支撑/实施任务表_验收标准_阶段安排.md",
-      "src": "F:\\sfm\\大论文思想路线\\实施任务表_验收标准_阶段安排.md",
-      "bytes": 72258,
-      "sha1": "12b9c06b4c5e",
-      "status": "已复制"
+      "rel": "01_理论支撑/README.md",
+      "bytes": 7484,
+      "sha1": "9ecb011ee3ec",
+      "status": "有效"
     },
     {
       "group": "01_理论支撑",
       "rel": "01_理论支撑/传感器规格/ARIS_EXPLORER_3000_PARAMS.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\real_data\\ARIS_EXPLORER_3000_PARAMS.md",
       "bytes": 6694,
       "sha1": "df6289f9f91e",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "01_理论支撑",
       "rel": "01_理论支撑/传感器规格/真实数据集_INVENTORY.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\real_data\\INVENTORY.md",
       "bytes": 5200,
       "sha1": "3fb8d4add370",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/仿真基础/config.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\config.py",
-      "bytes": 6793,
-      "sha1": "41089691dc2e",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/公式权威/sigma_rho_ledger.md",
+      "bytes": 6765,
+      "sha1": "e0f03067dfda",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/仿真基础/world.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\world.py",
-      "bytes": 11881,
-      "sha1": "1214963d11d0",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/公式权威/sigma_theta_ledger.md",
+      "bytes": 7967,
+      "sha1": "e6722dabf7bc",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/仿真基础/trajectory.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\trajectory.py",
-      "bytes": 5187,
-      "sha1": "1b8b048ee3f2",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/公式权威/理论修正_T1-T6.md",
+      "bytes": 41946,
+      "sha1": "34367e711a59",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/仿真基础/sonar_render.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\sonar_render.py",
-      "bytes": 9858,
-      "sha1": "8e2517f9b8d9",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/公式权威/理论基础_打通状态清单.md",
+      "bytes": 11957,
+      "sha1": "e372f4ce7c2d",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/仿真基础/sim_pipeline.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\sim_pipeline.py",
-      "bytes": 20456,
-      "sha1": "626df88e6d8c",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/创新点设计/创新点一_问题定义与模块分解.md",
+      "bytes": 9236,
+      "sha1": "2d109ee3fdc2",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/阴影与反演/shadow_f8_fixed.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\shadow_f8_fixed.py",
-      "bytes": 14807,
-      "sha1": "0d582d926405",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/创新点设计/创新点二_问题定义与模块分解.md",
+      "bytes": 10687,
+      "sha1": "1134c1192ca9",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/阴影与反演/shadow.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\shadow.py",
-      "bytes": 11461,
-      "sha1": "228d3cb09bc2",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/创新点设计/创新点内容设计_定稿.md",
+      "bytes": 71109,
+      "sha1": "d9637630441c",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/阴影与反演/height_inversion.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\height_inversion.py",
-      "bytes": 8422,
-      "sha1": "c21d3e1fc9d5",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/创新点设计/稠密化模块_点云生成内容设计.md",
+      "bytes": 32531,
+      "sha1": "11aaee3892e7",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/判据/feasibility.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\feasibility.py",
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/实施任务表_验收标准_阶段安排.md",
+      "bytes": 75196,
+      "sha1": "3ab261bd78d3",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/审计链/_CORRECTION_NOTICE.md",
+      "bytes": 6760,
+      "sha1": "272b2a9b66bb",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/审计链/A1-A6_审计报告_逻辑与可靠性_20260904.md",
+      "bytes": 14937,
+      "sha1": "dc6ad93537b0",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/审计链/P1-P6_审计_20260905_文档倒挂与雕刻错误.md",
+      "bytes": 13849,
+      "sha1": "e4a330bd7628",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/审计链/P星阶段结果复核_20260904.md",
+      "bytes": 11096,
+      "sha1": "328eaba92dc5",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/审计链/Q1-Q6_审计_20260906_阴影反演恒等式与孔径未裁剪.md",
+      "bytes": 23411,
+      "sha1": "3b2c9a3b511f",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/执行路线_数据资产_缺口清单.md",
+      "bytes": 23916,
+      "sha1": "80e3c201b5ff",
+      "status": "有效"
+    },
+    {
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/文献/LIT_NOTES_精读笔记.md",
       "bytes": 22633,
-      "sha1": "8798aba2fc49",
-      "status": "已复制"
+      "sha1": "82160402d560",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/判据/observability.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\observability.py",
-      "bytes": 8720,
-      "sha1": "405249797085",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/文献/PAPER_SEARCH_PLAN.md",
+      "bytes": 7511,
+      "sha1": "fd5eb16c441d",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/稠密化/R_x6_carve_fixed.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_x6_carve_fixed.py",
-      "bytes": 8890,
-      "sha1": "b731b374d203",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/文献/WANTED_PAPERS_待找文献.md",
+      "bytes": 12289,
+      "sha1": "e7487b2652dd",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/稠密化/surface_recon.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\surface_recon.py",
-      "bytes": 4328,
-      "sha1": "91119ccff37c",
-      "status": "已复制"
+      "group": "01_理论支撑",
+      "rel": "01_理论支撑/文献/文献分析与思路重构_v3.md",
+      "bytes": 27113,
+      "sha1": "1ea771350bb9",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/场景生成/f8_design_sceneset.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_design_sceneset.py",
+      "group": "02_代码",
+      "rel": "02_代码/_f8_design_sceneset.py",
       "bytes": 14286,
       "sha1": "1986b723e995",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/场景生成/gen_scenes_main_f8.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\gen_scenes_main_f8.py",
-      "bytes": 18110,
-      "sha1": "d111130ed763",
-      "status": "已复制"
+      "group": "02_代码",
+      "rel": "02_代码/_f8_sceneset_design.json",
+      "bytes": 1855,
+      "sha1": "8c9a5a1c4b8e",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/场景生成/scene_configs.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\scene_configs.py",
-      "bytes": 18214,
-      "sha1": "3b6bb770dcf3",
-      "status": "已复制"
+      "group": "02_代码",
+      "rel": "02_代码/_setup_data.py",
+      "bytes": 3487,
+      "sha1": "530906d37c7b",
+      "status": "有效"
     },
     {
-      "group": "02_核心代码",
-      "rel": "02_核心代码/场景生成/big_paper_sim.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\big_paper_sim.py",
+      "group": "02_代码",
+      "rel": "02_代码/ba_improve.py",
+      "bytes": 31423,
+      "sha1": "18f2dca457ca",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/ba_improve34.py",
+      "bytes": 26606,
+      "sha1": "eca185f40046",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/ba_optimize.py",
+      "bytes": 18073,
+      "sha1": "e676d265cac0",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/ba_patent.py",
+      "bytes": 19233,
+      "sha1": "6df2207a0f84",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/ba_unified.py",
+      "bytes": 28457,
+      "sha1": "25afe5d11df8",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/big_paper_sim.py",
       "bytes": 23103,
       "sha1": "5c98d9120195",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/verify_f8_fixed.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_f8_fixed.py",
-      "bytes": 7975,
-      "sha1": "6922c9c8438a",
-      "status": "已复制"
+      "group": "02_代码",
+      "rel": "02_代码/config.py",
+      "bytes": 6793,
+      "sha1": "41089691dc2e",
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/verify_f8a_shadow_aperture.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_f8a_shadow_aperture.py",
-      "bytes": 4834,
-      "sha1": "b7752aa3ef92",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/verify_f8d_sceneset.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_f8d_sceneset.py",
-      "bytes": 8999,
-      "sha1": "01fd40738763",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/probe_identity_恒等式取证.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_probe_identity.py",
-      "bytes": 3910,
-      "sha1": "cea7219e0e27",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/probe_shadow_visibility.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_probe_shadow_visibility.py",
-      "bytes": 3848,
-      "sha1": "3c8cfe1406be",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/probe_sigma_rho_两条链口径.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_probe_f8_sigma.py",
-      "bytes": 3324,
-      "sha1": "a6e6dd56c465",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/verify_sceneset_design.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_verify_sceneset.py",
-      "bytes": 4880,
-      "sha1": "b3f99f652e6a",
-      "status": "已复制"
-    },
-    {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/F8_阴影渲染与反演/design_geometry_可行域搜索.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_design_geometry.py",
+      "group": "02_代码",
+      "rel": "02_代码/f8_design_geometry.py",
       "bytes": 6713,
       "sha1": "1cd873d16508",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/理论层/verify_f2_blind_semantics.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_f2_blind_semantics.py",
+      "group": "02_代码",
+      "rel": "02_代码/f8_probe_identity.py",
+      "bytes": 3910,
+      "sha1": "cea7219e0e27",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/f8_probe_shadow_visibility.py",
+      "bytes": 3848,
+      "sha1": "3c8cfe1406be",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/f8_probe_sigma_rho.py",
+      "bytes": 3324,
+      "sha1": "a6e6dd56c465",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/feasibility.py",
+      "bytes": 28180,
+      "sha1": "291d57877e4e",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/gen_scenes_main_f8.py",
+      "bytes": 22345,
+      "sha1": "3d10c4f8d08f",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/height_inversion.py",
+      "bytes": 8422,
+      "sha1": "c21d3e1fc9d5",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/observability.py",
+      "bytes": 9193,
+      "sha1": "12b90e357819",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/R_x6_carve_fixed.py",
+      "bytes": 8890,
+      "sha1": "b731b374d203",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/README.md",
+      "bytes": 8391,
+      "sha1": "3babab2603b1",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/rx3_ba_crlb.py",
+      "bytes": 10830,
+      "sha1": "a3d25eb4982d",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/rx3_ba_crlb_report.json",
+      "bytes": 4361,
+      "sha1": "7e05637d82d9",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/rx3_stageB_report.json",
+      "bytes": 1758,
+      "sha1": "87ae38aaa1b1",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/scan_obsolete_formulas.py",
+      "bytes": 4708,
+      "sha1": "34237d9f1b3e",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/scene_configs.py",
+      "bytes": 18214,
+      "sha1": "3b6bb770dcf3",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/shadow.py",
+      "bytes": 11461,
+      "sha1": "228d3cb09bc2",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/shadow_f8_fixed.py",
+      "bytes": 14807,
+      "sha1": "0d582d926405",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/sigma_theta_ledger_report.json",
+      "bytes": 2753,
+      "sha1": "805f513937ca",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/sigma_theta_ledger_report.txt",
+      "bytes": 2008,
+      "sha1": "375246613e4b",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/sim_pipeline.py",
+      "bytes": 20456,
+      "sha1": "626df88e6d8c",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/sonar_render.py",
+      "bytes": 9858,
+      "sha1": "8e2517f9b8d9",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/surface_recon.py",
+      "bytes": 4328,
+      "sha1": "91119ccff37c",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/t7_roll_channel_report.json",
+      "bytes": 5375,
+      "sha1": "feb0891f75db",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/t7_roll_channel_report.txt",
+      "bytes": 2424,
+      "sha1": "e49a030fd80c",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/trajectory.py",
+      "bytes": 5187,
+      "sha1": "1b8b048ee3f2",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_f2_blind_semantics.py",
       "bytes": 4559,
       "sha1": "049fedc9ca96",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/理论层/verify_f7_sigma_rho台账.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_verify_f7.py",
+      "group": "02_代码",
+      "rel": "02_代码/verify_f7_sigma_rho_ledger.py",
       "bytes": 1616,
       "sha1": "42816569368d",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/理论层/verify_observability_theory.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_observability_theory.py",
+      "group": "02_代码",
+      "rel": "02_代码/verify_f8_fixed.py",
+      "bytes": 7975,
+      "sha1": "6922c9c8438a",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_f8_sceneset_design.py",
+      "bytes": 5102,
+      "sha1": "0ac0c920cc4c",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_f8a_shadow_aperture.py",
+      "bytes": 4834,
+      "sha1": "b7752aa3ef92",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_f8d_sceneset.py",
+      "bytes": 8999,
+      "sha1": "01fd40738763",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_observability_theory.py",
       "bytes": 4157,
       "sha1": "2c056891a82c",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/理论层/verify_sigma_h_propagation.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_sigma_h_propagation.py",
+      "group": "02_代码",
+      "rel": "02_代码/verify_r1_tau_crit_bound.py",
+      "bytes": 6602,
+      "sha1": "9b18632cf626",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_rx3_ba_crlb.py",
+      "bytes": 8992,
+      "sha1": "f85aaa8c1c84",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_rx3_stageB.py",
+      "bytes": 13649,
+      "sha1": "eb9f6693406f",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_sigma_h_propagation.py",
       "bytes": 12822,
       "sha1": "fcf335033c3c",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/稠密化/verify_x6_carve_logic.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_x6_carve_logic.py",
+      "group": "02_代码",
+      "rel": "02_代码/verify_sigma_theta_ledger.py",
+      "bytes": 6134,
+      "sha1": "575ee3408b47",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_t7_roll_channel.py",
+      "bytes": 8473,
+      "sha1": "750c0d3d4229",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/verify_x6_carve_logic.py",
       "bytes": 2922,
       "sha1": "2f368894cc7f",
-      "status": "已复制"
+      "status": "有效"
     },
     {
-      "group": "03_验证脚本",
-      "rel": "03_验证脚本/稠密化/verify_x6_roll_vs_straight.py",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\verify_x6_roll_vs_straight.py",
+      "group": "02_代码",
+      "rel": "02_代码/verify_x6_roll_vs_straight.py",
       "bytes": 4859,
       "sha1": "5e20921d5522",
-      "status": "已复制"
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/view3d.py",
+      "bytes": 5736,
+      "sha1": "c83800cedcc0",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/world.py",
+      "bytes": 11881,
+      "sha1": "1214963d11d0",
+      "status": "有效"
+    },
+    {
+      "group": "02_代码",
+      "rel": "02_代码/x3_crlb_results.json",
+      "bytes": 7526,
+      "sha1": "c2896c57a269",
+      "status": "有效"
+    },
+    {
+      "group": "04_数据",
+      "rel": "04_数据/README.md",
+      "bytes": 7183,
+      "sha1": "d7ac8163e6c8",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/INDEX.json",
+      "bytes": 8715,
+      "sha1": "4c3630fec317",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/各场景meta/M1_well_constrained.json",
+      "bytes": 3646,
+      "sha1": "ddbee50dbf35",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/各场景meta/M2_blind_low_spread.json",
+      "bytes": 3653,
+      "sha1": "ef0e4b988648",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/各场景meta/M3_envelope_inside.json",
+      "bytes": 3655,
+      "sha1": "0d2f15c8e592",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/各场景meta/M4_envelope_outside.json",
+      "bytes": 3665,
+      "sha1": "92cc64ee8e81",
+      "status": "有效"
+    },
+    {
+      "group": "05_结果",
+      "rel": "05_结果/F8主档/各场景meta/M5_low_snr.json",
+      "bytes": 3630,
+      "sha1": "745d4777cc5c",
+      "status": "有效"
     },
     {
       "group": "05_结果",
       "rel": "05_结果/F8主档/场景集设计_f8_sceneset_design.json",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\_f8_sceneset_design.json",
       "bytes": 1855,
       "sha1": "8c9a5a1c4b8e",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "05_结果",
       "rel": "05_结果/稠密化/R_X6_FIXED_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X6_FIXED_REPORT.md",
       "bytes": 4924,
       "sha1": "1af48824397f",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/理论/THEORY_FIXES_T1-T6_已降级为实现笔记.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\THEORY_FIXES_T1-T6.md",
-      "bytes": 17694,
-      "sha1": "c37dd2ac0634",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/P_STAR_REPORT_含500倍改进已作废.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\P_STAR_REPORT.md",
-      "bytes": 13719,
-      "sha1": "c53932365087",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/X3_CRLB_REPORT_判定不成立.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\X3_CRLB_REPORT.md",
-      "bytes": 9532,
-      "sha1": "b572730a8436",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X3_FINAL_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X3_FINAL_REPORT.md",
-      "bytes": 7606,
-      "sha1": "30060e8f0561",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X3_FULL_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X3_FULL_REPORT.md",
-      "bytes": 6183,
-      "sha1": "e92d7039cc77",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X3_PROGRESS_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X3_PROGRESS_REPORT.md",
-      "bytes": 4619,
-      "sha1": "cd18541d54ec",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X5_FULL_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X5_FULL_REPORT.md",
-      "bytes": 5508,
-      "sha1": "6340c07ea58f",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X6_FULL_REPORT_雕刻方向反了.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X6_FULL_REPORT.md",
-      "bytes": 5396,
-      "sha1": "1be1c2b6adc1",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X6_V2_FULL_REPORT_雕刻方向反了.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X6_V2_FULL_REPORT.md",
-      "bytes": 7151,
-      "sha1": "1f76eaeeedf1",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/含失效数字的报告/R_X56C_FULL_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_X56C_FULL_REPORT.md",
-      "bytes": 5244,
-      "sha1": "4aecb23ecb21",
-      "status": "已复制"
+      "rel": "06_作废归档/README.md",
+      "bytes": 4566,
+      "sha1": "ae4c1209bc36",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/含失效数字的报告/INNOV2_ABLATION_V4_REPORT_受Q1恒等式影响.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\INNOV2_ABLATION_V4_REPORT.md",
       "bytes": 7568,
       "sha1": "63c3f72cd40d",
-      "status": "已复制"
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/P_STAR_REPORT_含500倍改进已作废.md",
+      "bytes": 13719,
+      "sha1": "c53932365087",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/含失效数字的报告/R_SCN_FULL_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\R_SCN_FULL_REPORT.md",
       "bytes": 8398,
       "sha1": "e95eda5bb7a0",
-      "status": "已复制"
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X3_FINAL_REPORT.md",
+      "bytes": 7606,
+      "sha1": "30060e8f0561",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X3_FULL_REPORT.md",
+      "bytes": 6183,
+      "sha1": "e92d7039cc77",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X3_PROGRESS_REPORT.md",
+      "bytes": 4619,
+      "sha1": "cd18541d54ec",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X56C_FULL_REPORT.md",
+      "bytes": 5244,
+      "sha1": "4aecb23ecb21",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X5_FULL_REPORT.md",
+      "bytes": 5508,
+      "sha1": "6340c07ea58f",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X6_FULL_REPORT_雕刻方向反了.md",
+      "bytes": 5396,
+      "sha1": "1be1c2b6adc1",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/含失效数字的报告/R_X6_V2_FULL_REPORT_雕刻方向反了.md",
+      "bytes": 7151,
+      "sha1": "1f76eaeeedf1",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/含失效数字的报告/X2B_REPORT_模型过简.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\X2B_REPORT.md",
       "bytes": 2412,
       "sha1": "3edb0e22494a",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/工作日志/WORK_LOG.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\WORK_LOG.md",
-      "bytes": 30403,
-      "sha1": "8a5b05362ac6",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V11.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\WORK_LOG_AND_THOUGHTS_V11.md",
-      "bytes": 16855,
-      "sha1": "e991ad7693cf",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V12.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\WORK_LOG_AND_THOUGHTS_V12.md",
-      "bytes": 17557,
-      "sha1": "767a673afe3f",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V13.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\WORK_LOG_AND_THOUGHTS_V13.md",
-      "bytes": 10193,
-      "sha1": "df6dc78e987d",
-      "status": "已复制"
+      "rel": "06_作废归档/含失效数字的报告/X3_CRLB_REPORT_判定不成立.md",
+      "bytes": 9532,
+      "sha1": "b572730a8436",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/工作日志/SESSION_LOG_2026-09-04.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\SESSION_LOG_2026-09-04.md",
       "bytes": 7845,
       "sha1": "82ef9f52814c",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/DATA_INVENTORY.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\DATA_INVENTORY.md",
-      "bytes": 15563,
-      "sha1": "c4b16d407bb5",
-      "status": "已复制"
+      "rel": "06_作废归档/工作日志/WORK_LOG.md",
+      "bytes": 30403,
+      "sha1": "8a5b05362ac6",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/BIG_PAPER_README.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\BIG_PAPER_README.md",
-      "bytes": 15907,
-      "sha1": "70ad19c5f979",
-      "status": "已复制"
+      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V11.md",
+      "bytes": 16855,
+      "sha1": "e991ad7693cf",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V12.md",
+      "bytes": 17557,
+      "sha1": "767a673afe3f",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/工作日志/WORK_LOG_AND_THOUGHTS_V13.md",
+      "bytes": 10193,
+      "sha1": "df6dc78e987d",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/早期文档/BIG_PAPER_DELIVERY.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\BIG_PAPER_DELIVERY.md",
       "bytes": 13555,
       "sha1": "1043ffc0d691",
-      "status": "已复制"
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/T1_1_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\T1_1_REPORT.md",
-      "bytes": 10049,
-      "sha1": "1922674f2b82",
-      "status": "已复制"
+      "rel": "06_作废归档/早期文档/BIG_PAPER_README.md",
+      "bytes": 15907,
+      "sha1": "70ad19c5f979",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/T1_2_HEAVE_BASELINE_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\T1_2_HEAVE_BASELINE_REPORT.md",
-      "bytes": 4453,
-      "sha1": "a630124aec03",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/T0_4_T0_6_DOC.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\T0_4_T0_6_DOC.md",
-      "bytes": 5961,
-      "sha1": "7e5314f41279",
-      "status": "已复制"
-    },
-    {
-      "group": "06_作废归档",
-      "rel": "06_作废归档/早期文档/GAP_FIX_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\GAP_FIX_REPORT.md",
-      "bytes": 4732,
-      "sha1": "fb0b9d3f57b3",
-      "status": "已复制"
+      "rel": "06_作废归档/早期文档/DATA_INVENTORY.md",
+      "bytes": 15563,
+      "sha1": "c4b16d407bb5",
+      "status": "有效"
     },
     {
       "group": "06_作废归档",
       "rel": "06_作废归档/早期文档/FINAL_GAP_FIX_REPORT.md",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\FINAL_GAP_FIX_REPORT.md",
       "bytes": 8350,
       "sha1": "73afdfd668e6",
-      "status": "已复制"
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/早期文档/GAP_FIX_REPORT.md",
+      "bytes": 4732,
+      "sha1": "fb0b9d3f57b3",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/早期文档/T0_4_T0_6_DOC.md",
+      "bytes": 5961,
+      "sha1": "7e5314f41279",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/早期文档/T1_1_REPORT.md",
+      "bytes": 10049,
+      "sha1": "1922674f2b82",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/早期文档/T1_2_HEAVE_BASELINE_REPORT.md",
+      "bytes": 4453,
+      "sha1": "a630124aec03",
+      "status": "有效"
+    },
+    {
+      "group": "06_作废归档",
+      "rel": "06_作废归档/理论/THEORY_FIXES_T1-T6_已降级为实现笔记.md",
+      "bytes": 17694,
+      "sha1": "c37dd2ac0634",
+      "status": "有效"
+    },
+    {
+      "group": "README.md",
+      "rel": "README.md",
+      "bytes": 21580,
+      "sha1": "b3d65bf377e2",
+      "status": "有效"
+    },
+    {
+      "group": "会话交接_20260907.md",
+      "rel": "会话交接_20260907.md",
+      "bytes": 17132,
+      "sha1": "0f8ce4fa1dcd",
+      "status": "有效"
     },
     {
       "group": "04_数据",
       "rel": "04_数据/scene_set_main_f8",
-      "src": "F:\\sfm\\sfm_synthetic_pillars\\scene_set_main_f8",
       "files": 61,
-      "bytes": 491768159,
-      "status": "已复制（整目录）"
+      "bytes": 491776812,
+      "status": "已复制（整目录）",
+      "note": "逐文件完整性由 check_data_structure.py 核查"
     }
   ]
 }

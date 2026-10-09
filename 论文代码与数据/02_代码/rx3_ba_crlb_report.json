@@ -1,0 +1,151 @@
+{
+  "generated_at": "2026-09-09 16:48:25",
+  "n_trial": 300,
+  "criterion": "s_z/sigma_Pz_strict in [0.8, 1.3]",
+  "sensor": {
+    "phi_max_deg": 7.5,
+    "azim_deg": 30.0,
+    "n_beams": 128,
+    "rho_min_m": 0.5,
+    "rho_max_m": 15.0,
+    "range_bin_count": 1600,
+    "sigma_rho_m": 0.01,
+    "sigma_theta_deg": 0.18
+  },
+  "geometry": {
+    "z_s": 4.5,
+    "pitch_deg": 19.0,
+    "D_t": 10.6,
+    "r_pillar": 0.25,
+    "h": 0.85,
+    "n_frames": 60,
+    "tau_z": 0.05
+  },
+  "stageA": [
+    {
+      "name": "M1_well_constrained",
+      "heave": 1.2,
+      "n_visible": 60,
+      "std_phi_deg": 1.759670142218484,
+      "sigma_Pz_strict_cm": 3.702406155914505,
+      "sigma_Pz_approx_cm": 4.203545398237251,
+      "s_z_mc_cm": 3.5277591258640077,
+      "ratio_mc_over_strict": 0.9528287760186702,
+      "ratio_approx_over_strict": 1.1353550154194154,
+      "bias_cm": 0.17217346158442393,
+      "bias_se_cm": 0.20367526809537437,
+      "bias_significant": false,
+      "eigvals": [
+        599434.3277407545,
+        46286.222133073315,
+        622.5504091032344
+      ],
+      "n_fail": 0,
+      "n_effective": 300,
+      "classification": 3,
+      "passed": true
+    },
+    {
+      "name": "M2_blind_low_spread",
+      "heave": 0.1,
+      "n_visible": 60,
+      "std_phi_deg": 0.15229415528477774,
+      "sigma_Pz_strict_cm": 11.850763567270754,
+      "sigma_Pz_approx_cm": 48.56951545452602,
+      "s_z_mc_cm": 11.696943255973109,
+      "ratio_mc_over_strict": 0.9870202193787356,
+      "ratio_approx_over_strict": 4.098429200685812,
+      "bias_cm": 0.34412824688252464,
+      "bias_se_cm": 0.6753233337531851,
+      "bias_significant": false,
+      "eigvals": [
+        599995.6542626604,
+        48135.65040874609,
+        63.42511794492748
+      ],
+      "n_fail": 0,
+      "n_effective": 300,
+      "classification": 2,
+      "passed": true
+    }
+  ],
+  "stageC": [
+    {
+      "heave": 0.1,
+      "n_visible": 60,
+      "std_phi_deg": 0.15229415528477774,
+      "sigma_Pz_strict_cm": 11.850763567270754,
+      "sigma_Pz_approx_cm": 48.56951545452602,
+      "s_z_mc_cm": 11.884131990090681,
+      "ratio_mc_over_strict": 1.002815719226066,
+      "bias_cm": 0.5187405682836821,
+      "n_effective": 300,
+      "passed": true
+    },
+    {
+      "heave": 0.2,
+      "n_visible": 60,
+      "std_phi_deg": 0.30360075272412607,
+      "sigma_Pz_strict_cm": 10.81987161249264,
+      "sigma_Pz_approx_cm": 24.363751612497886,
+      "s_z_mc_cm": 11.705727938918121,
+      "ratio_mc_over_strict": 1.0818730903796188,
+      "bias_cm": -1.1445770781141396,
+      "n_effective": 300,
+      "passed": true
+    },
+    {
+      "heave": 0.4,
+      "n_visible": 60,
+      "std_phi_deg": 0.603196999105199,
+      "sigma_Pz_strict_cm": 8.39370698169548,
+      "sigma_Pz_approx_cm": 12.262748885870982,
+      "s_z_mc_cm": 8.716639113426607,
+      "ratio_mc_over_strict": 1.0384731242626597,
+      "bias_cm": 1.4413147179474617,
+      "n_effective": 300,
+      "passed": true
+    },
+    {
+      "heave": 0.8,
+      "n_visible": 60,
+      "std_phi_deg": 1.1899807879480775,
+      "sigma_Pz_strict_cm": 5.2350271132156925,
+      "sigma_Pz_approx_cm": 6.215943487199177,
+      "s_z_mc_cm": 5.313115174063398,
+      "ratio_mc_over_strict": 1.014916457767826,
+      "bias_cm": 0.17344351067855035,
+      "n_effective": 300,
+      "passed": true
+    },
+    {
+      "heave": 1.2,
+      "n_visible": 60,
+      "std_phi_deg": 1.759670142218484,
+      "sigma_Pz_strict_cm": 3.702406155914505,
+      "sigma_Pz_approx_cm": 4.203545398237251,
+      "s_z_mc_cm": 3.8202332401671653,
+      "ratio_mc_over_strict": 1.0318244620635242,
+      "bias_cm": 0.017604673612436894,
+      "n_effective": 300,
+      "passed": true
+    },
+    {
+      "heave": 1.6,
+      "n_visible": 60,
+      "std_phi_deg": 2.3117524158081393,
+      "sigma_Pz_strict_cm": 2.8518118605833775,
+      "sigma_Pz_approx_cm": 3.1996736666768943,
+      "s_z_mc_cm": 2.843467121444167,
+      "ratio_mc_over_strict": 0.997073881606796,
+      "bias_cm": 0.08590322454760102,
+      "n_effective": 300,
+      "passed": true
+    }
+  ],
+  "stageC_monotonic": true,
+  "stageC_corr": -0.9668909142962336,
+  "stageA_passed": true,
+  "stageC_passed": true,
+  "overall_passed": true
+}

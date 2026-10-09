@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-10-09 17:27:46",
+  "tau_z_m": 0.05,
+  "table": [
+    {
+      "sigma_theta_deg": 0.072,
+      "basis": "0.25°/√12：128 波束索引取整的量化极限（下界）",
+      "crlb_M1_cm": 3.0431333714756303,
+      "crlb_M2_cm": 4.879404696496064,
+      "crlb_M1_roll0_cm": 3.8843361511137644,
+      "crlb_M2_roll0_cm": 45.83942212617886,
+      "M2_blind": false
+    },
+    {
+      "sigma_theta_deg": 0.083,
+      "basis": "0.25°/3：verify_observability_theory 旧取值",
+      "crlb_M1_cm": 3.1998997014282216,
+      "crlb_M2_cm": 5.614365753320786,
+      "crlb_M1_roll0_cm": 3.8843361511138514,
+      "crlb_M2_roll0_cm": 45.839422126336224,
+      "M2_blind": true
+    },
+    {
+      "sigma_theta_deg": 0.1,
+      "basis": "1.8 MHz 波束宽 0.3°/3（高 SNR 质心）",
+      "crlb_M1_cm": 3.3729339200733435,
+      "crlb_M2_cm": 6.741441491057722,
+      "crlb_M1_roll0_cm": 3.8843361511137156,
+      "crlb_M2_roll0_cm": 45.83942212617886,
+      "M2_blind": true
+    },
+    {
+      "sigma_theta_deg": 0.18,
+      "basis": "现行主档取值（rx3/gen_scenes）",
+      "crlb_M1_cm": 3.702406155914505,
+      "crlb_M2_cm": 11.850763567270754,
+      "crlb_M1_roll0_cm": 3.8843361511136556,
+      "crlb_M2_roll0_cm": 45.83942212617886,
+      "M2_blind": true
+    },
+    {
+      "sigma_theta_deg": 0.2,
+      "basis": "Huang 2015 Table I / config.py 默认 / tracks 建议列",
+      "crlb_M1_cm": 3.7350074429563533,
+      "crlb_M2_cm": 13.065480944157448,
+      "crlb_M1_roll0_cm": 3.8843361511137156,
+      "crlb_M2_roll0_cm": 45.83942212617886,
+      "M2_blind": true
+    },
+    {
+      "sigma_theta_deg": 0.25,
+      "basis": "一个波束间隔",
+      "crlb_M1_cm": 3.7867611958509286,
+      "crlb_M2_cm": 15.970982980418395,
+      "crlb_M1_roll0_cm": 3.8843361511137156,
+      "crlb_M2_roll0_cm": 45.83942212615996,
+      "M2_blind": true
+    },
+    {
+      "sigma_theta_deg": 0.3,
+      "basis": "1.8 MHz 水平波束宽度（上界，等价于无亚波束能力）",
+      "crlb_M1_cm": 3.815792044597653,
+      "crlb_M2_cm": 18.672971874890738,
+      "crlb_M1_roll0_cm": 3.8843361511137613,
+      "crlb_M2_roll0_cm": 45.83942212617886,
+      "M2_blind": true
+    }
+  ],
+  "M2_sigma_theta_crit_deg": 0.07380079220625418,
+  "mc_check": [
+    {
+      "sigma_theta_deg": 0.072,
+      "crlb_cm": 4.879404696496064,
+      "mc_cm": 4.547044169759642,
+      "ratio": 0.9318850254468355
+    },
+    {
+      "sigma_theta_deg": 0.3,
+      "crlb_cm": 18.672971874890738,
+      "mc_cm": 19.83879154290649,
+      "ratio": 1.0624335363340536
+    }
+  ],
+  "criteria": {
+    "L1": true,
+    "L2": true,
+    "L4": true
+  },
+  "passed": true
+}

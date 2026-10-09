@@ -1,0 +1,9 @@
+=== 几何精确 FORM（隔离雕刻逻辑）===
+scene                            S1_incl%  S2_mono        E    FORM%
+S1_single_well_constrained           97.9     True    0.580    0.556
+S2_single_forward_degenerate         97.4     True    0.596    0.538
+S3_mixed_shapes                      73.4     True    0.710    1.087
+S4_low_snr                           99.0     True    0.580    0.568
+S5_envelope_edge                     98.2     True    0.581    0.558
+
+---STDERR---

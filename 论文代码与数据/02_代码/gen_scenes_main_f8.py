@@ -35,6 +35,7 @@ from world import SceneWorld
 from trajectory import make_poses, euler_to_matrix
 import shadow_f8_fixed as SF
 import feasibility as F
+import observability as OBS
 
 OUT_ROOT = Path("F:/sfm/sfm_synthetic_pillars/scene_set_main_f8")
 
@@ -128,6 +129,48 @@ def world_ray_elev(poses6, P_w):
     """世界系射线俯角序列（CRLB 的 std(φ) 用这个，**不是**体系角）。"""
     d = np.hypot(P_w[0] - poses6[:, 0], P_w[1] - poses6[:, 1])
     return np.arctan2(P_w[2] - poses6[:, 2], d)
+
+
+def visible_idx(P_w, poses6):
+    """体系孔径判定下能看到 P_w 的帧（方位 ∩ 量程 ∩ 仰角）。只读几何，不消耗随机数。"""
+    keep = []
+    for i, p in enumerate(poses6):
+        R = euler_to_matrix(p[3], p[4], p[5])
+        Pb = R.T @ (P_w - p[:3])
+        rho = float(np.linalg.norm(Pb))
+        az = float(np.arctan2(Pb[1], Pb[0]))
+        el = float(np.arctan2(Pb[2], np.hypot(Pb[0], Pb[1])))
+        if (abs(az) <= np.deg2rad(ARIS["azim_deg"] / 2)
+                and ARIS["rho_min_m"] <= rho <= ARIS["rho_max_m"]
+                and abs(el) <= np.deg2rad(ARIS["phi_max_deg"])):
+            keep.append(i)
+    return np.array(keep, dtype=int)
+
+
+def observability_t7(P_w, poses6, sigma_theta_rad):
+    """T7（理论修正 §9）：严格 CRLB + 双通道式 + 两通道分量。确定性计算，不消耗随机数。"""
+    idx = visible_idx(P_w, poses6)
+    n = int(len(idx))
+    if n < 2:
+        return dict(n_visible=n, sigma_Pz_strict_m=float("inf"),
+                    sigma_Pz_dual_m=float("inf"), sigma_Pz_range_channel_m=float("inf"),
+                    sigma_Pz_azimuth_channel_m=float("inf"), std_roll_deg=0.0)
+    obs_by_lm = {0: [(int(i), 0.0, 0.0) for i in idx]}
+    strict = OBS.compute_observability_per_landmark(
+        landmarks=P_w.reshape(1, 3), obs_by_lm=obs_by_lm, calib=(1.0, 0.0, 1.0, 0.0),
+        poses6=poses6, tau_z=0.05, sigma_rho=ARIS["sigma_rho_m"],
+        sigma_theta=sigma_theta_rad)["sigma_Pz"][0]
+    phi = world_ray_elev(poses6[idx], P_w)
+    rho_bar = float(np.mean(np.linalg.norm(P_w - poses6[idx, :3], axis=1)))
+    std_roll = float(np.std(poses6[idx, 3]))
+    dc = F.sigma_pz_dual_channel(ARIS["sigma_rho_m"], sigma_theta_rad, n,
+                                 float(np.std(phi)), float(np.mean(phi)),
+                                 std_roll, rho_bar, np.deg2rad(PITCH_DEG))
+    return dict(n_visible=n, sigma_Pz_strict_m=float(strict),
+                sigma_Pz_dual_m=dc["sigma_pz"],
+                sigma_Pz_range_channel_m=dc["sigma_range"],
+                sigma_Pz_azimuth_channel_m=dc["sigma_azimuth"],
+                std_roll_deg=float(np.degrees(std_roll)))
 
 
 def poses6_to_T(p6):
@@ -243,8 +286,13 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
     std_phi = float(np.std(phi))
     n_obs = len(poses6)
     dphi_min = ARIS["sigma_rho_m"] / (np.sqrt(n_obs) * 0.05)
+    # ⚠️ 这是 §1.2b 的单通道近似式（仅斜距通道、无 cos φ̄、无横滚）。
+    #    保留它是为了与已发表的历史数字可追溯；正式值见下方 obs_t7（T7，理论修正 §9）。
     sigma_Pz = (ARIS["sigma_rho_m"] / (np.sqrt(n_obs) * std_phi)
                 if std_phi > 1e-12 else float("inf"))
+    s_theta = np.deg2rad(ARIS["sigma_theta_deg"])
+    obs_t7 = observability_t7(P_top, poses6, s_theta)
+    beam_spacing_deg = ARIS["azim_deg"] / (ARIS["n_beams"] - 1)
 
     # ---- 落盘
     d = OUT_ROOT / name
@@ -303,6 +351,15 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
                 "见 sigma_rho_ledger.md §1b"),
             "sigma_Dt_m": SIGMA_DT_M,
             "sigma_zs_m": SIGMA_ZS_M,
+            # ---- σ_θ 全套溯源（sigma_theta_ledger.md，2026-09-09）
+            "sigma_theta_rad": float(s_theta),
+            "sigma_theta_deg": ARIS["sigma_theta_deg"],
+            "sigma_theta_source": "ledger_main_0p18deg",
+            "sigma_theta_beam_spacing_deg": float(beam_spacing_deg),
+            "sigma_theta_beam_quant_deg": float(beam_spacing_deg / np.sqrt(12)),
+            "sigma_theta_note": (
+                "★I-1 方位通道 ∝ σ_θ（T7）；连续 theta_rad 用注入值，"
+                "beam_index 需叠加量化项。见 sigma_theta_ledger.md"),
             "speckle_sigma": speckle,
             "noise_floor_db": noise_floor,
         },
@@ -316,6 +373,19 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
             "delta_phi_min_deg": float(np.degrees(dphi_min)),
             "is_well_constrained": bool(std_phi >= dphi_min),
             "sigma_Pz_m": float(sigma_Pz),
+            "sigma_Pz_m_formula": "approx_range_only_§1.2b（历史口径，非严格 CRLB）",
+            # ---- T7 正式口径（理论修正 §9）
+            "sigma_Pz_strict_m": obs_t7["sigma_Pz_strict_m"],
+            "sigma_Pz_dual_m": obs_t7["sigma_Pz_dual_m"],
+            "sigma_Pz_range_channel_m": obs_t7["sigma_Pz_range_channel_m"],
+            "sigma_Pz_azimuth_channel_m": obs_t7["sigma_Pz_azimuth_channel_m"],
+            "std_roll_deg": obs_t7["std_roll_deg"],
+            "n_visible": obs_t7["n_visible"],
+            "is_well_constrained_strict": bool(obs_t7["sigma_Pz_strict_m"] <= 0.05),
+            "sigma_Pz_note": (
+                "报告精度一律用 sigma_Pz_strict_m（observability.py 的 sqrt([Λ⁺]_zz)，"
+                "位姿已知、含横滚通道）。sigma_Pz_m 为单通道近似式，仅作历史对照。"
+                "含横滚时结果依赖 σ_θ，见 sigma_theta_ledger.md §3"),
             "tau_z_m": 0.05,
             "tau_z_crit_m": float(F.tau_z_crit(ARIS["sigma_rho_m"], n_obs,
                                                np.deg2rad(ARIS["phi_max_deg"]))),
@@ -363,7 +433,9 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
         print(f"  std(φ_world)={o['std_phi_world_ray_deg']:.3f}° "
               f"Δφ_min={o['delta_phi_min_deg']:.3f}° ⇒ "
               f"{'良约束' if o['is_well_constrained'] else '盲'}"
-              f"  σ_Pz={o['sigma_Pz_m']*100:.2f} cm")
+              f"  σ_Pz(近似)={o['sigma_Pz_m']*100:.2f} cm"
+              f"  σ_Pz(严格)={o['sigma_Pz_strict_m']*100:.2f} cm"
+              f"  std(roll)={o['std_roll_deg']:.2f}°")
         print(f"  像素: target={st['n_target_px']} ({st['target_px_per_frame']:.1f}/帧) "
               f"shadow={st['n_shadow_px']} unlit={st['n_unlit_px']} floor={st['n_floor_px']}")
         ef = meta["envelope_per_frame"]
