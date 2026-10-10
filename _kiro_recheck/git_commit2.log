@@ -1,0 +1,219 @@
+$ git ls-files --others --exclude-standard -> 0
+_kiro_recheck/annotate_t7.py
+_kiro_recheck/bump_manifest.py
+_kiro_recheck/check_new_meta.py
+_kiro_recheck/core_out.txt
+_kiro_recheck/diag_stageB.py
+_kiro_recheck/diag_stageB2.py
+_kiro_recheck/diag_stageB3.py
+_kiro_recheck/diff_dev.py
+_kiro_recheck/diff_dev.txt
+_kiro_recheck/final_checks.py
+_kiro_recheck/final_checks.txt
+_kiro_recheck/git_commit.log
+_kiro_recheck/git_commit.py
+_kiro_recheck/git_commit2.py
+_kiro_recheck/git_inventory.py
+_kiro_recheck/git_inventory.txt
+_kiro_recheck/git_push.log
+_kiro_recheck/git_push.py
+_kiro_recheck/install_meta.py
+_kiro_recheck/minimax原始日志/check_data_structure.log
+_kiro_recheck/minimax原始日志/check_links.log
+_kiro_recheck/minimax原始日志/check_manifest.log
+_kiro_recheck/minimax原始日志/check_obsolete.log
+_kiro_recheck/minimax原始日志/check_wording.log
+_kiro_recheck/minimax原始日志/f8_design_geometry.py.log
+_kiro_recheck/minimax原始日志/f8_probe_identity.py.log
+_kiro_recheck/minimax原始日志/f8_probe_sigma_rho.py.log
+_kiro_recheck/minimax原始日志/repro_scene_check.log
+_kiro_recheck/minimax原始日志/repro_scene_check_terminal.log
+_kiro_recheck/minimax原始日志/run_all_verify_terminal.log
+_kiro_recheck/minimax原始日志/verify_f2_blind_semantics.py.log
+_kiro_recheck/minimax原始日志/verify_f7_sigma_rho_ledger.py.log
+_kiro_recheck/minimax原始日志/verify_f8_fixed.py.log
+_kiro_recheck/minimax原始日志/verify_f8_sceneset_design.py.log
+_kiro_recheck/minimax原始日志/verify_f8a_shadow_aperture.py.log
+_kiro_recheck/minimax原始日志/verify_f8d_sceneset.py.log
+_kiro_recheck/minimax原始日志/verify_observability_theory.py.log
+_kiro_recheck/minimax原始日志/verify_r1_tau_crit_bound.py.log
+_kiro_recheck/minimax原始日志/verify_sigma_h_propagation.py.log
+_kiro_recheck/minimax原始日志/verify_x6_carve_logic.py.log
+_kiro_recheck/minimax原始日志/verify_x6_roll_vs_straight.py.log
+_kiro_recheck/recheck.py
+_kiro_recheck/regen_exit.txt
+_kiro_recheck/regen_run.log
+_kiro_recheck/run_scans.ps1
+_kiro_recheck/run_scans.py
+_kiro_recheck/scan_exit.txt
+_kiro_recheck/smoke_rx3.py
+_kiro_recheck/spotcheck.py
+_kiro_recheck/stageB_run.log
+_kiro_recheck/stageB_run2.log
+_kiro_recheck/sync_dev.py
+_kiro_recheck/t7_exit.txt
+_kiro_recheck/time_stageB.py
+_kiro_recheck/tune_stageB.py
+_kiro_recheck/update_baselines.py
+_kiro_recheck/verify_core_formula.py
+_kiro_recheck/verify_exit.txt
+sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md
+论文代码与数据/MANIFEST.json.bak
+
+untracked to add: 60
+$ git add -- _kiro_recheck/annotate_t7.py _kiro_recheck/bump_manifest.py _kiro_recheck/check_new_meta.py _kiro_recheck/core_out.txt _kiro_recheck/diag_stageB.py _kiro_recheck/diag_stageB2.py _kiro_recheck/diag_stageB3.py _kiro_recheck/diff_dev.py _kiro_recheck/diff_dev.txt _kiro_recheck/final_checks.py _kiro_recheck/final_checks.txt _kiro_recheck/git_commit.log _kiro_recheck/git_commit.py _kiro_recheck/git_commit2.py _kiro_recheck/git_inventory.py _kiro_recheck/git_inventory.txt _kiro_recheck/git_push.log _kiro_recheck/git_push.py _kiro_recheck/install_meta.py _kiro_recheck/minimax原始日志/check_data_structure.log _kiro_recheck/minimax原始日志/check_links.log _kiro_recheck/minimax原始日志/check_manifest.log _kiro_recheck/minimax原始日志/check_obsolete.log _kiro_recheck/minimax原始日志/check_wording.log _kiro_recheck/minimax原始日志/f8_design_geometry.py.log _kiro_recheck/minimax原始日志/f8_probe_identity.py.log _kiro_recheck/minimax原始日志/f8_probe_sigma_rho.py.log _kiro_recheck/minimax原始日志/repro_scene_check.log _kiro_recheck/minimax原始日志/repro_scene_check_terminal.log _kiro_recheck/minimax原始日志/run_all_verify_terminal.log _kiro_recheck/minimax原始日志/verify_f2_blind_semantics.py.log _kiro_recheck/minimax原始日志/verify_f7_sigma_rho_ledger.py.log _kiro_recheck/minimax原始日志/verify_f8_fixed.py.log _kiro_recheck/minimax原始日志/verify_f8_sceneset_design.py.log _kiro_recheck/minimax原始日志/verify_f8a_shadow_aperture.py.log _kiro_recheck/minimax原始日志/verify_f8d_sceneset.py.log _kiro_recheck/minimax原始日志/verify_observability_theory.py.log _kiro_recheck/minimax原始日志/verify_r1_tau_crit_bound.py.log _kiro_recheck/minimax原始日志/verify_sigma_h_propagation.py.log _kiro_recheck/minimax原始日志/verify_x6_carve_logic.py.log _kiro_recheck/minimax原始日志/verify_x6_roll_vs_straight.py.log _kiro_recheck/recheck.py _kiro_recheck/regen_exit.txt _kiro_recheck/regen_run.log _kiro_recheck/run_scans.ps1 _kiro_recheck/run_scans.py _kiro_recheck/scan_exit.txt _kiro_recheck/smoke_rx3.py _kiro_recheck/spotcheck.py _kiro_recheck/stageB_run.log _kiro_recheck/stageB_run2.log _kiro_recheck/sync_dev.py _kiro_recheck/t7_exit.txt _kiro_recheck/time_stageB.py _kiro_recheck/tune_stageB.py _kiro_recheck/update_baselines.py _kiro_recheck/verify_core_formula.py _kiro_recheck/verify_exit.txt sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md 论文代码与数据/MANIFEST.json.bak -> 0
+be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/git_commit.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/git_commit2.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/git_inventory.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/git_push.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/install_meta.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/recheck.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/run_scans.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/run_scans.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/smoke_rx3.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/spotcheck.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/sync_dev.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/time_stageB.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/tune_stageB.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/update_baselines.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '_kiro_recheck/verify_core_formula.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md', LF will be replaced by CRLF the next time Git touches it
+
+$ git diff --cached --name-only -> 0
+_kiro_recheck/annotate_t7.py
+_kiro_recheck/bump_manifest.py
+_kiro_recheck/check_new_meta.py
+_kiro_recheck/core_out.txt
+_kiro_recheck/diag_stageB.py
+_kiro_recheck/diag_stageB2.py
+_kiro_recheck/diag_stageB3.py
+_kiro_recheck/diff_dev.py
+_kiro_recheck/diff_dev.txt
+_kiro_recheck/final_checks.py
+_kiro_recheck/final_checks.txt
+_kiro_recheck/git_commit.log
+_kiro_recheck/git_commit.py
+_kiro_recheck/git_commit2.py
+_kiro_recheck/git_inventory.py
+_kiro_recheck/git_inventory.txt
+_kiro_recheck/git_push.log
+_kiro_recheck/git_push.py
+_kiro_recheck/install_meta.py
+_kiro_recheck/minimax原始日志/check_data_structure.log
+_kiro_recheck/minimax原始日志/check_links.log
+_kiro_recheck/minimax原始日志/check_manifest.log
+_kiro_recheck/minimax原始日志/check_obsolete.log
+_kiro_recheck/minimax原始日志/check_wording.log
+_kiro_recheck/minimax原始日志/f8_design_geometry.py.log
+_kiro_recheck/minimax原始日志/f8_probe_identity.py.log
+_kiro_recheck/minimax原始日志/f8_probe_sigma_rho.py.log
+_kiro_recheck/minimax原始日志/repro_scene_check.log
+_kiro_recheck/minimax原始日志/repro_scene_check_terminal.log
+_kiro_recheck/minimax原始日志/run_all_verify_terminal.log
+_kiro_recheck/minimax原始日志/verify_f2_blind_semantics.py.log
+_kiro_recheck/minimax原始日志/verify_f7_sigma_rho_ledger.py.log
+_kiro_recheck/minimax原始日志/verify_f8_fixed.py.log
+_kiro_recheck/minimax原始日志/verify_f8_sceneset_design.py.log
+_kiro_recheck/minimax原始日志/verify_f8a_shadow_aperture.py.log
+_kiro_recheck/minimax原始日志/verify_f8d_sceneset.py.log
+_kiro_recheck/minimax原始日志/verify_observability_theory.py.log
+_kiro_recheck/minimax原始日志/verify_r1_tau_crit_bound.py.log
+_kiro_recheck/minimax原始日志/verify_sigma_h_propagation.py.log
+_kiro_recheck/minimax原始日志/verify_x6_carve_logic.py.log
+_kiro_recheck/minimax原始日志/verify_x6_roll_vs_straight.py.log
+_kiro_recheck/recheck.py
+_kiro_recheck/regen_exit.txt
+_kiro_recheck/regen_run.log
+_kiro_recheck/run_scans.ps1
+_kiro_recheck/run_scans.py
+_kiro_recheck/scan_exit.txt
+_kiro_recheck/smoke_rx3.py
+_kiro_recheck/spotcheck.py
+_kiro_recheck/stageB_run.log
+_kiro_recheck/stageB_run2.log
+_kiro_recheck/sync_dev.py
+_kiro_recheck/t7_exit.txt
+_kiro_recheck/time_stageB.py
+_kiro_recheck/tune_stageB.py
+_kiro_recheck/update_baselines.py
+_kiro_recheck/verify_core_formula.py
+_kiro_recheck/verify_exit.txt
+sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md
+论文代码与数据/MANIFEST.json.bak
+
+staged 60; npy/大文件=[]
+$ git commit -m chore: 补传剩余未跟踪文件（复核脚本与日志、MANIFEST 备份、E 组文献报告）
+
+- _kiro_recheck/：Kiro 对 minimax 工作的复核脚本、minimax 原始日志备份、T7/R-X3 诊断脚本
+- 论文代码与数据/MANIFEST.json.bak：按旧嵌套布局生成的 MANIFEST（历史快照）
+- sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md -> 0
+
+ create mode 100644 _kiro_recheck/final_checks.txt
+ create mode 100644 _kiro_recheck/git_commit.log
+ create mode 100644 _kiro_recheck/git_commit.py
+ create mode 100644 _kiro_recheck/git_commit2.py
+ create mode 100644 _kiro_recheck/git_inventory.py
+ create mode 100644 _kiro_recheck/git_inventory.txt
+ create mode 100644 _kiro_recheck/git_push.log
+ create mode 100644 _kiro_recheck/git_push.py
+ create mode 100644 _kiro_recheck/install_meta.py
+ create mode 100644 _kiro_recheck/minimax原始日志/check_data_structure.log
+ create mode 100644 _kiro_recheck/minimax原始日志/check_links.log
+ create mode 100644 _kiro_recheck/minimax原始日志/check_manifest.log
+ create mode 100644 _kiro_recheck/minimax原始日志/check_obsolete.log
+ create mode 100644 _kiro_recheck/minimax原始日志/check_wording.log
+ create mode 100644 _kiro_recheck/minimax原始日志/f8_design_geometry.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/f8_probe_identity.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/f8_probe_sigma_rho.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/repro_scene_check.log
+ create mode 100644 _kiro_recheck/minimax原始日志/repro_scene_check_terminal.log
+ create mode 100644 _kiro_recheck/minimax原始日志/run_all_verify_terminal.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f2_blind_semantics.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f7_sigma_rho_ledger.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f8_fixed.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f8_sceneset_design.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f8a_shadow_aperture.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_f8d_sceneset.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_observability_theory.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_r1_tau_crit_bound.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_sigma_h_propagation.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_x6_carve_logic.py.log
+ create mode 100644 _kiro_recheck/minimax原始日志/verify_x6_roll_vs_straight.py.log
+ create mode 100644 _kiro_recheck/recheck.py
+ create mode 100644 _kiro_recheck/regen_exit.txt
+ create mode 100644 _kiro_recheck/regen_run.log
+ create mode 100644 _kiro_recheck/run_scans.ps1
+ create mode 100644 _kiro_recheck/run_scans.py
+ create mode 100644 _kiro_recheck/scan_exit.txt
+ create mode 100644 _kiro_recheck/smoke_rx3.py
+ create mode 100644 _kiro_recheck/spotcheck.py
+ create mode 100644 _kiro_recheck/stageB_run.log
+ create mode 100644 _kiro_recheck/stageB_run2.log
+ create mode 100644 _kiro_recheck/sync_dev.py
+ create mode 100644 _kiro_recheck/t7_exit.txt
+ create mode 100644 _kiro_recheck/time_stageB.py
+ create mode 100644 _kiro_recheck/tune_stageB.py
+ create mode 100644 _kiro_recheck/update_baselines.py
+ create mode 100644 _kiro_recheck/verify_core_formula.py
+ create mode 100644 _kiro_recheck/verify_exit.txt
+ create mode 100644 sfm_synthetic_pillars/E_GROUP_PAPER_REPORT.md
+ create mode 100644 论文代码与数据/MANIFEST.json.bak
+
+$ git log --oneline -3 -> 0
+f28db52 chore: 补传剩余未跟踪文件（复核脚本与日志、MANIFEST 备份、E 组文献报告）
+5a361a0 theory(T7): 双通道高度精度式 + σ_θ 台账 + R-X3 BA 侧实测
+58f84cf docs(BA): 补充改进依据与动机（问题/依据文献/为什么这么改/效果）
+
+$ git push origin docs/theory-correction-and-roadmap:docs/theory-correction-and-roadmap -> 128
+fatal: unable to access 'https://github.com/hardmore123/sfm.git/': Recv failure: Connection was reset
+
+$ git ls-files --others --exclude-standard -> 0
+
+== remaining untracked ==
+
+$ git status -sb -> 0
+## docs/theory-correction-and-roadmap...origin/docs/theory-correction-and-roadmap [ahead 1]
+
+== status -sb ==
+## docs/theory-correction-and-roadmap...origin/docs/theory-correction-and-roadmap [ahead 1]
