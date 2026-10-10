@@ -1,0 +1,152 @@
+== 未跟踪(未忽略) 58 个 ==
+  _kiro_recheck/annotate_t7.py  1 KB
+  _kiro_recheck/bump_manifest.py  0 KB
+  _kiro_recheck/check_new_meta.py  1 KB
+  _kiro_recheck/core_out.txt  5 KB
+  _kiro_recheck/diag_stageB.py  5 KB
+  _kiro_recheck/diag_stageB2.py  6 KB
+  _kiro_recheck/diag_stageB3.py  3 KB
+  _kiro_recheck/diff_dev.py  0 KB
+  _kiro_recheck/diff_dev.txt  1 KB
+  _kiro_recheck/final_checks.py  0 KB
+  _kiro_recheck/final_checks.txt  0 KB
+  _kiro_recheck/git_commit.log  25 KB
+  _kiro_recheck/git_commit.py  4 KB
+  _kiro_recheck/git_inventory.py  2 KB
+  _kiro_recheck/git_push.log  0 KB
+  _kiro_recheck/git_push.py  0 KB
+  _kiro_recheck/install_meta.py  0 KB
+  _kiro_recheck/minimax原始日志/check_data_structure.log  0 KB
+  _kiro_recheck/minimax原始日志/check_links.log  0 KB
+  _kiro_recheck/minimax原始日志/check_manifest.log  0 KB
+  _kiro_recheck/minimax原始日志/check_obsolete.log  2 KB
+  _kiro_recheck/minimax原始日志/check_wording.log  1 KB
+  _kiro_recheck/minimax原始日志/f8_design_geometry.py.log  3 KB
+  _kiro_recheck/minimax原始日志/f8_probe_identity.py.log  1 KB
+  _kiro_recheck/minimax原始日志/f8_probe_sigma_rho.py.log  1 KB
+  _kiro_recheck/minimax原始日志/repro_scene_check.log  0 KB
+  _kiro_recheck/minimax原始日志/repro_scene_check_terminal.log  2 KB
+  _kiro_recheck/minimax原始日志/run_all_verify_terminal.log  3 KB
+  _kiro_recheck/minimax原始日志/verify_f2_blind_semantics.py.log  2 KB
+  _kiro_recheck/minimax原始日志/verify_f7_sigma_rho_ledger.py.log  0 KB
+  _kiro_recheck/minimax原始日志/verify_f8_fixed.py.log  1 KB
+  _kiro_recheck/minimax原始日志/verify_f8_sceneset_design.py.log  2 KB
+  _kiro_recheck/minimax原始日志/verify_f8a_shadow_aperture.py.log  2 KB
+  _kiro_recheck/minimax原始日志/verify_f8d_sceneset.py.log  4 KB
+  _kiro_recheck/minimax原始日志/verify_observability_theory.py.log  1 KB
+  _kiro_recheck/minimax原始日志/verify_r1_tau_crit_bound.py.log  4 KB
+  _kiro_recheck/minimax原始日志/verify_sigma_h_propagation.py.log  2 KB
+  _kiro_recheck/minimax原始日志/verify_x6_carve_logic.py.log  0 KB
+  _kiro_recheck/minimax原始日志/verify_x6_roll_vs_straight.py.log  0 KB
+  _kiro_recheck/recheck.py  2 KB
+  合计 0.17 MB；>50MB 的：[]
+== 敏感信息命中：[]
+== 被 .gitignore 忽略的条目 337 个（按体积前 25）==
+      9048.7 MB  sfm_synthetic_pillars/big_paper_sim/
+      6236.4 MB  sfm_synthetic_pillars/big_paper_scene_set/
+      2952.6 MB  sfm_synthetic_pillars/_tmp_heave_baseline/
+      2774.9 MB  论文代码与数据/02_代码/scene_set_main/
+      1531.0 MB  数据集（不上传git）/
+       774.9 MB  论文代码与数据/02_代码/scene_set_v2/
+       774.9 MB  sfm_synthetic_pillars/scene_set_v2/
+       688.6 MB  论文代码与数据/02_代码/innov2_ablations/
+       688.6 MB  sfm_synthetic_pillars/innov2_ablations/
+       491.8 MB  论文代码与数据/04_数据/scene_set_main_f8/
+       491.8 MB  论文代码与数据/02_代码/scene_set_main_f8/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S6_main_envelope_outlier/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S5_main_envelope_edge/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S4_main_low_snr/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S3_main_v3/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S3_main_single_mid/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S2_main_forward_degenerate/gt/
+       202.8 MB  sfm_synthetic_pillars/scene_set_main/S1_main_single/gt/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S6_main_envelope_outlier/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S5_main_envelope_edge/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S4_main_low_snr/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S3_main_v3/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S3_main_single_mid/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S2_main_forward_degenerate/innovation2/
+       184.3 MB  sfm_synthetic_pillars/scene_set_main/S1_main_single/innovation2/
+  忽略合计 33.47 GB
+  其中单文件 >100MB（GitHub 硬上限）：72 个，例 ['sfm_synthetic_pillars\\big_paper_sim\\yaw_y\\gt\\pixel_elevs.npy', 'sfm_synthetic_pillars\\big_paper_sim\\yaw_y\\gt\\pixel_hits.npy', 'sfm_synthetic_pillars\\big_paper_sim\\yaw_y\\gt\\sonar_images.npy', 'sfm_synthetic_pillars\\big_paper_sim\\yaw_y\\gt\\sonar_lm_id.npy', 'sfm_synthetic_pillars\\big_paper_sim\\yaw_y\\innovation2\\height_gt_maps.npy']
+== .gitignore ==
+# ============================================================
+# 大文件与数据排除
+# 说明：仓库只跟踪源码、Markdown 文档与小体积配置。
+#      仿真数据、真实数据集、论文 PDF 一律不入库。
+# ============================================================
+
+# ---- 仿真工作区：只跟踪源码/报告/小结果 JSON，数据子目录全部排除 ----
+#      （数据子目录合计约 18.3 GB，源码与报告合计 < 1 MB）
+sfm_synthetic_pillars/big_paper_scene_set/
+sfm_synthetic_pillars/big_paper_sim/
+sfm_synthetic_pillars/innov2_ablations/
+sfm_synthetic_pillars/_tmp_heave_baseline/
+sfm_synthetic_pillars/scene_set_v2/
+sfm_synthetic_pillars/**/__pycache__/
+
+# ---- 真实数据集（约 1.43 GB，目录名已声明不上传）----
+数据集（不上传git）/
+数据集(准备上传git版)/
+
+# ---- 论文库（PDF 与 Blender 资产，约 0.30 GB）----
+论文集/*.pdf
+论文集/ACSim-master/
+*.blend
+*.blend1
+
+# ---- BA 代码的仿真输入（每个 sim_input* 目录都是数据）----
+BA代码/sim_input*/
+
+# ---- 二进制与大体积产物 ----
+*.exe
+*.npy
+*.zip
+*.ply
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.ckpt
+
+# ---- 文档类大文件 ----
+专利/*.docx
+专利/*.doc
+*.docx
+*.doc
+
+# ---- Python 缓存与虚拟环境 ----
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ---- 临时与迁移脚本 ----
+_tmp*
+_kiro_migrate*
+_probe.py
+AGENT_ADDRESS.txt
+
+# ---- 编辑器与系统 ----
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ---- 递归排除所有 PDF 与废弃目录（补 论文集/*.pdf 只匹配直接子级的漏洞）----
+**/*.pdf
+**/_junk_to_delete/
+
+# ---- 论文交付目录：只提交文档与代码，不提交数据 ----
+# 04_数据 的 469MB 掩码由 gen_scenes_main_f8.py 确定性重建，不入库
+论文代码与数据/04_数据/scene_set_main_f8/
+# 02_代码 下的 4 个目录联接（由 _setup_data.py 建立）。
+# git 会把 junction 当真实目录遍历，若不排除会把作废场景集的 meta 复制进库。
+论文代码与数据/02_代码/scene_set_main_f8/
+论文代码与数据/02_代码/scene_set_v2/
+论文代码与数据/02_代码/scene_set_main/
+论文代码与数据/02_代码/innov2_ablations/
+论文代码与数据/02_代码/__pycache__/

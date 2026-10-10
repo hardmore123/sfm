@@ -1,0 +1,1 @@
+{'check_obsolete.py': 6, 'check_wording.py': 7, 'regen_manifest.py': 0, 'check_manifest.py': 0}

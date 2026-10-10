@@ -1,0 +1,263 @@
+_repro_check removed: True
+minimax: 51 files 0.12 MB; largest [('我方核验清单_Kiro.md', 8), ('README_给minimax.md', 5), ('check_obsolete.py', 4)]
+$ git add -- sfm_synthetic_pillars/feasibility.py sfm_synthetic_pillars/gen_scenes_main_f8.py sfm_synthetic_pillars/observability.py sfm_synthetic_pillars/sigma_rho_ledger.md sfm_synthetic_pillars/scene_set_main_f8 大论文思想路线/会话交接_20260907.md 大论文思想路线/创新点内容设计_定稿.md 大论文思想路线/实施任务表_验收标准_阶段安排.md 大论文思想路线/审计_20260906_阴影反演恒等式与孔径未裁剪.md 大论文思想路线/理论修正_T1-T6.md 大论文思想路线/理论基础_打通状态清单.md 论文代码与数据/01_理论支撑 论文代码与数据/02_代码/feasibility.py 论文代码与数据/02_代码/gen_scenes_main_f8.py 论文代码与数据/02_代码/observability.py 论文代码与数据/04_数据/README.md 论文代码与数据/05_结果/F8主档 论文代码与数据/MANIFEST.json 论文代码与数据/README.md 论文代码与数据/会话交接_20260907.md sfm_synthetic_pillars/rx3_ba_crlb.py sfm_synthetic_pillars/sigma_theta_ledger.md sfm_synthetic_pillars/verify_rx3_ba_crlb.py sfm_synthetic_pillars/verify_rx3_stageB.py sfm_synthetic_pillars/verify_sigma_theta_ledger.py sfm_synthetic_pillars/verify_t7_roll_channel.py 大论文思想路线/R_X3_报告_BA侧CRLB实测_20260909.md 大论文思想路线/minimax任务分发 大论文思想路线/任务表_理论收尾与立身_20260909.md 大论文思想路线/工作日志_20260909.md 论文代码与数据/02_代码/rx3_ba_crlb.py 论文代码与数据/02_代码/rx3_ba_crlb_report.json 论文代码与数据/02_代码/rx3_stageB_report.json 论文代码与数据/02_代码/sigma_theta_ledger_report.json 论文代码与数据/02_代码/sigma_theta_ledger_report.txt 论文代码与数据/02_代码/t7_roll_channel_report.json 论文代码与数据/02_代码/t7_roll_channel_report.txt 论文代码与数据/02_代码/verify_rx3_ba_crlb.py 论文代码与数据/02_代码/verify_rx3_stageB.py 论文代码与数据/02_代码/verify_sigma_theta_ledger.py 论文代码与数据/02_代码/verify_t7_roll_channel.py  -> 0
+warning: in the working copy of 'sfm_synthetic_pillars/feasibility.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/gen_scenes_main_f8.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/observability.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/sigma_rho_ledger.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/创新点内容设计_定稿.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/实施任务表_验收标准_阶段安排.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/审计_20260906_阴影反演恒等式与孔径未裁剪.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/理论修正_T1-T6.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/理论基础_打通状态清单.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/公式权威/sigma_rho_ledger.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/公式权威/理论修正_T1-T6.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/创新点设计/创新点内容设计_定稿.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/实施任务表_验收标准_阶段安排.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/审计链/Q1-Q6_审计_20260906_阴影反演恒等式与孔径未裁剪.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/feasibility.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/gen_scenes_main_f8.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/observability.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/04_数据/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/rx3_ba_crlb.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/sigma_theta_ledger.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/verify_rx3_ba_crlb.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/verify_rx3_stageB.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/verify_sigma_theta_ledger.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'sfm_synthetic_pillars/verify_t7_roll_channel.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/R_X3_报告_BA侧CRLB实测_20260909.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/任务02_作废公式残留扫描.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/任务03_措辞纪律与作废数字扫描.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/任务06_文档内部链接检查.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/_总结.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务01_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务02_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务03_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务04_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务05_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务06_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/回报/任务07_回报.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/check_data_structure.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/check_links.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/check_manifest.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/check_obsolete.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/check_wording.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/regen_manifest.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/repro_scene_check.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/minimax任务分发/工具/run_all_verify.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/任务表_理论收尾与立身_20260909.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '大论文思想路线/工作日志_20260909.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/01_理论支撑/公式权威/sigma_theta_ledger.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/rx3_ba_crlb.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/verify_rx3_ba_crlb.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/verify_rx3_stageB.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/verify_sigma_theta_ledger.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '论文代码与数据/02_代码/verify_t7_roll_channel.py', LF will be replaced by CRLF the next time Git touches it
+
+$ git diff --cached --name-only  -> 0
+sfm_synthetic_pillars/feasibility.py
+sfm_synthetic_pillars/gen_scenes_main_f8.py
+sfm_synthetic_pillars/observability.py
+sfm_synthetic_pillars/rx3_ba_crlb.py
+sfm_synthetic_pillars/scene_set_main_f8/INDEX.json
+sfm_synthetic_pillars/scene_set_main_f8/M1_well_constrained/meta.json
+sfm_synthetic_pillars/scene_set_main_f8/M2_blind_low_spread/meta.json
+sfm_synthetic_pillars/scene_set_main_f8/M3_envelope_inside/meta.json
+sfm_synthetic_pillars/scene_set_main_f8/M4_envelope_outside/meta.json
+sfm_synthetic_pillars/scene_set_main_f8/M5_low_snr/meta.json
+sfm_synthetic_pillars/sigma_rho_ledger.md
+sfm_synthetic_pillars/sigma_theta_ledger.md
+sfm_synthetic_pillars/verify_rx3_ba_crlb.py
+sfm_synthetic_pillars/verify_rx3_stageB.py
+sfm_synthetic_pillars/verify_sigma_theta_ledger.py
+sfm_synthetic_pillars/verify_t7_roll_channel.py
+大论文思想路线/R_X3_报告_BA侧CRLB实测_20260909.md
+大论文思想路线/minimax任务分发/README_给minimax.md
+大论文思想路线/minimax任务分发/任务01_验证脚本全量回归.md
+大论文思想路线/minimax任务分发/任务02_作废公式残留扫描.md
+大论文思想路线/minimax任务分发/任务03_措辞纪律与作废数字扫描.md
+大论文思想路线/minimax任务分发/任务04_MANIFEST完整性核查.md
+大论文思想路线/minimax任务分发/任务05_交付数据体量与结构核查.md
+大论文思想路线/minimax任务分发/任务06_文档内部链接检查.md
+大论文思想路线/minimax任务分发/任务07_场景集确定性复现.md
+大论文思想路线/minimax任务分发/回报/_总结.md
+大论文思想路线/minimax任务分发/回报/_总结模板.md
+大论文思想路线/minimax任务分发/回报/任务01_回报.md
+大论文思想路线/minimax任务分发/回报/任务01_自动汇总.md
+大论文思想路线/minimax任务分发/回报/任务02_回报.md
+大论文思想路线/minimax任务分发/回报/任务03_回报.md
+大论文思想路线/minimax任务分发/回报/任务04_回报.md
+大论文思想路线/minimax任务分发/回报/任务05_回报.md
+大论文思想路线/minimax任务分发/回报/任务06_回报.md
+大论文思想路线/minimax任务分发/回报/任务07_回报.md
+大论文思想路线/minimax任务分发/回报/日志/check_data_structure.log
+大论文思想路线/minimax任务分发/回报/日志/check_links.log
+大论文思想路线/minimax任务分发/回报/日志/check_manifest.log
+大论文思想路线/minimax任务分发/回报/日志/check_obsolete.log
+大论文思想路线/minimax任务分发/回报/日志/check_wording.log
+大论文思想路线/minimax任务分发/回报/日志/f8_design_geometry.py.log
+大论文思想路线/minimax任务分发/回报/日志/f8_probe_identity.py.log
+大论文思想路线/minimax任务分发/回报/日志/f8_probe_sigma_rho.py.log
+大论文思想路线/minimax任务分发/回报/日志/repro_scene_check.log
+大论文思想路线/minimax任务分发/回报/日志/repro_scene_check_terminal.log
+大论文思想路线/minimax任务分发/回报/日志/run_all_verify_terminal.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f2_blind_semantics.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f7_sigma_rho_ledger.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f8_fixed.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f8_sceneset_design.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f8a_shadow_aperture.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_f8d_sceneset.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_observability_theory.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_r1_tau_crit_bound.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_sigma_h_propagation.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_sigma_theta_ledger.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_t7_roll_channel.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_x6_carve_logic.py.log
+大论文思想路线/minimax任务分发/回报/日志/verify_x6_roll_vs_straight.py.log
+大论文思想路线/minimax任务分发/工具/check_data_structure.py
+大论文思想路线/minimax任务分发/工具/check_links.py
+大论文思想路线/minimax任务分发/工具/check_manifest.py
+大论文思想路线/minimax任务分发/工具/check_obsolete.py
+大论文思想路线/minimax任务分发/工具/check_wording.py
+大论文思想路线/minimax任务分发/工具/regen_manifest.py
+大论文思想路线/minimax任务分发/工具/repro_scene_check.py
+大论文思想路线/minimax任务分发/工具/run_all_verify.py
+大论文思想路线/minimax任务分发/我方核验清单_Kiro.md
+大论文思想路线/任务表_理论收尾与立身_20260909.md
+大论文思想路线/会话交接_20260907.md
+大论文思想路线/创新点内容设计_定稿.md
+大论文思想路线/实施任务表_验收标准_阶段安排.md
+大论文思想路线/审计_20260906_阴影反演恒等式与孔径未裁剪.md
+大论文思想路线/工作日志_20260909.md
+大论文思想路线/理论修正_T1-T6.md
+大论文思想路线/理论基础_打通状态清单.md
+论文代码与数据/01_理论支撑/公式权威/sigma_rho_ledger.md
+论文代码与数据/01_理论支撑/公式权威/sigma_theta_ledger.md
+论文代码与数据/01_理论支撑/公式权威/理论修正_T1-T6.md
+论文代码与数据/01_理论支撑/创新点设计/创新点内容设计_定稿.md
+论文代码与数据/01_理论支撑/实施任务表_验收标准_阶段安排.md
+论文代码与数据/01_理论支撑/审计链/Q1-Q6_审计_20260906_阴影反演恒等式与孔径未裁剪.md
+论文代码与数据/02_代码/feasibility.py
+论文代码与数据/02_代码/gen_scenes_main_f8.py
+论文代码与数据/02_代码/observability.py
+论文代码与数据/02_代码/rx3_ba_crlb.py
+论文代码与数据/02_代码/rx3_ba_crlb_report.json
+论文代码与数据/02_代码/rx3_stageB_report.json
+论文代码与数据/02_代码/sigma_theta_ledger_report.json
+论文代码与数据/02_代码/sigma_theta_ledger_report.txt
+论文代码与数据/02_代码/t7_roll_channel_report.json
+论文代码与数据/02_代码/t7_roll_channel_report.txt
+论文代码与数据/02_代码/verify_rx3_ba_crlb.py
+论文代码与数据/02_代码/verify_rx3_stageB.py
+论文代码与数据/02_代码/verify_sigma_theta_ledger.py
+论文代码与数据/02_代码/verify_t7_roll_channel.py
+论文代码与数据/04_数据/README.md
+论文代码与数据/05_结果/F8主档/INDEX.json
+论文代码与数据/05_结果/F8主档/各场景meta/M1_well_constrained.json
+论文代码与数据/05_结果/F8主档/各场景meta/M2_blind_low_spread.json
+论文代码与数据/05_结果/F8主档/各场景meta/M3_envelope_inside.json
+论文代码与数据/05_结果/F8主档/各场景meta/M4_envelope_outside.json
+论文代码与数据/05_结果/F8主档/各场景meta/M5_low_snr.json
+论文代码与数据/MANIFEST.json
+论文代码与数据/README.md
+论文代码与数据/会话交接_20260907.md
+
+staged 106 files, 1.02 MB, forbidden=[]
+$ git commit -m theory(T7): 双通道高度精度式 + σ_θ 台账 + R-X3 BA 侧实测
+
+- 理论修正 §9 T7：σ_Pz 补横滚激活的方位通道与 cos φ̄；孔径上限收窄为斜距通道上限
+- 新增 sigma_theta_ledger.md 与 resolve_sigma_theta；observability σ_θ 默认值量纲错误已修
+- R-X3：严格 CRLB 与 MC 真跑优化吻合（位姿已知 8/8，联合 BA 3/4）
+- gen_scenes_main_f8 meta 增加 strict/dual σ_Pz 与 σ_θ 溯源；场景 .npy 逐字节不变
+- 文档：T3/T4 倒挂更正、48.57cm 近似式标注、R-X3 归因更正
+- minimax 机械核查分发包（7 项任务 + 助手脚本），回归基线 16/16
+- 任务表 v4：理论收尾与创新点立身  -> 0
+[docs/theory-correction-and-roadmap 5a361a0] theory(T7): 双通道高度精度式 + σ_θ 台账 + R-X3 BA 侧实测
+ Committer: unknown <likunyuan@hisense.ad>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 106 files changed, 7737 insertions(+), 425 deletions(-)
+ create mode 100644 sfm_synthetic_pillars/rx3_ba_crlb.py
+ create mode 100644 sfm_synthetic_pillars/sigma_theta_ledger.md
+ create mode 100644 sfm_synthetic_pillars/verify_rx3_ba_crlb.py
+ create mode 100644 sfm_synthetic_pillars/verify_rx3_stageB.py
+ create mode 100644 sfm_synthetic_pillars/verify_sigma_theta_ledger.py
+ create mode 100644 sfm_synthetic_pillars/verify_t7_roll_channel.py
+ create mode 100644 大论文思想路线/R_X3_报告_BA侧CRLB实测_20260909.md
+ create mode 100644 大论文思想路线/minimax任务分发/README_给minimax.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务01_验证脚本全量回归.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务02_作废公式残留扫描.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务03_措辞纪律与作废数字扫描.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务04_MANIFEST完整性核查.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务05_交付数据体量与结构核查.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务06_文档内部链接检查.md
+ create mode 100644 大论文思想路线/minimax任务分发/任务07_场景集确定性复现.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/_总结.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/_总结模板.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务01_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务01_自动汇总.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务02_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务03_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务04_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务05_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务06_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/任务07_回报.md
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/check_data_structure.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/check_links.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/check_manifest.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/check_obsolete.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/check_wording.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/f8_design_geometry.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/f8_probe_identity.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/f8_probe_sigma_rho.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/repro_scene_check.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/repro_scene_check_terminal.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/run_all_verify_terminal.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f2_blind_semantics.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f7_sigma_rho_ledger.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f8_fixed.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f8_sceneset_design.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f8a_shadow_aperture.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_f8d_sceneset.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_observability_theory.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_r1_tau_crit_bound.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_sigma_h_propagation.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_sigma_theta_ledger.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_t7_roll_channel.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_x6_carve_logic.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/回报/日志/verify_x6_roll_vs_straight.py.log
+ create mode 100644 大论文思想路线/minimax任务分发/工具/check_data_structure.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/check_links.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/check_manifest.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/check_obsolete.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/check_wording.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/regen_manifest.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/repro_scene_check.py
+ create mode 100644 大论文思想路线/minimax任务分发/工具/run_all_verify.py
+ create mode 100644 大论文思想路线/minimax任务分发/我方核验清单_Kiro.md
+ create mode 100644 大论文思想路线/任务表_理论收尾与立身_20260909.md
+ create mode 100644 大论文思想路线/工作日志_20260909.md
+ create mode 100644 论文代码与数据/01_理论支撑/公式权威/sigma_theta_ledger.md
+ create mode 100644 论文代码与数据/02_代码/rx3_ba_crlb.py
+ create mode 100644 论文代码与数据/02_代码/rx3_ba_crlb_report.json
+ create mode 100644 论文代码与数据/02_代码/rx3_stageB_report.json
+ create mode 100644 论文代码与数据/02_代码/sigma_theta_ledger_report.json
+ create mode 100644 论文代码与数据/02_代码/sigma_theta_ledger_report.txt
+ create mode 100644 论文代码与数据/02_代码/t7_roll_channel_report.json
+ create mode 100644 论文代码与数据/02_代码/t7_roll_channel_report.txt
+ create mode 100644 论文代码与数据/02_代码/verify_rx3_ba_crlb.py
+ create mode 100644 论文代码与数据/02_代码/verify_rx3_stageB.py
+ create mode 100644 论文代码与数据/02_代码/verify_sigma_theta_ledger.py
+ create mode 100644 论文代码与数据/02_代码/verify_t7_roll_channel.py
+
+$ git log --oneline -1  -> 0
+5a361a0 theory(T7): 双通道高度精度式 + σ_θ 台账 + R-X3 BA 侧实测

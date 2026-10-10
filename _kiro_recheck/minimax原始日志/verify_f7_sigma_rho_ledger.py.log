@@ -1,0 +1,18 @@
+=== F-7 sigma_rho 台账接口验收 ===
+规格中值        : 10.0 mm
+带宽受限 c/2B   : 2.5 mm  (B=0.3MHz)
+采样受限(25m/600): 40.9 mm
+采样受限(15m/1600): 9.1 mm
+
+S1 场景解析      : sigma_rho=40.9 mm  source=range_bin_limited(fallback)  告警=True
+strict 模式缺失即报错: True
+
+=== 口径统一后 tau_z_crit 的差异（说明为何必须统一）===
+  规格中值 10mm            主档 7.5°      tau_z_crit =   4.2 cm
+  规格中值 10mm            敏感档 17°      tau_z_crit =   1.8 cm
+  敏感性档实测 40.9mm        主档 7.5°      tau_z_crit =  17.1 cm
+  敏感性档实测 40.9mm        敏感档 17°      tau_z_crit =   7.6 cm
+
+F-7 判定: 通过
+
+---STDERR---

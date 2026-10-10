@@ -1,0 +1,17 @@
+================================================================================
+任务05 · 交付数据体量与结构核查（只读）
+================================================================================
+文件总数：61（期望 61）  ->  ✅
+总字节数：491768159（期望 491768159）  ->  ✅
+
+场景目录：['M1_well_constrained', 'M2_blind_low_spread', 'M3_envelope_inside', 'M4_envelope_outside', 'M5_low_snr']
+  与期望一致：✅
+
+各场景结构：
+  M1_well_constrained: files=12 subdirs=['gt', 'innov2', 'obs'] meta=True  ->  ✅
+  M2_blind_low_spread: files=12 subdirs=['gt', 'innov2', 'obs'] meta=True  ->  ✅
+  M3_envelope_inside: files=12 subdirs=['gt', 'innov2', 'obs'] meta=True  ->  ✅
+  M4_envelope_outside: files=12 subdirs=['gt', 'innov2', 'obs'] meta=True  ->  ✅
+  M5_low_snr: files=12 subdirs=['gt', 'innov2', 'obs'] meta=True  ->  ✅
+
+总判定：全部一致 ✅
