@@ -1,0 +1,5 @@
+=== 可观测性分析 [big_paper] ===
+landmarks: 30, well-constrained (λ3/λ2 > 0.05): 9 (30.0%)
+λ3 分布: min=1.00e-09, median=3.41e+02, max=1.42e+03
+λ3/λ2 分布: min=0.0024, median=0.0326, max=1.0000
+λ3/λ1 分布: min=0.0005, median=0.0053

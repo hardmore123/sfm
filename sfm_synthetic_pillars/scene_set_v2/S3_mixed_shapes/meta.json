@@ -1,0 +1,79 @@
+{
+  "name": "S3_mixed_shapes",
+  "title": "S3 多目标混合",
+  "description": "柱+方+球，检验 h_eff 不再用全局常数",
+  "category": "feasible",
+  "config": {
+    "z_s_m": 4.5,
+    "rho_max_m": 25.0,
+    "pitch_deg": 18.0,
+    "heave_m": 1.2,
+    "forward_m": 4.0,
+    "speckle_sigma": 0.2,
+    "noise_floor_db": 45.0,
+    "fov_elev_deg": [
+      -17.0,
+      17.0
+    ],
+    "beam_count": 256,
+    "range_bin_count": 600
+  },
+  "scene": {
+    "n_pillars": 2,
+    "n_cubes": 1,
+    "n_spheres": 1,
+    "pillar_heights": [
+      1.5,
+      1.5
+    ],
+    "cube_heights": [
+      1.0
+    ],
+    "sphere_diameters": [
+      0.8
+    ],
+    "h_avg_m": 1.2,
+    "d_avg_m": 15.021113303984743
+  },
+  "feasibility": {
+    "is_feasible": true,
+    "h_max_m": 4.5,
+    "elev_top_deg": -12.390517988659294,
+    "L_s_m": 5.462223019630815,
+    "L_s_clipped": false,
+    "expected_feasible": true,
+    "feas_match": true
+  },
+  "stats": {
+    "n_frames": 20,
+    "n_keyframes": 5,
+    "n_target_pixels_total": 361,
+    "n_shadow_pixels_total": 44765,
+    "n_gt_surface_points": 6000
+  },
+  "gt_quality": {
+    "max_dist_to_analytic_m": 4.996003610813204e-16,
+    "max_normal_error_rad": 0.0,
+    "std_over_mean_nn": 0.8754602216664635,
+    "ok": false
+  },
+  "inversion": {
+    "n_valid_pixels": 44765,
+    "mae_v2_median_m": 0.0,
+    "rmse_v2_m": 7.643218680186692e-08,
+    "mae_v2_median_cm": 0.0,
+    "mae_v2_noisy_median_m": 0.005788207054138184,
+    "rmse_v2_noisy_m": 0.008977734483778477,
+    "mae_v2_noisy_median_cm": 0.5788207054138184,
+    "mae_v1_median_cm": null
+  },
+  "timing": {
+    "shadow_s": 0.2,
+    "render_s": 5.63,
+    "gt_sample_s": 0.03,
+    "total_s": 6.35
+  },
+  "aperture_tier": "sensitivity_17deg",
+  "aperture_elev_deg": 17.0,
+  "aperture_note": "敏感性档 ±17° / 256 波束 / σ_ρ=5cm. 主档（ARIS ±7.5° / 128 波束 / σ_ρ=1cm）需重跑"
+}

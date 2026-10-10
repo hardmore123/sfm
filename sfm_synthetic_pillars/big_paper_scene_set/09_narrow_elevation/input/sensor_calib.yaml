@@ -1,0 +1,44 @@
+frames:
+  pose_convention: body_to_world
+  euler_order: Rz_Ry_Rx
+  angle_unit: rad
+  length_unit: m
+  timestamp_unit: ms
+  theta_positive_dir: left
+  T_sensor_body:
+  - - 1
+    - 0
+    - 0
+    - 0
+  - - 0
+    - 1
+    - 0
+    - 0
+  - - 0
+    - 0
+    - 1
+    - 0
+  - - 0
+    - 0
+    - 0
+    - 1
+sonar:
+  beam_count: 512
+  range_bin_count: 800
+  fov_azimuth_deg:
+  - -65.0
+  - 65.0
+  elevation_aperture_deg:
+  - -5.0
+  - 5.0
+  range_min_m: 0.2
+  range_max_m: 4.0
+  sound_speed_mps: 1500.0
+  bandwidth_hz: 300000.0
+pixel_mapping:
+  beam:
+    a: 225.21648716296204
+    b: 255.5
+  range:
+    c: 210.26315789473685
+    d: -42.05263157894737

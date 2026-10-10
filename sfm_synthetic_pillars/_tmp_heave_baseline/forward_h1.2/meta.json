@@ -1,0 +1,72 @@
+{
+  "motion_mode": "forward",
+  "seed": 101,
+  "stats": {
+    "n_pillars": 1,
+    "n_landmarks": 30,
+    "n_frames": 120,
+    "n_keyframes": 6,
+    "n_observations": 1650,
+    "n_obs_keyframes": 139,
+    "n_tracks": 30,
+    "n_target_pixels_total": 10702,
+    "n_shadow_pixels_total": 1900176
+  },
+  "innovation2_stats": {
+    "n_inverted_pixels": 1900176,
+    "median_abs_error_m": 2.384185791015625e-07,
+    "mean_abs_error_m": 0.11973220109939575,
+    "sigma_h_median_m": 0.12202119827270508
+  },
+  "innovation1_stats": {
+    "n_well_constrained": 2,
+    "lambda3_median": 39.214783701280794,
+    "lambda3_min": 1e-09,
+    "ba_final_rms_px": 0.6752426411494473
+  },
+  "output_files": {
+    "input": [
+      "landmarks_final.npy",
+      "odom_rel.csv",
+      "poses_est.npy",
+      "pose_frame_ids.npy",
+      "sensor_calib.yaml",
+      "tracks.csv"
+    ],
+    "gt": [
+      "landmarks_gt.npy",
+      "poses_gt.npy",
+      "poses_keyframe_gt.npy"
+    ],
+    "innovation1": [
+      "confidence.npy",
+      "lambda3_per_lm.npy",
+      "lambda_eigvals.npy",
+      "landmarks_optimized.npy",
+      "normals.npy",
+      "observability_report.txt",
+      "optimized_with_normals.ply",
+      "poses_optimized.npy",
+      "well_mask.npy"
+    ],
+    "innovation2": [
+      "height_inverted.npy",
+      "inversion_stats.json",
+      "shadow_masks.npy",
+      "sigma_height.npy",
+      "target_masks.npy"
+    ],
+    "segmentation_data": [
+      "classes.txt",
+      "images",
+      "masks",
+      "meta.csv"
+    ],
+    "imu": [
+      "imu_data.csv"
+    ],
+    "dvl": [
+      "dvl_data.csv"
+    ]
+  }
+}

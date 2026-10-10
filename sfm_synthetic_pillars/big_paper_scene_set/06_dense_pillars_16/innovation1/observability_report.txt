@@ -1,0 +1,5 @@
+# 06_dense_pillars_16 Observability Report
+
+K=12 keyframes, M=630 landmarks
+λ3 median: 3.99, min: 1.00e-09
+Well-constrained: 465/630 (73.8%)

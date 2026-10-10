@@ -1,0 +1,110 @@
+[
+  {
+    "mode": "general",
+    "time_s": 235.85555243492126,
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 120,
+      "n_keyframes": 24,
+      "n_observations": 6486,
+      "n_obs_keyframes": 1291,
+      "n_tracks": 208,
+      "n_target_pixels_total": 23987,
+      "n_shadow_pixels_total": 7420780
+    },
+    "innovation1": {
+      "n_well_constrained": 73,
+      "lambda3_median": 155.60762114755912,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.7938176999005776
+    },
+    "innovation2": {
+      "n_inverted_pixels": 7378659,
+      "median_abs_error_m": 1.1920928955078125e-07,
+      "mean_abs_error_m": 0.20493768155574799,
+      "sigma_h_median_m": 0.07142705470323563
+    }
+  },
+  {
+    "mode": "forward",
+    "time_s": 380.29590916633606,
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 120,
+      "n_keyframes": 24,
+      "n_observations": 6546,
+      "n_obs_keyframes": 1305,
+      "n_tracks": 209,
+      "n_target_pixels_total": 24650,
+      "n_shadow_pixels_total": 8955860
+    },
+    "innovation1": {
+      "n_well_constrained": 91,
+      "lambda3_median": 61.17627782319578,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.8051770245193982
+    },
+    "innovation2": {
+      "n_inverted_pixels": 8955860,
+      "median_abs_error_m": 5.960464477539063e-08,
+      "mean_abs_error_m": 0.07926463335752487,
+      "sigma_h_median_m": 0.07303516566753387
+    }
+  },
+  {
+    "mode": "yaw_y",
+    "time_s": 278.4309825897217,
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 120,
+      "n_keyframes": 24,
+      "n_observations": 6763,
+      "n_obs_keyframes": 1326,
+      "n_tracks": 155,
+      "n_target_pixels_total": 21140,
+      "n_shadow_pixels_total": 4839935
+    },
+    "innovation1": {
+      "n_well_constrained": 120,
+      "lambda3_median": 0.5476282611218233,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.8456284230530903
+    },
+    "innovation2": {
+      "n_inverted_pixels": 4839935,
+      "median_abs_error_m": 0.0,
+      "mean_abs_error_m": 0.0014531611232087016,
+      "sigma_h_median_m": 0.045873064547777176
+    }
+  },
+  {
+    "mode": "mixed",
+    "time_s": 276.5590136051178,
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 120,
+      "n_keyframes": 24,
+      "n_observations": 7305,
+      "n_obs_keyframes": 1464,
+      "n_tracks": 207,
+      "n_target_pixels_total": 25003,
+      "n_shadow_pixels_total": 7732730
+    },
+    "innovation1": {
+      "n_well_constrained": 71,
+      "lambda3_median": 163.8290500202121,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.812696962644659
+    },
+    "innovation2": {
+      "n_inverted_pixels": 7724075,
+      "median_abs_error_m": 5.960464477539063e-08,
+      "mean_abs_error_m": 0.15233014523983002,
+      "sigma_h_median_m": 0.06317377090454102
+    }
+  }
+]

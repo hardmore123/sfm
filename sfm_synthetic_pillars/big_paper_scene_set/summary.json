@@ -1,0 +1,450 @@
+[
+  {
+    "name": "01_simple_single_pillar",
+    "title": "单根柱子（最简）",
+    "category": "simple",
+    "stats": {
+      "n_pillars": 1,
+      "n_landmarks": 30,
+      "n_frames": 120,
+      "n_keyframes": 6,
+      "n_observations": 1657,
+      "n_obs_keyframes": 144,
+      "n_tracks": 30,
+      "n_target_pixels_total": 6369,
+      "n_shadow_pixels_total": 3714878
+    },
+    "innov1": {
+      "n_well_constrained": 1,
+      "lambda3_median": 216.1474965301717,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.5663668111710853
+    },
+    "innov2": {
+      "n_inverted_pixels": 3685879,
+      "median_abs_error_m": 1.264892339706421,
+      "mean_abs_error_m": 1.2161606550216675,
+      "sigma_h_median_m": 0.10598542541265488
+    }
+  },
+  {
+    "name": "02_simple_two_pillars",
+    "title": "两根柱子（最小双目标）",
+    "category": "simple",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 60,
+      "n_frames": 60,
+      "n_keyframes": 10,
+      "n_observations": 1160,
+      "n_obs_keyframes": 206,
+      "n_tracks": 60,
+      "n_target_pixels_total": 4401,
+      "n_shadow_pixels_total": 2243078
+    },
+    "innov1": {
+      "n_well_constrained": 6,
+      "lambda3_median": 171.80265107738072,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.5407320189243686
+    },
+    "innov2": {
+      "n_inverted_pixels": 2114037,
+      "median_abs_error_m": 0.0,
+      "mean_abs_error_m": 0.30297520756721497,
+      "sigma_h_median_m": 0.09898734837770462
+    }
+  },
+  {
+    "name": "03_simple_cube",
+    "title": "立方体（验证非柱面）",
+    "category": "simple",
+    "stats": {
+      "n_pillars": 0,
+      "n_landmarks": 30,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 670,
+      "n_obs_keyframes": 139,
+      "n_tracks": 30,
+      "n_target_pixels_total": 15862,
+      "n_shadow_pixels_total": 10342472
+    },
+    "innov1": {
+      "n_well_constrained": 8,
+      "lambda3_median": 192.28219928196137,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6670367258315931
+    },
+    "innov2": {
+      "n_inverted_pixels": 10293559,
+      "median_abs_error_m": 1.2180685997009277,
+      "mean_abs_error_m": 0.8418965935707092,
+      "sigma_h_median_m": 0.10637596249580383
+    }
+  },
+  {
+    "name": "04_sphere_target",
+    "title": "球（测试无阴影）",
+    "category": "simple",
+    "stats": {
+      "n_pillars": 0,
+      "n_landmarks": 30,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 1049,
+      "n_obs_keyframes": 216,
+      "n_tracks": 30,
+      "n_target_pixels_total": 7093,
+      "n_shadow_pixels_total": 4398282
+    },
+    "innov1": {
+      "n_well_constrained": 3,
+      "lambda3_median": 735.6939542791861,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6400449420682607
+    },
+    "innov2": {
+      "n_inverted_pixels": 4110090,
+      "median_abs_error_m": 1.1920928955078125e-07,
+      "mean_abs_error_m": 0.26875847578048706,
+      "sigma_h_median_m": 0.11066566407680511
+    }
+  },
+  {
+    "name": "05_diverse_shapes",
+    "title": "多种几何混合",
+    "category": "complex",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 150,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 3443,
+      "n_obs_keyframes": 710,
+      "n_tracks": 149,
+      "n_target_pixels_total": 10247,
+      "n_shadow_pixels_total": 4780684
+    },
+    "innov1": {
+      "n_well_constrained": 32,
+      "lambda3_median": 204.59574105269695,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6134233500596723
+    },
+    "innov2": {
+      "n_inverted_pixels": 4510000,
+      "median_abs_error_m": 1.1920928955078125e-07,
+      "mean_abs_error_m": 0.4452529847621918,
+      "sigma_h_median_m": 0.10397352278232574
+    }
+  },
+  {
+    "name": "06_dense_pillars_16",
+    "title": "16 根柱子密集排布",
+    "category": "complex",
+    "stats": {
+      "n_pillars": 21,
+      "n_landmarks": 630,
+      "n_frames": 60,
+      "n_keyframes": 9,
+      "n_observations": 14002,
+      "n_obs_keyframes": 2111,
+      "n_tracks": 597,
+      "n_target_pixels_total": 22299,
+      "n_shadow_pixels_total": 12581638
+    },
+    "innov1": {
+      "n_well_constrained": 210,
+      "lambda3_median": 54.63929090477036,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.5416859503242559
+    },
+    "innov2": {
+      "n_inverted_pixels": 11211297,
+      "median_abs_error_m": 1.289363145828247,
+      "mean_abs_error_m": 1.2472680807113647,
+      "sigma_h_median_m": 0.10564813762903214
+    }
+  },
+  {
+    "name": "07_high_resolution",
+    "title": "高分辨率声呐 (1024×1200)",
+    "category": "sensor",
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 3910,
+      "n_obs_keyframes": 786,
+      "n_tracks": 228,
+      "n_target_pixels_total": 18982,
+      "n_shadow_pixels_total": 9110522
+    },
+    "innov1": {
+      "n_well_constrained": 107,
+      "lambda3_median": 31.72075517114562,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.9207788803642778
+    },
+    "innov2": {
+      "n_inverted_pixels": 8432432,
+      "median_abs_error_m": 1.3696115016937256,
+      "mean_abs_error_m": 1.3036816120147705,
+      "sigma_h_median_m": 0.08807466924190521
+    }
+  },
+  {
+    "name": "08_low_resolution",
+    "title": "低分辨率声呐 (128×200)",
+    "category": "sensor",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 60,
+      "n_frames": 120,
+      "n_keyframes": 8,
+      "n_observations": 1653,
+      "n_obs_keyframes": 124,
+      "n_tracks": 50,
+      "n_target_pixels_total": 3979,
+      "n_shadow_pixels_total": 528804
+    },
+    "innov1": {
+      "n_well_constrained": 36,
+      "lambda3_median": 1e-09,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.3171605832082744
+    },
+    "innov2": {
+      "n_inverted_pixels": 509276,
+      "median_abs_error_m": 1.4883267879486084,
+      "mean_abs_error_m": 1.4620211124420166,
+      "sigma_h_median_m": 0.07018963247537613
+    }
+  },
+  {
+    "name": "09_narrow_elevation",
+    "title": "窄仰角孔径 (±5°)",
+    "category": "sensor",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 60,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 254,
+      "n_obs_keyframes": 51,
+      "n_tracks": 17,
+      "n_target_pixels_total": 6402,
+      "n_shadow_pixels_total": 3507830
+    },
+    "innov1": {
+      "n_well_constrained": 51,
+      "lambda3_median": 1e-09,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.4106199013534535
+    },
+    "innov2": {
+      "n_inverted_pixels": 3245995,
+      "median_abs_error_m": 1.521941900253296,
+      "mean_abs_error_m": 1.5067194700241089,
+      "sigma_h_median_m": 0.07018963247537613
+    }
+  },
+  {
+    "name": "10_wide_elevation",
+    "title": "宽仰角孔径 (±25°)",
+    "category": "sensor",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 60,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 1119,
+      "n_obs_keyframes": 218,
+      "n_tracks": 60,
+      "n_target_pixels_total": 6751,
+      "n_shadow_pixels_total": 3532540
+    },
+    "innov1": {
+      "n_well_constrained": 18,
+      "lambda3_median": 593.3391723511852,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.712269496369361
+    },
+    "innov2": {
+      "n_inverted_pixels": 3532540,
+      "median_abs_error_m": 1.4890083074569702,
+      "mean_abs_error_m": 1.4441758394241333,
+      "sigma_h_median_m": 0.07018963247537613
+    }
+  },
+  {
+    "name": "11_seafloor_with_rubble",
+    "title": "海底+散石（背景杂波）",
+    "category": "env",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 200,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 2518,
+      "n_obs_keyframes": 522,
+      "n_tracks": 162,
+      "n_target_pixels_total": 7447,
+      "n_shadow_pixels_total": 4001316
+    },
+    "innov1": {
+      "n_well_constrained": 94,
+      "lambda3_median": 23.769208168583063,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.544872621372368
+    },
+    "innov2": {
+      "n_inverted_pixels": 3737762,
+      "median_abs_error_m": 1.3342455625534058,
+      "mean_abs_error_m": 1.2854957580566406,
+      "sigma_h_median_m": 0.10536359995603561
+    }
+  },
+  {
+    "name": "12_multipath_heavy",
+    "title": "多径/旁瓣干扰",
+    "category": "env",
+    "stats": {
+      "n_pillars": 2,
+      "n_landmarks": 60,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 1661,
+      "n_obs_keyframes": 347,
+      "n_tracks": 60,
+      "n_target_pixels_total": 6638,
+      "n_shadow_pixels_total": 3994802
+    },
+    "innov1": {
+      "n_well_constrained": 7,
+      "lambda3_median": 276.4083229351662,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.7121626138898057
+    },
+    "innov2": {
+      "n_inverted_pixels": 3731248,
+      "median_abs_error_m": 1.3345973491668701,
+      "mean_abs_error_m": 1.2891321182250977,
+      "sigma_h_median_m": 0.10536359995603561
+    }
+  },
+  {
+    "name": "13_circular_trajectory",
+    "title": "圆周轨迹（环绕目标）",
+    "category": "traj",
+    "stats": {
+      "n_pillars": 1,
+      "n_landmarks": 30,
+      "n_frames": 120,
+      "n_keyframes": 9,
+      "n_observations": 1754,
+      "n_obs_keyframes": 149,
+      "n_tracks": 19,
+      "n_target_pixels_total": 6480,
+      "n_shadow_pixels_total": 3006726
+    },
+    "innov1": {
+      "n_well_constrained": 20,
+      "lambda3_median": 624.4098288715927,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6818913954122118
+    },
+    "innov2": {
+      "n_inverted_pixels": 2386254,
+      "median_abs_error_m": 1.2262675762176514,
+      "mean_abs_error_m": 1.22970449924469,
+      "sigma_h_median_m": 0.10495108366012573
+    }
+  },
+  {
+    "name": "14_zigzag_trajectory",
+    "title": "之字形轨迹",
+    "category": "traj",
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 120,
+      "n_keyframes": 9,
+      "n_observations": 7966,
+      "n_obs_keyframes": 1066,
+      "n_tracks": 193,
+      "n_target_pixels_total": 25081,
+      "n_shadow_pixels_total": 14260586
+    },
+    "innov1": {
+      "n_well_constrained": 87,
+      "lambda3_median": 99.27460022891759,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6519856002155288
+    },
+    "innov2": {
+      "n_inverted_pixels": 8581007,
+      "median_abs_error_m": 1.2458338737487793,
+      "mean_abs_error_m": 1.236134648323059,
+      "sigma_h_median_m": 0.10495108366012573
+    }
+  },
+  {
+    "name": "15_speckle_heavy",
+    "title": "重相干斑（增强）",
+    "category": "aug",
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 6226,
+      "n_obs_keyframes": 1269,
+      "n_tracks": 239,
+      "n_target_pixels_total": 12874,
+      "n_shadow_pixels_total": 6372707
+    },
+    "innov1": {
+      "n_well_constrained": 17,
+      "lambda3_median": 217.83957101674446,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 0.6616119264960745
+    },
+    "innov2": {
+      "n_inverted_pixels": 5733202,
+      "median_abs_error_m": 1.2906103134155273,
+      "mean_abs_error_m": 1.2293537855148315,
+      "sigma_h_median_m": 0.10564813762903214
+    }
+  },
+  {
+    "name": "16_low_snr_extreme",
+    "title": "极低 SNR（极端外点）",
+    "category": "aug",
+    "stats": {
+      "n_pillars": 8,
+      "n_landmarks": 240,
+      "n_frames": 60,
+      "n_keyframes": 12,
+      "n_observations": 5161,
+      "n_obs_keyframes": 1071,
+      "n_tracks": 237,
+      "n_target_pixels_total": 11406,
+      "n_shadow_pixels_total": 5458336
+    },
+    "innov1": {
+      "n_well_constrained": 78,
+      "lambda3_median": 125.60546258567882,
+      "lambda3_min": 1e-09,
+      "ba_final_rms_px": 1.377888350020806
+    },
+    "innov2": {
+      "n_inverted_pixels": 5208913,
+      "median_abs_error_m": 0.5811071395874023,
+      "mean_abs_error_m": 0.5590361952781677,
+      "sigma_h_median_m": 0.10536359995603561
+    }
+  }
+]
