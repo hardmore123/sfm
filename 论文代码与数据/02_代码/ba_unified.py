@@ -158,7 +158,10 @@ class UnifiedSonarBA:
                     pred = imp.reproject_single(Pw, poses6[i], self.calib)
                     err += (pred[0] - ob_b) ** 2 + (pred[1] - ob_r) ** 2
                 if has_prior:  # 创新点二：仰角先验偏置（阴影反演的高度先验）
-                    err += ((e - self.elev_prior[j]) / self.elev_prior_sigma[j]) ** 2
+                    # 2026-10-13审计修正: 旧版用权重1.0, 但residuals()用self.w_elevprior
+                    # 修正: 统一使用self.w_elevprior, 使网格搜索与残差优化一致
+                    w_ep = self.weights.get("elevprior", 1.0)
+                    err += w_ep * ((e - self.elev_prior[j]) / self.elev_prior_sigma[j]) ** 2
                 if err < best_err:
                     best_err, best_e = err, e
             self.elev_fixed[j] = best_e

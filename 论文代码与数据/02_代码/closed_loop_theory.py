@@ -45,20 +45,23 @@ def h_to_elev_prior(h, D_t, z_s, z_floor, R_base, t_base, r_j):
     参数:
       h:       反演高度(来自★II-1, m)
       D_t:     目标水平距离(来自★I-BA, m)
-      z_s:     声呐高度(来自★I-BA, m)
+      z_s:     声呐高度(来自★I-BA, m) — 注: 通过t_base[2]隐式进入, 此参数未直接使用(兼容接口)
       z_floor: 海底高度(m, 用于平坦海底校正)
       R_base:  基准帧旋转矩阵(3x3, 来自BA的base_frame位姿)
       t_base:  基准帧平移(3, 来自BA的base_frame位姿)
-      r_j:     目标斜距(m, 来自BA的r[j])
+      r_j:     目标斜距(m, 来自BA的r[j]) — 注: 代码用rho_body=norm(P_b)替代, 此参数未直接使用(兼容接口)
     
     返回:
-      ê_j: 体坐标系仰角先验(rad)
+      ê_j: 体坐标系仰角先验(rad), 有效性条件不满足返回nan
     """
     P_top = np.array([D_t, 0.0, h - z_floor])
     P_b = R_base.T @ (P_top - t_base)
     rho_body = np.linalg.norm(P_b)
     if rho_body < 1e-10:
         return float("nan")
+    # 2026-10-13审计修正: 理论§5.2有效性条件 |P_b[2]| < r_j, 否则arcsin越界→先验作废
+    if abs(P_b[2]) >= rho_body - 1e-12:
+        return float("nan")  # 有效性条件不满足, 先验作废
     return float(np.arcsin(P_b[2] / rho_body))
 
 
@@ -107,7 +110,7 @@ def confidence_init(kappa_j, s_i, g_i, q_i):
       s_i: 几何可信度(来自κ_j, 良约束=1, 弱=0.5, 盲=0)
       g_i: 门控因子(来自阴影包线判定, 包线内=1, 外=0)
       q_i: 语义因子(来自分割置信度, 三类正确=1)
-      w_i^(0) = normalize(s_i * g_i * q_i)
+      w_i^(0) = clip(s_i * g_i * q_i, 0, 1) — 注: s/g/q∈[0,1]时乘积∈[0,1], clip是安全措施而非归一化
     
     参数:
       kappa_j: BA输出的特征值倒数(κ_j = 1/λ_3, 越大越良约束)

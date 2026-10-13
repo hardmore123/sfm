@@ -211,7 +211,10 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
     tm, sm, um, fm, te = SF.render_all_fixed(poses_T, world, cfg, verbose=False)
 
     # ---- 逐帧逐列量测阴影远端 → 反演高度
-    P_top = np.array([D_T, 0.0, h])
+    # 2026-10-13审计修正: 旧版P_top用GT(D_T,0,h)直接计算D_far,
+    # 注入σ_Dt噪声只是给GT加扰动, leak_free=True是假的.
+    # 修正: 反演用D_t_ba(含BA误差)计算D_far, 但GT分析(observability/phi/pillar_top_gt)仍用P_top(GT).
+    P_top = np.array([D_T, 0.0, h])  # GT柱顶坐标(用于observability/phi分析, 不喂给反演)
     R_PILLAR = 0.25
     beams = np.deg2rad(np.linspace(-ARIS["azim_deg"] / 2, ARIS["azim_deg"] / 2,
                                    ARIS["n_beams"]))
@@ -220,9 +223,14 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
         z_s_i = float(poses6[i, 2])
         R_i = poses_T[i][:3, :3]
         yaw_i = float(np.arctan2(R_i[1, 0], R_i[0, 0]))
-        # 柱心水平距与方位，由 ★I(BA) 的地标点云给出
-        dx = P_top[0] - poses6[i, 0]
-        dy = P_top[1] - poses6[i, 1]
+        # 模拟BA对柱心的估计: D_t_ba = D_t_gt + N(0,σ_Dt), y_ba = 0 + N(0,σ_Dt)
+        # 这是BA输出(含估计误差), 不是GT. 真实GT是(D_T, 0).
+        # 注: 反演用D_t_ba, 但observability_t7/phi仍用GT P_top(分析用, 不影响反演精度)
+        D_t_ba = D_T + float(rng.normal(0.0, SIGMA_DT_M))
+        y_ba = 0.0 + float(rng.normal(0.0, SIGMA_DT_M))
+        # 柱心水平距与方位, 由★I(BA)的地标点云估计给出(含BA误差)
+        dx = D_t_ba - poses6[i, 0]
+        dy = y_ba - poses6[i, 1]
         d_h_c = float(np.hypot(dx, dy))
         th_c = float(np.arctan2(dy, dx))
         z_s_ba = z_s_i + float(rng.normal(0.0, SIGMA_ZS_M))
@@ -232,17 +240,14 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
             rho_end = SF.measure_shadow_far_edge(sm[i, :, c], fm[i, :, c], rngs)
             if not np.isfinite(rho_end):
                 continue
-            # 反演所需的水平参考是**轮廓远边缘** D_far，不是柱心 D_t。
-            # 决定阴影长度的是轮廓远边缘（见 shadow_f8_fixed 的遮挡判据）；
-            # 若误用柱心，会引入 +r 量级的系统偏置（本构型约 +8 cm）。
-            # D_far 由 BA 的柱心 + 半径 + 已知波束方位算出，无需真值高度。
+            # D_far 由 BA 的柱心估计(D_t_ba, 含BA误差) + 半径 + 波束方位算出
+            # 注: D_t_ba已含BA估计误差(N(0,σ_Dt)), D_far不再额外加噪
             dth = (th_c - (beams[c] + yaw_i) + np.pi) % (2 * np.pi) - np.pi
             s_ = d_h_c * np.sin(dth)
             disc = R_PILLAR ** 2 - s_ ** 2
             if disc < 0:
                 continue
-            D_far = d_h_c * np.cos(dth) + float(np.sqrt(disc))
-            D_far_ba = D_far + float(rng.normal(0.0, SIGMA_DT_M))
+            D_far_ba = d_h_c * np.cos(dth) + float(np.sqrt(disc))
             h_inv = SF.invert_height_from_far_edge(rho_end, D_far_ba, z_s_ba)
             if not np.isfinite(h_inv):
                 continue
@@ -431,12 +436,13 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
             "sigma_h_pred_cm": float(np.median(s_h_all) * 100) if s_h_all.size else None,
             "leak_free": False,
             "leak_note": (
-                "2026-10-13审计修正: D_far由GT柱心坐标(D_T,0)+柱半径r=0.25计算,"
-                "注入σ_Dt=0.02高斯噪声模拟BA定位误差, 但D_far的基准值仍来自GT."
-                "严格意义上leak_free=False(用GT参数计算D_far基准). "
+                "2026-10-13审计修正: D_far由BA柱心估计(D_t_ba=D_t_gt+N(0,σ_Dt),"
+                "y_ba=0+N(0,σ_Dt))计算, 模拟BA定位误差."
+                "D_t_ba含BA估计误差(非GT直接使用), 但BA误差模型为高斯(真实BA可能非高斯)."
                 "L_s由obs/shadow_masks量测远端跳变得到(非解析值), "
-                "反演路径不读解析L_s/D_t ⇒ 非恒等式(C7), "
-                "但D_far的GT依赖需在论文中诚实说明."),
+                "反演路径不读解析L_s/D_t ⇒ 非恒等式(C7). "
+                "leak_free=False: D_far的基准仍依赖GT柱心位置(加高斯噪声模拟BA), "
+                "完全独立需真实BA运行(未来工作)."),
         },
         "timing_s": round(time.time() - t0, 1),
     }

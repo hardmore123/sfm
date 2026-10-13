@@ -105,6 +105,9 @@ def main():
         ratio_analytic_mc = sigma_h_analytic[idx] / sigma_h_mc
         
         # 与存储的σ_h对比
+        # 2026-10-13审计修正标注: 存储σ_h用gen_scenes参数(σ_ρ=DBIN/√12≈0.26mm, σ_zs=0.02m),
+        # 本脚本用(σ_ρ=0.010m=10mm, σ_zs=0.01m), 参数不同故存储/解析≈0.92是参数差异所致,
+        # 非公式误差. 核心验证是解析vs MC(路径1 vs 路径2, 独立方法).
         ratio_stored_analytic = sigma_h_stored[idx] / sigma_h_analytic[idx]
         
         print(f"\n{'='*50}")

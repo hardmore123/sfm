@@ -42,6 +42,11 @@ def chamfer_distance(recon_points, gt_points):
 def hausdorff_99(recon_points, gt_points):
     """
     Hausdorff距离(99百分位, 避免外点主导)
+    
+    注(2026-10-13审计): 标准Hausdorff距离为max(sup_x d(x,Y), sup_y d(y,X)),
+    本函数用99百分位替代sup以避免单个外点主导, 属于鲁棒Hausdorff变体.
+    文献中常称"modified Hausdorff"或"percentile Hausdorff".
+    
     HD_99 = max(P99(min_dist(recon→gt)), P99(min_dist(gt→recon)))
     """
     if len(recon_points) == 0 or len(gt_points) == 0:
@@ -72,12 +77,19 @@ def normal_consistency(recon_normals, gt_normals, recon_points, gt_points):
     法向一致性: 重建法向与最近邻GT法向的点积均值
     NC = mean(|recon_normal · nearest_gt_normal|)
     值∈[0,1], 1=完全一致
+    
+    注(2026-10-13审计): 法向应先归一化为单位向量, 否则点积值无意义.
+    本函数对输入法向做归一化(若未归一化).
+    "最近邻"指最近点(非最近面), 对网格边缘可能有语义偏差.
     """
     if len(recon_points) == 0 or len(gt_points) == 0:
         return 0.0
+    # 归一化法向(确保单位向量)
+    recon_n = recon_normals / (np.linalg.norm(recon_normals, axis=1, keepdims=True) + 1e-12)
+    gt_n = gt_normals / (np.linalg.norm(gt_normals, axis=1, keepdims=True) + 1e-12)
     tree_gt = cKDTree(gt_points)
     _, idx = tree_gt.query(recon_points, k=1)
-    dots = np.abs(np.sum(recon_normals * gt_normals[idx], axis=1))
+    dots = np.abs(np.sum(recon_n * gt_n[idx], axis=1))
     return float(np.mean(dots))
 
 

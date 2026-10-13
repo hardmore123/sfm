@@ -19,7 +19,11 @@ import numpy as np
 from pathlib import Path
 from scipy.spatial import ConvexHull, Delaunay
 
-SCENE_ROOT = Path("F:/sfm/sfm_synthetic_pillars/scene_set_v2")
+# 2026-10-13审计修正: 旧版硬编码F:/sfm/sfm_synthetic_pillars/scene_set_v2(已弃用)
+# 改为相对路径, 与gen_scenes_main_f8.py和verify_f4b_carve_precision.py一致
+_HERE = Path(__file__).resolve().parent          # 02_代码/
+_DELIV = _HERE.parent                              # 论文代码与数据/
+SCENE_ROOT = _DELIV / "04_数据" / "scene_set_main_f8"
 
 
 def make_binary_form(sonar_image, n_std=3.0, r_min_m=1.5, r_max_m=18.0, range_axis=None):
@@ -81,11 +85,14 @@ def voxel_carve(poses_se3, form_masks, voxel_centers, shape3,
 def gt_occupancy(surface_pts, voxel_centers, convex=True):
     """GT 实心占据：凸目标用 ConvexHull+Delaunay 判体素中心是否在包内。"""
     if len(surface_pts) < 4:
+        print("  [WARN] gt_occupancy: surface_pts<4, 返回全False")
         return np.zeros(voxel_centers.shape[0], dtype=bool)
     try:
         dl = Delaunay(surface_pts)
         return dl.find_simplex(voxel_centers) >= 0
-    except Exception:
+    except Exception as e:
+        # 2026-10-13审计修正: 旧版静默返回全False会导致虚假S1=100%, 改为打印告警
+        print(f"  [WARN] gt_occupancy: Delaunay失败({e}), 返回全False")
         return np.zeros(voxel_centers.shape[0], dtype=bool)
 
 
@@ -101,16 +108,42 @@ def volumetric_error(alive, gt_occ, voxel_vol):
 
 
 def evaluate(scene_name, voxel_size=0.05, n_poses=None, form_mode="auto"):
+    """
+    评估函数(2026-10-13审计修正):
+      旧版从scene_set_v2加载gt/sonar_images.npy等(已弃用格式).
+      scene_set_main_f8无sonar_images.npy(用obs/target_masks.npy替代).
+      本函数保留用于向后兼容, 但主流程已由verify_f4b_carve_precision.py替代.
+      若场景目录缺少所需文件, 返回None并打印告警.
+    """
     d = SCENE_ROOT / scene_name
-    meta = json.load(open(d / "meta.json", encoding="utf-8"))
-    poses = np.load(d / "gt/poses_gt.npy")
-    imgs = np.load(d / "gt/sonar_images.npy")
-    surf = np.load(d / "gt/surface_points.npy")
+    if not d.exists():
+        print(f"  [SKIP] 场景不存在: {d}")
+        return None
+    meta_path = d / "meta.json"
+    if not meta_path.exists():
+        print(f"  [SKIP] 无meta.json: {d}")
+        return None
+    meta = json.load(open(meta_path, encoding="utf-8"))
+    
+    # 检查所需文件是否存在(scene_set_main_f8无sonar_images.npy)
+    poses_path = d / "gt" / "poses_gt.npy"
+    imgs_path = d / "gt" / "sonar_images.npy"
+    surf_path = d / "gt" / "surface_points.npy"
+    if not all(p.exists() for p in [poses_path, imgs_path, surf_path]):
+        print(f"  [SKIP] 场景{scene_name}缺少gt/sonar_images.npy或surface_points.npy")
+        print(f"         (scene_set_main_f8用obs/target_masks.npy替代, 主流程见verify_f4b)")
+        return None
+    
+    poses = np.load(poses_path)
+    imgs = np.load(imgs_path)
+    surf = np.load(surf_path)
     N, H, W = imgs.shape
 
     cfg = meta.get("config", {})
     fov_elev = np.deg2rad(cfg.get("fov_elev_deg", [-17, 17])[1])
-    fov_azim = np.deg2rad(15.0)   # 方位半孔径（beam_axis 端点）
+    # 2026-10-13审计修正: fov_azim从meta读取(旧版硬编码15°)
+    fov_azim_deg = cfg.get("fov_azim_deg", 30.0)
+    fov_azim = np.deg2rad(fov_azim_deg / 2.0)   # 方位半孔径
     range_axis = np.linspace(0.5, cfg.get("rho_max_m", 25.0), H)
     beam_axis = np.linspace(-fov_azim, fov_azim, W)
 

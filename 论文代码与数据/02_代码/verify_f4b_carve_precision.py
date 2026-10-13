@@ -203,14 +203,15 @@ def run_scene_optimized(scene_name, voxel_size=0.05):
     # 从measurements.npy获取★II-1反演高度(不是GT)
     meas_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
                               "04_数据", "scene_set_main_f8", scene_name, "innov2", "measurements.npy")
-    h_inv = h_gt  # 默认退化为GT
     if os.path.exists(meas_path):
         meas = np.load(meas_path)
         h_inv = float(np.mean(meas[:, 5]))  # 第5列=h_inv, 取均值
-    # sigma_h = mean of column 6
-    if os.path.exists(meas_path):
         sigma_h_val = float(np.mean(meas[:, 6]))
     else:
+        # 2026-10-13审计: 无measurements时退化为GT是循环论证, 改为报错
+        print(f"  [WARN] {scene_name}: 无measurements.npy, 无法获取反演h_inv")
+        print(f"         请先运行gen_scenes_main_f8.py生成数据")
+        h_inv = h_gt  # 仅用于不崩溃, 结果不可信
         sigma_h_val = 0.0075  # 默认7.5mm
     
     # 紧包围盒
@@ -302,9 +303,15 @@ def run_scene_joint(scene_name, voxel_size=0.05, use_shadow=True, bbox_mode="tig
                               range_axis, beam_axis, fov_azim, fov_elev, use_shadow)
     
     # 第2步: ★II-1高度约束(z≤h) — 删除目标上方体素
-    # h来自★II-1反演, 这里用h_gt(理想情况)或反演值(实际)
-    # 目标附近的体素: |x - D_t| < r_cyl + margin
-    h_constraint = h_gt  # 用真值h(理想上界), 实际用反演h(略低于真值)
+    # 2026-10-13审计修正: 旧版用h_gt(循环论证), 改用反演h_inv
+    # 从measurements.npy获取反演h(不是GT)
+    meas_path2 = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                               "04_数据", "scene_set_main_f8", scene_name, "innov2", "measurements.npy")
+    if os.path.exists(meas_path2):
+        h_inv_joint = float(np.mean(np.load(meas_path2)[:, 5]))
+    else:
+        h_inv_joint = h_gt  # 仅用于不崩溃, 结果不可信
+    h_constraint = h_inv_joint  # 用反演h(不是GT), 体现★II-1精度
     margin = 0.1  # 10cm余量
     mask_target = np.abs(centers[:, 0] - D_t) < (r_cyl + margin)
     mask_above = centers[:, 2] > h_constraint
