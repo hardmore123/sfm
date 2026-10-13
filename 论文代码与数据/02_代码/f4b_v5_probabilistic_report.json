@@ -1,0 +1,95 @@
+{
+  "results": [
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.05,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 0.8483,
+      "E": 0.9945,
+      "V_recon_L": 12.3,
+      "V_gt_L": 170.0,
+      "V_intersect_L": 1.0,
+      "false_positive": 90,
+      "false_negative": 1352,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.03,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 0.8483,
+      "E": 0.9964,
+      "V_recon_L": 13.0,
+      "V_gt_L": 166.3,
+      "V_intersect_L": 0.6,
+      "false_positive": 456,
+      "false_negative": 6136,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.05,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 1.0506,
+      "E": 0.9955,
+      "V_recon_L": 14.4,
+      "V_gt_L": 210.0,
+      "V_intersect_L": 1.0,
+      "false_positive": 107,
+      "false_negative": 1672,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.03,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 1.0506,
+      "E": 0.9965,
+      "V_recon_L": 14.7,
+      "V_gt_L": 207.9,
+      "V_intersect_L": 0.8,
+      "false_positive": 517,
+      "false_negative": 7671,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.05,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 1.1187,
+      "E": 0.9989,
+      "V_recon_L": 15.8,
+      "V_gt_L": 220.0,
+      "V_intersect_L": 0.3,
+      "false_positive": 124,
+      "false_negative": 1758,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.03,
+      "mode": "probabilistic+frontier_constraint",
+      "h_inv": 1.1187,
+      "E": 0.998,
+      "V_recon_L": 15.5,
+      "V_gt_L": 219.8,
+      "V_intersect_L": 0.5,
+      "false_positive": 557,
+      "false_negative": 8123,
+      "passed": false
+    }
+  ],
+  "best": {
+    "scene": "M1_well_constrained",
+    "voxel_size": 0.05,
+    "mode": "probabilistic+frontier_constraint",
+    "h_inv": 0.8483,
+    "E": 0.9945,
+    "V_recon_L": 12.3,
+    "V_gt_L": 170.0,
+    "V_intersect_L": 1.0,
+    "false_positive": 90,
+    "false_negative": 1352,
+    "passed": false
+  }
+}

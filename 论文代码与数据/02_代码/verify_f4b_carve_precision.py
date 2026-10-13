@@ -392,4 +392,5 @@ def main():
         json.dump(report, f, ensure_ascii=False, indent=2)
     print(f"\n报告已写入")
 
-main()
+if __name__ == "__main__":
+    main()

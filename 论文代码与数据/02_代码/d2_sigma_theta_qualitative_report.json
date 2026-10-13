@@ -1,0 +1,52 @@
+{
+  "method": "turtable跨帧强散射点位移一致性",
+  "theory_range": [
+    0.072,
+    0.125
+  ],
+  "results": [
+    {
+      "object": "can",
+      "n_frames": 50,
+      "n_displacements": 909,
+      "mean_disp_px": 1.89,
+      "std_disp_px": 2.07,
+      "cv": 1.0928,
+      "sigma_theta_qualitative_deg": 1.0928,
+      "in_theory_range": false
+    },
+    {
+      "object": "metal-bottle",
+      "n_frames": 50,
+      "n_displacements": 833,
+      "mean_disp_px": 1.78,
+      "std_disp_px": 2.35,
+      "cv": 1.3202,
+      "sigma_theta_qualitative_deg": 1.3202,
+      "in_theory_range": false
+    },
+    {
+      "object": "glass-bottle",
+      "n_frames": 50,
+      "n_displacements": 844,
+      "mean_disp_px": 2.06,
+      "std_disp_px": 2.17,
+      "cv": 1.0533,
+      "sigma_theta_qualitative_deg": 1.0533,
+      "in_theory_range": false
+    },
+    {
+      "object": "drink-carton",
+      "n_frames": 50,
+      "n_displacements": 887,
+      "mean_disp_px": 1.86,
+      "std_disp_px": 2.19,
+      "cv": 1.1767,
+      "sigma_theta_qualitative_deg": 1.1767,
+      "in_theory_range": false
+    }
+  ],
+  "sigma_theta_mean": 1.1608,
+  "conclusion": "裁剪图像无空间标定, σ_θ无法定量验证, 仍用D1理论推导",
+  "limitation": "裁剪图像无距离/波束轴标定, 特征匹配CV>1, 无法定量标定σ_θ"
+}

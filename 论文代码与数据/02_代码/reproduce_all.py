@@ -136,10 +136,13 @@ def main():
         ("S2",   "verify_s2_ba_audit.py",         "S2 BA代码审计（5项检查）", False),
         ("SH",   "verify_sigma_h_independent.py",  "3.4 σ_h传播独立验证（解析vs MC）", True),
         ("E2E",  "closed_loop_e2e.py",              "9环节闭环端到端验证（M1场景）", False),
+        ("G6",   "verify_g6_two_round_ba.py",       "G6: 两轮BA交替迭代(信息融合验证)", True),
         ("TERM", "terminal_evaluation.py",          "步骤9 终端评价指标测试", False),
         ("RX5",  "verify_rx5_zhou_comparison.py",  "★II-1 R-X5: 本文vs Zhou 2025对比", True),
-        ("F4b",  "verify_f4b_carve_precision.py",  "★II-2 F-4b: 雕刻精度分析(v4优化达标)", True),
+        ("F4b",  "verify_f4b_carve_precision.py",  "★II-2 F-4b: 雕刻精度分析(v4语义修正)", True),
+        ("F4bV5","verify_f4b_v5_shape_prior.py",  "★II-2 F-4b v5: 形状先验达标(E≤0.15)", True),
         ("D1",   "d1_sigma_theta_calibration.py", "D1: σ_θ理论标定(ARIS规格支撑)", False),
+        ("D2",   "verify_d2_real_data_qualitative.py", "D2: σ_θ真实数据定性(裁剪图像受限)", False),
     ]
     
     for tag, script, desc, needs_data in verify_scripts:
