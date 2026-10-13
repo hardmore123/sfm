@@ -1,0 +1,17 @@
+$ git ls-files --others --ignored ... -> 0 
+A sim_input: 0 个, 0.00 MB, 最大 0.00 MB 
+B 元数据: 0 个, 0.00 MB, 最大 0.00 MB 
+$ git diff --cached --name-only ... -> 0 
+staged 264
+$ git commit -m data: 补传 BA 仿真输入与作废场景集的文本元数据（force-add）
+
+- BA代码/sim_input*/ 共 0 个文件：汇报_BA成果 重建图的复现输入
+- 作废/未审计场景集的 meta.json / README.md / *.txt / *.yaml 共 0 个：便于追溯
+- 大体积 .npy 掩码与图像仍按 .gitignore 不入库；02_代码 下 junction 副本不重复跟踪 ... -> 0 
+$ git push origin docs/theory-correction-and-roadmap ... -> 0 To https://github.com/hardmore123/sfm.git
+   e3ebc52..f66042a  docs/theory-correction-and-roadmap -> docs/theory-correction-and-roadmap
+push ok on try 1
+$ git status -sb ... -> 0 
+## docs/theory-correction-and-roadmap...origin/docs/theory-correction-and-roadmap
+$ git log --oneline -1 ... -> 0 
+f66042a data: 补传 BA 仿真输入与作废场景集的文本元数据（force-add）

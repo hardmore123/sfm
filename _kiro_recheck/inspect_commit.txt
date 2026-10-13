@@ -1,0 +1,32 @@
+HEAD 文件数 264，合计 4.96 MB，最大 1.07 MB
+状态 Counter({'A': 264})
+junction 副本 0
+按目录：
+    96  sfm_synthetic_pillars/big_paper_scene_set
+    31  sfm_synthetic_pillars/_tmp_heave_baseline
+    21  sfm_synthetic_pillars/big_paper_sim
+    14  sfm_synthetic_pillars/scene_set_v2
+     6  BA代码/sim_input
+     6  BA代码/sim_input_01_simple_single_pillar
+     6  BA代码/sim_input_02_forward
+     6  BA代码/sim_input_02_simple_two_pillars
+     6  BA代码/sim_input_02debug
+     6  BA代码/sim_input_02forward
+     6  BA代码/sim_input_batch
+     6  BA代码/sim_input_big
+     6  BA代码/sim_input_forward
+     6  BA代码/sim_input_general
+     6  BA代码/sim_input_mixed
+     6  BA代码/sim_input_quick
+     6  BA代码/sim_input_smoke
+     6  BA代码/sim_input_test
+     6  BA代码/sim_input_test2
+     6  BA代码/sim_input_yaw_y
+     6  sfm_synthetic_pillars/innov2_ablations
+按扩展名：
+    64  .json
+    54  .txt
+    48  .npy
+    44  .yaml
+    32  .csv
+    22  .md
