@@ -37,7 +37,15 @@ import shadow_f8_fixed as SF
 import feasibility as F
 import observability as OBS
 
-OUT_ROOT = Path("F:/sfm/sfm_synthetic_pillars/scene_set_main_f8")
+# 输出根目录：优先用环境变量，否则回退到交付目录 04_数据/scene_set_main_f8
+# 原始工作区路径 F:/sfm/sfm_synthetic_pillars/scene_set_main_f8 已不在交付副本中，
+# 改为相对本文件的路径，使 clone 到任意位置均可运行。
+_HERE = Path(__file__).resolve().parent          # 02_代码/
+_DELIV = _HERE.parent                              # 论文代码与数据/
+OUT_ROOT = Path(os.environ.get(
+    "SFM_SCENES_OUT",
+    str(_DELIV / "04_数据" / "scene_set_main_f8")
+))
 
 # ---------------- 主档传感器（全部落在 ARIS 规格内）----------------
 ARIS = dict(
