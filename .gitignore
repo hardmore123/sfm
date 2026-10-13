@@ -1,7 +1,7 @@
 # ============================================================
 # 大文件与数据排除
-# 说明：仓库只跟踪源码、Markdown 文档与小体积配置。
-#      仿真数据、真实数据集、论文 PDF 一律不入库。
+# 说明：仓库只跟踪源码、Markdown 文档、论文 PDF（LFS）与小体积配置。
+#      仿真数据与真实数据集不入库。
 # ============================================================
 
 # ---- 仿真工作区：只跟踪源码/报告/小结果 JSON，数据子目录全部排除 ----
@@ -17,8 +17,10 @@ sfm_synthetic_pillars/**/__pycache__/
 数据集（不上传git）/
 数据集(准备上传git版)/
 
-# ---- 论文库（PDF 与 Blender 资产，约 0.30 GB）----
-论文集/*.pdf
+# ---- 论文库 ----
+# 论文集 PDF 通过 Git LFS 上传（见 .gitattributes），*.pdf 不再排除
+# 只排除废弃目录与 Blender 资产
+论文集/_junk_to_delete/
 论文集/ACSim-master/
 *.blend
 *.blend1
@@ -27,6 +29,7 @@ sfm_synthetic_pillars/**/__pycache__/
 BA代码/sim_input*/
 
 # ---- 二进制与大体积产物 ----
+# 注意：*.pdf 已由 LFS 管理，此处不排除
 *.exe
 *.npy
 *.zip
@@ -63,10 +66,6 @@ AGENT_ADDRESS.txt
 Thumbs.db
 desktop.ini
 .DS_Store
-
-# ---- 递归排除所有 PDF 与废弃目录（补 论文集/*.pdf 只匹配直接子级的漏洞）----
-**/*.pdf
-**/_junk_to_delete/
 
 # ---- 论文交付目录：只提交文档与代码，不提交数据 ----
 # 04_数据 的 469MB 掩码由 gen_scenes_main_f8.py 确定性重建，不入库
