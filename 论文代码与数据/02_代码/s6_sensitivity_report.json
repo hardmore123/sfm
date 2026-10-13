@@ -1,0 +1,236 @@
+{
+  "generated_at": "2026-10-13",
+  "params": {
+    "sigma_rho_mm": 10,
+    "sigma_theta_deg": 0.18,
+    "N": 60,
+    "theta_p_deg": 19,
+    "phi_max_deg": 7.5,
+    "z_s": 4.5,
+    "D_t": 10.6,
+    "r": 0.25,
+    "h": 0.85,
+    "tau_z_m": 0.05
+  },
+  "H1": [
+    {
+      "slope_deg": 0,
+      "delta_h_cm": 0.0,
+      "exceeds_tau_z": "no"
+    },
+    {
+      "slope_deg": 2,
+      "delta_h_cm": 13.47,
+      "exceeds_tau_z": "YES"
+    },
+    {
+      "slope_deg": 5,
+      "delta_h_cm": 33.64,
+      "exceeds_tau_z": "YES"
+    },
+    {
+      "slope_deg": 10,
+      "delta_h_cm": 67.03,
+      "exceeds_tau_z": "YES"
+    },
+    {
+      "slope_deg": 15,
+      "delta_h_cm": 99.91,
+      "exceeds_tau_z": "YES"
+    }
+  ],
+  "H2": [
+    {
+      "dc_dz": 0.5,
+      "bend_deg": 0.286,
+      "range_err_cm": 0.04,
+      "exceeds_tau_z": "no"
+    },
+    {
+      "dc_dz": 1.0,
+      "bend_deg": 0.573,
+      "range_err_cm": 0.15,
+      "exceeds_tau_z": "YES"
+    },
+    {
+      "dc_dz": 1.5,
+      "bend_deg": 0.859,
+      "range_err_cm": 0.34,
+      "exceeds_tau_z": "YES"
+    },
+    {
+      "dc_dz": 2.0,
+      "bend_deg": 1.146,
+      "range_err_cm": 0.6,
+      "exceeds_tau_z": "YES"
+    }
+  ],
+  "H3": [
+    {
+      "dview_deg": 1,
+      "slide_cm": 0.44,
+      "ratio_to_sigma_rho": 0.44,
+      "negligible": "YES"
+    },
+    {
+      "dview_deg": 2,
+      "slide_cm": 0.87,
+      "ratio_to_sigma_rho": 0.87,
+      "negligible": "no"
+    },
+    {
+      "dview_deg": 5,
+      "slide_cm": 2.18,
+      "ratio_to_sigma_rho": 2.18,
+      "negligible": "no"
+    },
+    {
+      "dview_deg": 10,
+      "slide_cm": 4.34,
+      "ratio_to_sigma_rho": 4.34,
+      "negligible": "no"
+    }
+  ],
+  "H4": [
+    {
+      "rho": 0.0,
+      "N_eff": 60.0,
+      "sigma_ratio": 1.0,
+      "affects": "no"
+    },
+    {
+      "rho": 0.1,
+      "N_eff": 49.1,
+      "sigma_ratio": 1.106,
+      "affects": "mild"
+    },
+    {
+      "rho": 0.3,
+      "N_eff": 32.3,
+      "sigma_ratio": 1.363,
+      "affects": "YES"
+    },
+    {
+      "rho": 0.5,
+      "N_eff": 20.0,
+      "sigma_ratio": 1.732,
+      "affects": "YES"
+    },
+    {
+      "rho": 0.7,
+      "N_eff": 10.6,
+      "sigma_ratio": 2.38,
+      "affects": "YES"
+    }
+  ],
+  "H5": [
+    {
+      "std_roll": 2.9,
+      "sigma_roll": 0.0,
+      "ratio": 1.0
+    },
+    {
+      "std_roll": 2.9,
+      "sigma_roll": 0.1,
+      "ratio": 1.001
+    },
+    {
+      "std_roll": 2.9,
+      "sigma_roll": 0.5,
+      "ratio": 1.015
+    },
+    {
+      "std_roll": 2.9,
+      "sigma_roll": 1.0,
+      "ratio": 1.065
+    },
+    {
+      "std_roll": 2.9,
+      "sigma_roll": 2.0,
+      "ratio": 1.381
+    },
+    {
+      "std_roll": 5.0,
+      "sigma_roll": 0.0,
+      "ratio": 1.0
+    },
+    {
+      "std_roll": 5.0,
+      "sigma_roll": 0.1,
+      "ratio": 1.0
+    },
+    {
+      "std_roll": 5.0,
+      "sigma_roll": 0.5,
+      "ratio": 1.005
+    },
+    {
+      "std_roll": 5.0,
+      "sigma_roll": 1.0,
+      "ratio": 1.021
+    },
+    {
+      "std_roll": 5.0,
+      "sigma_roll": 2.0,
+      "ratio": 1.091
+    },
+    {
+      "std_roll": 10.0,
+      "sigma_roll": 0.0,
+      "ratio": 1.0
+    },
+    {
+      "std_roll": 10.0,
+      "sigma_roll": 0.1,
+      "ratio": 1.0
+    },
+    {
+      "std_roll": 10.0,
+      "sigma_roll": 0.5,
+      "ratio": 1.001
+    },
+    {
+      "std_roll": 10.0,
+      "sigma_roll": 1.0,
+      "ratio": 1.005
+    },
+    {
+      "std_roll": 10.0,
+      "sigma_roll": 2.0,
+      "ratio": 1.021
+    }
+  ],
+  "H6": [
+    {
+      "sigma_theta_deg": 0.072,
+      "M1_ok": true,
+      "M2_blind": false,
+      "dual_cm": 3.72
+    },
+    {
+      "sigma_theta_deg": 0.074,
+      "M1_ok": true,
+      "M2_blind": false,
+      "dual_cm": 3.82
+    },
+    {
+      "sigma_theta_deg": 0.1,
+      "M1_ok": true,
+      "M2_blind": true,
+      "dual_cm": 5.15
+    },
+    {
+      "sigma_theta_deg": 0.18,
+      "M1_ok": true,
+      "M2_blind": true,
+      "dual_cm": 9.14
+    },
+    {
+      "sigma_theta_deg": 0.3,
+      "M1_ok": true,
+      "M2_blind": true,
+      "dual_cm": 14.71
+    }
+  ],
+  "all_pass": true
+}
