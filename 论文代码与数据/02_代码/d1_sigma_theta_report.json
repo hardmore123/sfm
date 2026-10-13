@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-10-13",
+  "task": "D1_sigma_theta_calibration",
+  "method": "theoretical_from_ARIS_specs",
+  "aris_params": {
+    "fov_azim_deg": 30.0,
+    "n_beams": 128,
+    "beam_width_deg": 0.25,
+    "range_m": 5.0
+  },
+  "theoretical": {
+    "sigma_quant_lower": 0.07216878364870323,
+    "sigma_crlb_10db": 0.03952847075210474,
+    "sigma_crlb_20db": 0.0125,
+    "sigma_subpixel_best": 0.05,
+    "sigma_subpixel_typical": 0.08333333333333333,
+    "sigma_subpixel_worst": 0.125
+  },
+  "calibrated": {
+    "sigma_theta_lower": 0.07216878364870323,
+    "sigma_theta_main": 0.08333333333333333,
+    "sigma_theta_upper": 0.125
+  },
+  "ledger": {
+    "range": [
+      0.072,
+      0.3
+    ],
+    "main": 0.18
+  },
+  "real_data_note": "turntable-cropped和quarry-fullsize为裁剪图像, 未保留完整128-beam几何, 无法直接标定。理论标定有ARIS规格+beamforming理论+文献支撑。",
+  "references": [
+    "ARIS Explorer 3000规格表 (beam_width=0.25°)",
+    "Qadri & Kaess, ICRA 2023 (成像声呐特征点精度)",
+    "Zhou et al. arXiv:2411.12338 (ARIS方位估计)"
+  ]
+}
