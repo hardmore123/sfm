@@ -1,25 +1,25 @@
 {
   "scene": "M1_well_constrained",
   "round1": {
-    "sigma_Pz_cm": 5.0815,
+    "sigma_Pz_cm": 4.9391,
     "kappa_j": 0.15,
-    "e_j_deg": -22.2589,
-    "sigma_e_deg": 0.0376,
+    "e_j_deg": -22.2718,
+    "sigma_e_deg": 0.0377,
     "w_i": 1.0,
-    "sigma_h_cm": 0.8267
+    "sigma_h_cm": 0.8274
   },
   "round2": {
-    "sigma_Pz_cm": 0.0656,
-    "kappa_j": 901.1942,
-    "e_j_deg": -22.1892,
+    "sigma_Pz_cm": 0.0658,
+    "kappa_j": 845.9425,
+    "e_j_deg": -22.2726,
     "sigma_e_deg": 0.0005,
     "w_i": 1.0,
-    "sigma_h_cm": 0.0107,
-    "sigma_prior_cm": 0.0656
+    "sigma_h_cm": 0.011,
+    "sigma_prior_cm": 0.0658
   },
-  "improvement_pct": 98.71,
+  "improvement_pct": 98.67,
   "theory_check": {
-    "sigma_Pz_theory_cm": 0.0656,
+    "sigma_Pz_theory_cm": 0.0658,
     "consistent": true
   },
   "passed": true

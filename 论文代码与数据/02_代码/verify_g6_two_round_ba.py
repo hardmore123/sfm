@@ -1,23 +1,36 @@
 # -*- coding: utf-8 -*-
 """
-G6: 闭环耦合两轮BA交替迭代验证
+G6: 闭环耦合两轮BA信息融合验证(理论验证, 非独立BA实验)
 ================================================
 2026-10-13声呐专家改进:
 
 问题: 论文§11主张"5依赖7的κ_j, 7依赖5的ê_j——交替求解的耦合环"
-      当前E2E是单向串行(2→3→4→5→6→7→8→9), 未做交替迭代
-      G6理论证明已做(信息融合定理), 但未实验验证
+      当前E2E是单向串行, 未做交替迭代
 
-改进: 真正跑两轮BA交替迭代, 验证σ_Pz单调下降
+改进: 用信息融合公式验证两轮BA的σ_Pz单调下降
       文献: Two-Stage Probabilistic 3D Reconstruction 2025 (两阶段重建)
             McGann riSAM 2023 (GNC鲁棒优化)
+
+诚实声明(2026-10-13严谨性审查修正):
+  本脚本是信息融合公式的数值演示, 非独立BA优化实验.
+  σ_Pz^(2)由公式σ_Pz_new^{-2}=σ_Pz_old^{-2}+σ_prior^{-2}计算,
+  "理论vs实际一致性"是同义反复(同一公式), 不是独立验证.
+  
+  真正的BA实验需要:
+  1. 第一轮真实BA优化(非公式)输出协方差矩阵
+  2. 注入elev_prior后第二轮真实BA优化
+  3. 比较两轮的协方差矩阵(独立计算)
+  
+  当前ba_unified.py的elev_prior接口已实现, 但需完整BA数据集
+  (poses_est.npy等)才能运行真实BA. 本脚本用公式演示信息融合机制,
+  验证: (1)公式自洽, (2)σ_Pz单调下降的数学必然性, (3)耦合链路完整.
 
 理论(信息融合定理):
   第一轮: BA(无先验) → κ_j^(1) → ê_j^(1) → w_i^(1)
           σ_Pz^(1) 来自BA协方差(无先验注入)
   第二轮: BA(注入ê_j^(1), w_i^(1)) → κ_j^(2) → σ_Pz^(2)
           σ_Pz_new^{-2} = σ_Pz_old^{-2} + σ_prior^{-2}  (信息融合)
-          σ_Pz^(2) < σ_Pz^(1)  ← 验证目标
+          σ_Pz^(2) < σ_Pz^(1)  ← 数学必然(信息增加→精度提升)
 
 验证: M1场景, 第二轮σ_Pz < 第一轮σ_Pz(单调下降)
 """
@@ -162,14 +175,13 @@ def simulate_ba_round2(round1, data):
     # κ_new = κ_old * (σ_Pz_old / σ_Pz_new)^2
     kappa_2 = round1["kappa_j"] * (sigma_Pz_1 / sigma_Pz_2)**2
     
-    # 第二轮ê_j: 用更精确的z_s_ba_2(σ_Pz^(2)更小)
+    # 第二轮ê_j: σ_Pz^(2)更小, 但z_s_ba_2不直接用GT(避免循环)
+    # z_s_ba_2由信息融合公式给出精度(σ_Pz_2), 位置估计用先验+第一轮加权
     rng = np.random.default_rng(43)
-    # 融合后z_s更接近真值: 取第一轮估计和真值的加权(权重由精度比决定)
-    z_s_true = data["z_s"].mean()  # 真值
-    w_fuse = sigma_Pz_1**(-2) / (sigma_Pz_1**(-2) + sigma_prior**(-2))  # 先验权重
-    z_s_ba_2 = w_fuse * round1["z_s_ba"] + (1 - w_fuse) * z_s_true  # 融合后更精确
-    # 剩余误差(σ_Pz_2)
-    z_s_ba_2 += rng.normal(0, sigma_Pz_2)  # 剩余误差=σ_Pz^(2)
+    # 注: 不使用GT z_s_true(避免循环论证)
+    # z_s_ba_2 = 第一轮估计 + 先验修正(先验=ê_j映射回z_s)
+    # 简化: z_s_ba_2的精度由σ_Pz_2决定(信息融合), 位置用第一轮+噪声
+    z_s_ba_2 = round1["z_s_ba"] + rng.normal(0, sigma_Pz_2)  # 精度=σ_Pz^(2)
     
     # 第二轮h_inv: 用z_s_ba_2反演(精度提升)
     h_inv_2 = round1["h_inv"]  # 反演高度本身不变(由阴影决定)
@@ -248,21 +260,23 @@ def main():
     print(f"\n--- 验证: 信息融合定理 ---")
     improvement = (r1["sigma_Pz"] - r2["sigma_Pz"]) / r1["sigma_Pz"] * 100
     print(f"  σ_Pz: {r1['sigma_Pz']*100:.4f}cm → {r2['sigma_Pz']*100:.4f}cm")
-    print(f"  改进: {improvement:.2f}% (信息融合定理验证)")
+    print(f"  改进: {improvement:.2f}% (信息融合公式)")
     
-    # 理论值验证
+    # 注: 以下"理论vs实际"是同义反复(同一公式计算), 非独立验证
     sigma_Pz_theory = 1.0 / np.sqrt(r1["sigma_Pz"]**(-2) + r2["sigma_prior"]**(-2))
-    print(f"  理论σ_Pz^(2) = {sigma_Pz_theory*100:.4f}cm (信息融合公式)")
-    print(f"  实际σ_Pz^(2) = {r2['sigma_Pz']*100:.4f}cm")
-    print(f"  一致性: {'✅' if abs(sigma_Pz_theory - r2['sigma_Pz'])/r2['sigma_Pz'] < 0.01 else '⚠️'}")
+    print(f"  公式σ_Pz^(2) = {sigma_Pz_theory*100:.4f}cm (信息融合公式)")
+    print(f"  计算σ_Pz^(2) = {r2['sigma_Pz']*100:.4f}cm")
+    print(f"  注: 两者一致是同义反复(同一公式), 非独立验证")
+    print(f"  独立验证需真实BA优化输出协方差(未来工作)")
     
     # ===== 验收 =====
     print(f"\n--- 验收 ---")
     passed = r2["sigma_Pz"] < r1["sigma_Pz"]
     if passed:
-        print(f"  ✅ G6验收通过: σ_Pz^(2) < σ_Pz^(1)")
-        print(f"     交替迭代有效, 先验注入降低BA不确定性")
-        print(f"     论文§11'交替求解耦合环'主张有实验支撑")
+        print(f"  ✅ G6验收通过: σ_Pz^(2) < σ_Pz^(1) (信息融合数学必然性)")
+        print(f"     先验注入→信息增加→σ_Pz下降(数学定理, 非实验)")
+        print(f"     论文§11'交替求解耦合环'有理论支撑")
+        print(f"     注: 真实BA实验验证是未来工作(需完整BA数据集)")
     else:
         print(f"  ⚠️ G6验收失败: σ_Pz未下降")
     
@@ -293,10 +307,13 @@ def main():
         },
         "improvement_pct": round(improvement, 2),
         "theory_check": {
-            "sigma_Pz_theory_cm": round(sigma_Pz_theory*100, 4),
-            "consistent": bool(abs(sigma_Pz_theory - r2["sigma_Pz"])/r2["sigma_Pz"] < 0.01),
+            "sigma_Pz_formula_cm": round(sigma_Pz_theory*100, 4),
+            "sigma_Pz_computed_cm": round(r2["sigma_Pz"]*100, 4),
+            "note": "formula=computed(同义反复, 同一公式), 非独立验证",
+            "independent_verification_needed": "真实BA优化输出协方差(未来工作)",
         },
         "passed": bool(passed),
+        "honesty_note": "本脚本是信息融合公式数值演示, 非独立BA实验",
     }
     
     report_path = os.path.join(HERE, "g6_two_round_ba_report.json")

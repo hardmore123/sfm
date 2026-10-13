@@ -219,15 +219,19 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
     beams = np.deg2rad(np.linspace(-ARIS["azim_deg"] / 2, ARIS["azim_deg"] / 2,
                                    ARIS["n_beams"]))
     recs = []
+    # 2026-10-13审计修正: D_t_ba是单个地标的BA估计(全帧共用), 不是每帧独立采样
+    # 旧版在循环内每帧重新采样D_t_ba → BA对同一地标的估计应全帧一致(地标级误差)
+    D_t_ba_fixed = D_T + float(rng.normal(0.0, SIGMA_DT_M))  # 地标级BA估计(全帧共用)
+    y_ba_fixed = 0.0 + float(rng.normal(0.0, SIGMA_DT_M))     # y方向BA估计(全帧共用)
     for i in range(len(poses_T)):
         z_s_i = float(poses6[i, 2])
         R_i = poses_T[i][:3, :3]
         yaw_i = float(np.arctan2(R_i[1, 0], R_i[0, 0]))
-        # 模拟BA对柱心的估计: D_t_ba = D_t_gt + N(0,σ_Dt), y_ba = 0 + N(0,σ_Dt)
-        # 这是BA输出(含估计误差), 不是GT. 真实GT是(D_T, 0).
-        # 注: 反演用D_t_ba, 但observability_t7/phi仍用GT P_top(分析用, 不影响反演精度)
-        D_t_ba = D_T + float(rng.normal(0.0, SIGMA_DT_M))
-        y_ba = 0.0 + float(rng.normal(0.0, SIGMA_DT_M))
+        # BA对柱心的估计: D_t_ba(地标级, 全帧共用), 含BA估计误差
+        # 注: 真实BA中同一地标的估计在所有帧一致(地标在世界坐标系固定)
+        # 反演用D_t_ba, 但observability_t7/phi仍用GT P_top(分析用, 不影响反演)
+        D_t_ba = D_t_ba_fixed
+        y_ba = y_ba_fixed
         # 柱心水平距与方位, 由★I(BA)的地标点云估计给出(含BA误差)
         dx = D_t_ba - poses6[i, 0]
         dy = y_ba - poses6[i, 1]
