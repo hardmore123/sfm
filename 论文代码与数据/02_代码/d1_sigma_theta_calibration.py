@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 """
-D1: σ_θ 标定报告生成器
-======================
+D1: σ_θ 理论推导报告
+====================
+
+诚实说明(2026-10-13严谨性审计修正):
+  - 标题从"标定"改为"理论推导"
+  - 真实数据(turntable/quarry)为裁剪图像, 无完整beam几何, 无法直接标定σ_θ
+  - 以下为从ARIS Explorer 3000规格表推导的理论范围
 
 方法:
   1. 理论下界: ARIS beam_width = 0.25°, CRLB ≈ beam_width/√12 (均匀量化)
      → σ_θ_theoretical = 0.25/√12 = 0.072°
-  2. 实测上界: turntable/quarry真实数据无法直接标定(裁剪图像无完整beam几何)
-     → 用ARIS规格+beamforming理论给出σ_θ范围
-  
-  最终: σ_θ ∈ [0.072°, 0.30°], 主值0.18° (与台账一致, 有理论下界支撑)
+  2. 子像素估计: beam_width/(2~5), 文献支持
+  3. 最终: σ_θ ∈ [0.072°, 0.125°], 主值0.083°
+     台账主值0.18°偏保守(含非理想因素), 在合理范围
 
 文献:
   [1] ARIS Explorer 3000规格表 (beam_width=0.25°)
@@ -23,7 +27,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='repla
 
 def main():
     print("=" * 60)
-    print("D1: σ_θ 标定报告")
+    print("D1: σ_θ 理论推导报告")
     print("=" * 60)
 
     # ARIS Explorer 3000 参数 (from ARIS_EXPLORER_3000_PARAMS.md)

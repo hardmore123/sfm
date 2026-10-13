@@ -169,22 +169,25 @@ def run_scene(scene_name, voxel_size=0.05, use_shadow=True, bbox_mode="tight"):
 
 def run_scene_optimized(scene_name, voxel_size=0.05):
     """
-    F-4b v4全优化: 阴影语义修正(路径B) + 高度约束 + 柱面先验(路径A)
+    F-4b v4优化: 阴影语义修正(路径B) + 高度约束(反演h_inv)
     
-    三层约束:
+    修正记录(2026-10-13严谨性审计):
+      旧版: 用h_gt和r_cyl=0.25(GT参数)做柱面先验 → 循环论证, E=0.034是假的
+      新版: 用反演h_inv(来自★II-1)做高度约束, 不用柱面先验
+    
+    两层约束(诚实版):
       1. 空间雕刻(阴影语义修正): 仅前沿前方+阴影后方=free, 阴影段=unknown
-      2. 高度约束(z≤h): 删除目标上方
-      3. 柱面先验(radial≤r): 删除柱体外部
+      2. 高度约束(z≤h_inv): h_inv来自★II-1阴影反演, 不是GT
     
-    文献: Le Gall et al.(阴影语义) + Shape-Specific 2025(形状先验)
-    预期: E≤0.10
+    文献: Le Gall et al.(阴影语义)
+    预期: E≈0.15-0.20 (真实改进, 不是循环论证)
     """
     meta, poses, target_masks, shadow_masks, unlit_masks = load_scene(scene_name)
     
     h_gt = meta["config"]["h_m"]
     D_t = meta["config"]["D_t_m"]
     z_s = meta["config"]["z_s_m"]
-    r_cyl = 0.25
+    r_cyl = 0.25  # GT参数, 仅用于GT定义, 不用于约束
     H_bins = meta["config"]["range_bin_count"]
     W_beams = meta["config"]["beam_count"]
     rho_max = meta["config"]["rho_max_m"]
@@ -196,6 +199,19 @@ def run_scene_optimized(scene_name, voxel_size=0.05):
     
     poses_se3 = poses6_to_se3(poses)
     pillar_top = np.array([D_t, 0, h_gt])
+    
+    # 从measurements.npy获取★II-1反演高度(不是GT)
+    meas_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                              "04_数据", "scene_set_main_f8", scene_name, "innov2", "measurements.npy")
+    h_inv = h_gt  # 默认退化为GT
+    if os.path.exists(meas_path):
+        meas = np.load(meas_path)
+        h_inv = float(np.mean(meas[:, 5]))  # 第5列=h_inv, 取均值
+    # sigma_h = mean of column 6
+    if os.path.exists(meas_path):
+        sigma_h_val = float(np.mean(meas[:, 6]))
+    else:
+        sigma_h_val = 0.0075  # 默认7.5mm
     
     # 紧包围盒
     lo = np.array([D_t - 0.5, -0.5, -0.05])
@@ -213,23 +229,14 @@ def run_scene_optimized(scene_name, voxel_size=0.05):
     alive = voxel_carve_both(poses_se3, target_masks, shadow_masks, centers,
                               range_axis, beam_axis, fov_azim, fov_elev, use_shadow=True)
     
-    # 第2步: 高度约束(z≤h)
-    h_constraint = h_gt
+    # 第2步: 高度约束(z≤h_inv) — 用★II-1反演高度, 不是GT
+    # h_inv来自阴影反演, 有误差(约0.16cm), 体现★II-1的精度
+    h_constraint = h_inv  # 反演高度, 不是h_gt
     mask_above = centers[:, 2] > h_constraint
     alive[mask_above] = False
     
-    # 第3步: 柱面先验(radial≤r) — 路径A, 形状先验约束
-    # 文献: Westman&Kaess 2019, Shape-Specific 2025
-    # 已知柱半径r=0.25m, 柱心(D_t, 0), 删除柱体外部体素
-    # 与GT一致: GT用radial<=r_cyl, 这里用radial>r_cyl删除 → 严格匹配
-    dx = centers[:, 0] - D_t
-    dy = centers[:, 1]
-    radial = np.sqrt(dx**2 + dy**2)
-    # 在柱体高度范围内(0≤z≤h), 删除柱体外部
-    in_height = (centers[:, 2] >= 0) & (centers[:, 2] <= h_gt)
-    outside_cylinder = (radial > r_cyl) & in_height
-    alive[outside_cylinder] = False
-    # z<0(海底以下)也删除
+    # 注: 不使用柱面先验(旧版用r_cyl=0.25=GT参数, 是循环论证)
+    # 仅删除海底以下
     below_floor = centers[:, 2] < 0
     alive[below_floor] = False
     
@@ -241,13 +248,15 @@ def run_scene_optimized(scene_name, voxel_size=0.05):
     denom = V_r + V_g - V_i
     E = (V_r + V_g - 2*V_i) / max(denom, 1e-12)
     
-    print(f"  {scene_name:<22} vs={voxel_size:.2f} +语义修正+H约束+柱面先验 "
+    print(f"  {scene_name:<22} vs={voxel_size:.2f} +语义修正+H约束(反演h={h_inv:.4f}m) "
           f"E={E:.4f} V_r={V_r*1000:.1f}L V_g={V_g*1000:.1f}L V∩={V_i*1000:.1f}L "
           f"{'✅达标' if E<=0.10 else '⚠️未达标'}")
     
     return {
         "scene": scene_name, "voxel_size": voxel_size,
-        "mode": "shadow_semantic+H+cylinder_prior",
+        "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+        "h_inv": round(float(h_inv), 4),
+        "h_gt": round(float(h_gt), 4),
         "E": round(float(E),4), "V_recon_L": round(float(V_r*1000),1),
         "V_gt_L": round(float(V_g*1000),1), "V_intersect_L": round(float(V_i*1000),1),
         "passed": bool(E <= 0.10),

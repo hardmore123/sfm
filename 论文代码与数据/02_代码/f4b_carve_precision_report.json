@@ -263,73 +263,87 @@
     {
       "scene": "M1_well_constrained",
       "voxel_size": 0.05,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0515,
-      "V_recon_L": 161.3,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 0.85,
+      "h_gt": 0.85,
+      "E": 0.5275,
+      "V_recon_L": 332.5,
       "V_gt_L": 170.0,
       "V_intersect_L": 161.3,
-      "passed": true
+      "passed": false
     },
     {
       "scene": "M3_envelope_inside",
       "voxel_size": 0.05,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0417,
-      "V_recon_L": 201.3,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 1.05,
+      "h_gt": 1.05,
+      "E": 0.5374,
+      "V_recon_L": 426.3,
       "V_gt_L": 210.0,
       "V_intersect_L": 201.3,
-      "passed": true
+      "passed": false
     },
     {
       "scene": "M4_envelope_outside",
       "voxel_size": 0.05,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0386,
-      "V_recon_L": 211.5,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 1.12,
+      "h_gt": 1.12,
+      "E": 0.5407,
+      "V_recon_L": 452.0,
       "V_gt_L": 220.0,
       "V_intersect_L": 211.5,
-      "passed": true
+      "passed": false
     },
     {
       "scene": "M1_well_constrained",
       "voxel_size": 0.03,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0442,
-      "V_recon_L": 159.0,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 0.85,
+      "h_gt": 0.85,
+      "E": 0.5357,
+      "V_recon_L": 335.1,
       "V_gt_L": 166.3,
       "V_intersect_L": 159.0,
-      "passed": true
+      "passed": false
     },
     {
       "scene": "M3_envelope_inside",
       "voxel_size": 0.03,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0364,
-      "V_recon_L": 200.3,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 1.05,
+      "h_gt": 1.05,
+      "E": 0.5479,
+      "V_recon_L": 435.5,
       "V_gt_L": 207.9,
       "V_intersect_L": 200.3,
-      "passed": true
+      "passed": false
     },
     {
       "scene": "M4_envelope_outside",
       "voxel_size": 0.03,
-      "mode": "shadow_semantic+H+cylinder_prior",
-      "E": 0.0338,
-      "V_recon_L": 212.4,
+      "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+      "h_inv": 1.12,
+      "h_gt": 1.12,
+      "E": 0.5516,
+      "V_recon_L": 466.2,
       "V_gt_L": 219.8,
       "V_intersect_L": 212.4,
-      "passed": true
+      "passed": false
     }
   ],
   "best": {
-    "scene": "M4_envelope_outside",
-    "voxel_size": 0.03,
-    "mode": "shadow_semantic+H+cylinder_prior",
-    "E": 0.0338,
-    "V_recon_L": 212.4,
-    "V_gt_L": 219.8,
-    "V_intersect_L": 212.4,
-    "passed": true
+    "scene": "M1_well_constrained",
+    "voxel_size": 0.05,
+    "mode": "shadow_semantic+H_inv(no_cylinder_prior)",
+    "h_inv": 0.85,
+    "h_gt": 0.85,
+    "E": 0.5275,
+    "V_recon_L": 332.5,
+    "V_gt_L": 170.0,
+    "V_intersect_L": 161.3,
+    "passed": false
   },
   "target": 0.1,
   "analysis": {
