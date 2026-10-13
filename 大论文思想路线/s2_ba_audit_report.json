@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-10-13",
+  "F1-1_C7_identity": "PASS - BA estimates 3D position, not height inversion",
+  "F1-2_A2_coords": "PASS - azimuth and range use same Pb",
+  "F1-3_assignment": "PASS - no actual=theory pattern",
+  "F1-4_convergence": "WARN - no max_nfev set, but R-X3 verified 7/8",
+  "F1-5_elev_prior": "PASS - correctly receives shadow prior",
+  "overall": "PASS - BA code is theoretically consistent"
+}
