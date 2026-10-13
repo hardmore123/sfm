@@ -20,10 +20,9 @@
 公式:
   h = z_s * (1 - D_far / D_e),  D_e = sqrt(ρ_end² - z_s²)
   
-  ∂h/∂ρ_end = z_s * D_far * ρ_end / D_e²
+  ∂h/∂ρ_end = z_s * D_far * ρ_end / D_e³
   ∂h/∂D_far = -z_s / D_e
-  ∂h/∂z_s = (1 - D_far/D_e) + z_s * D_far * z_s / D_e³
-         = h/z_s + z_s * D_far * z_s / D_e³
+  ∂h/∂z_s = 1 - D_far/D_e - z_s²·D_far/D_e³  (第二项为减号, 2026-10-13审计修正)
 
 数据: scene_set_main_f8 (有效场景集)
 """
