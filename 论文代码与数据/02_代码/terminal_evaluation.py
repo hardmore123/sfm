@@ -81,15 +81,38 @@ def normal_consistency(recon_normals, gt_normals, recon_points, gt_points):
     return float(np.mean(dots))
 
 
-def floating_point_density(densities, threshold_quantile=0.02):
+def floating_point_density(densities, density_floor=None, threshold_quantile=None):
     """
-    漂浮点密度: Poisson低密度区域顶点占比
-    越低越好(说明重建表面紧凑)
+    漂浮点密度: 低密度区域顶点占比
+    
+    2026-10-13审计修正:
+      旧版用np.quantile(densities, 0.02)作阈值 → 返回值恒≈0.02(自指定义),
+      无论重建质量如何结果不变, 属自我实现的预言.
+    
+    修正: 必须传入外部绝对阈值density_floor, 或用密度分布的变异系数CV.
+    
+    参数:
+      densities: (N,) Poisson密度
+      density_floor: 绝对密度下限(由调用方根据Poisson重建参数提供)
+      threshold_quantile: (已弃用,保留兼容)若提供则告警
+    返回:
+      漂浮点占比(越低越好)
     """
     if len(densities) == 0:
-        return 1.0
-    thr = np.quantile(densities, threshold_quantile)
-    return float(np.mean(densities < thr))
+        return float('nan')
+    if threshold_quantile is not None:
+        import warnings
+        warnings.warn("threshold_quantile参数已弃用(自指定义), 请用density_floor",
+                      DeprecationWarning, stacklevel=2)
+        if density_floor is None:
+            density_floor = np.quantile(densities, threshold_quantile)
+    if density_floor is None:
+        # 无绝对阈值时, 用变异系数CV作为密度均匀度指标
+        mean_d = np.mean(densities)
+        if mean_d < 1e-12:
+            return 1.0
+        return float(np.std(densities) / mean_d)  # CV, 越低越均匀
+    return float(np.mean(densities < density_floor))
 
 
 def voxel_error(recon_voxels, gt_voxels, voxel_size=0.05):
@@ -103,7 +126,8 @@ def voxel_error(recon_voxels, gt_voxels, voxel_size=0.05):
     inter = len(recon_set & gt_set)
     union = len(recon_set | gt_set)
     if union == 0:
-        return 0.0, 0, 0, 0
+        # 2026-10-13审计修正: 空集不应判为完美(E=0), 返回nan
+        return float('nan'), 0, 0, 0
     E = 1.0 - inter / union
     return float(E), inter, len(recon_set), len(gt_set)
 

@@ -410,24 +410,36 @@ def main(folder="."):
 
     # ---------- 创新点二接口：合成仰角先验 sanity 测试 ----------
     print("\n===== 创新点二接口: 合成仰角先验 sanity 测试 =====")
-    # 给前 20 个良约束路标注入"人工阴影先验"（真值 elev 偏移 +0.1rad），看优化是否被拉向先验
+    # 2026-10-13审计修正: 旧版target=elev0+0.10(与初值同源), pull0≡0.10常数,
+    # 属自我实现的预言. 修正: 用与初值无关的独立target, 且对照真正无先验优化.
+    test_ids = ba.well_ids[:min(20, len(ba.well_ids))]
+    # 独立target: 固定0.0(与elev0无关), 避免循环论证
+    target = np.zeros(len(test_ids))  # 独立, 与初值无关
     elev_prior = np.full(M, np.nan)
     elev_prior_sigma = np.full(M, np.inf)
-    test_ids = ba.well_ids[:min(20, len(ba.well_ids))]
-    target = np.clip(ba.elev0[test_ids] + 0.10, ELEV[0], ELEV[1])
     elev_prior[test_ids] = target
     elev_prior_sigma[test_ids] = 0.02   # 强先验
+
+    # 真正无先验的独立优化(作为基线)
+    ba_noprior = UnifiedSonarBA(poses6, landmarks, obs_by_lm, observations, odom_rel, calib,
+                                well_mask=well_mask, base_frame=base_frame, elev_range=ELEV,
+                                elev_prior=None, elev_prior_sigma=None,
+                                weights={"elevprior": 5.0})
+    o_noprior = ba_noprior.optimize(use_gnc=False)
+    pull0 = np.mean(np.abs(o_noprior["elev"][test_ids] - target))  # 独立无先验基线
+
+    # 加先验优化
     ba_ep = UnifiedSonarBA(poses6, landmarks, obs_by_lm, observations, odom_rel, calib,
                            well_mask=well_mask, base_frame=base_frame, elev_range=ELEV,
                            elev_prior=elev_prior, elev_prior_sigma=elev_prior_sigma,
                            weights={"elevprior": 5.0})
     o_ep = ba_ep.optimize(use_gnc=False)
-    elev_before = ba.elev0[test_ids]
     elev_after = o_ep["elev"][test_ids]
-    pull = np.mean(np.abs(elev_after - target)) 
-    pull0 = np.mean(np.abs(elev_before - target))
-    print(f"仰角先验 sanity: 无先验偏差 {pull0:.4f}rad -> 加先验后偏差 {pull:.4f}rad "
+    pull = np.mean(np.abs(elev_after - target))
+    print(f"仰角先验 sanity(独立target=0): "
+          f"无先验基线偏差 {pull0:.4f}rad -> 加先验后偏差 {pull:.4f}rad "
           f"(先验起效={'是' if pull < pull0 * 0.6 else '否'})")
+    print(f"  注: target=0与初值无关, pull0来自真正无先验优化(非初值常数)")
 
     # ---------- 出图 ----------
     make_figure(folder, landmarks, out["world"], out["poses"], elev_all, ELEV,

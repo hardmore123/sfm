@@ -90,7 +90,39 @@ def run_scene(scene_name):
     heave = meta["config"]["heave_m"]
     D_t = meta["config"]["D_t_m"]
     r_cyl = 0.25  # 柱半径
-    D_far = D_t + r_cyl  # 轮廓远边缘
+    
+    # 2026-10-13审计修正: 旧版用常数D_far=D_t+r_cyl=10.85, 
+    # 但生成器对每根波束按方位偏移计算逐波束D_far(10.66~10.87).
+    # 常数D_far导致h系统性偏低, MAE从0.116cm→2.218cm(放大19倍).
+    # 修正: 用逐波束D_far(与gen_scenes_main_f8.py:234-239一致)
+    N = meta["config"]["n_frames"]
+    H_bins = meta["config"]["range_bin_count"]
+    W_beams = meta["config"]["beam_count"]
+    rho_max = meta["config"]["rho_max_m"]
+    rho_min = meta["config"]["range_min_m"]
+    range_axis = np.linspace(rho_min, rho_max, H_bins)
+    beam_axis_rad = np.linspace(
+        np.deg2rad(-meta["config"].get("fov_azim_deg", 30) / 2),
+        np.deg2rad(meta["config"].get("fov_azim_deg", 30) / 2),
+        W_beams
+    )
+    
+    # 计算逐波束D_far(与gen_scenes_main_f8.py:234-239一致)
+    def compute_D_far_perbeam(pose_i):
+        """对帧pose_i, 计算每个波束的轮廓远边缘D_far"""
+        x_i, y_i = float(pose_i[0]), float(pose_i[1])
+        dx = D_t - x_i
+        dy = 0.0 - y_i
+        d_h_c = np.hypot(dx, dy)
+        th_c = np.arctan2(dy, dx)
+        # 帧的yaw(由pose的roll/pitch/yaw分解, pose[5]=yaw)
+        yaw_i = float(pose_i[5]) if len(pose_i) > 5 else 0.0
+        dth = (th_c - (beam_axis_rad + yaw_i) + np.pi) % (2 * np.pi) - np.pi
+        disc = r_cyl**2 - (d_h_c * np.sin(dth))**2
+        D_far_pb = np.where(disc >= 0,
+                            d_h_c * np.cos(dth) + np.sqrt(np.maximum(disc, 0)),
+                            np.nan)
+        return D_far_pb
     
     N = meta["config"]["n_frames"]
     H_bins = meta["config"]["range_bin_count"]
@@ -101,7 +133,8 @@ def run_scene(scene_name):
     
     # 每帧z_s (poses col 2 = z)
     z_s_per_frame = poses[:, 2]
-    print(f"  h_gt={h_gt}m, z_s_center={z_s_center}m, heave={heave}m, D_far={D_far}m")
+    print(f"  h_gt={h_gt}m, z_s_center={z_s_center}m, heave={heave}m")
+    print(f"  D_far: 逐波束(与gen_scenes一致, 10.66~10.87m范围)")
     print(f"  z_s range: [{z_s_per_frame.min():.3f}, {z_s_per_frame.max():.3f}]m, Δz={z_s_per_frame.max()-z_s_per_frame.min():.3f}m")
     
     # 选双高度帧对: z_s最大和最小且都有target
@@ -122,14 +155,17 @@ def run_scene(scene_name):
     n_valid = valid1.sum()
     print(f"  有效列数: frame1={valid1.sum()}, frame2={valid2.sum()}")
     
-    # === 本文(★II-1) 单次通过 ===
-    h_our = our_inversion(rho_end1, z1, D_far, valid1)
+    # === 本文(★II-1) 单次通过(逐波束D_far, 2026-10-13修正) ===
+    D_far1 = compute_D_far_perbeam(poses[i_min])
+    h_our = our_inversion(rho_end1, z1, D_far1, valid1)
     h_our_valid = np.isfinite(h_our)
     if h_our_valid.sum() > 0:
         mae_our = float(np.mean(np.abs(h_our[h_our_valid] - h_gt))) * 100
         rmse_our = float(np.sqrt(np.mean((h_our[h_our_valid] - h_gt)**2))) * 100
         n_our = int(h_our_valid.sum())
-        success_rate_our = n_our / max(n_valid, 1)
+        # 2026-10-13审计修正: 成功率分母改为目标命中列数(非"已量到阴影远端的列数")
+        n_target_cols = int(target_masks[i_min].any(axis=0).sum())
+        success_rate_our = n_our / max(n_target_cols, 1)
     else:
         mae_our = rmse_our = None
         n_our = 0
@@ -149,13 +185,16 @@ def run_scene(scene_name):
         success_rate_zhou = 0
     
     # === Zhou 单次通过(无双高度) ===
-    # Zhou方法必须双高度, 单次返回NaN
-    zhou_single_rate = 0.0  # 定义为0%成功率
+    # 2026-10-13审计修正: 旧版硬编码zhou_single_rate=0.0, 非实测.
+    # Zhou方法设计上需双高度(z1≠z2), 单帧无法消去D_far.
+    # 诚实表述: Zhou单次通过在设计上不可行, 但不硬编码结果, 而是声明"设计限制"
+    zhou_single_note = "Zhou方法设计上需双高度(z1≠z2)消去D_far, 单帧无解, 非硬编码0%"
+    zhou_single_rate = None  # 不硬编码, 标记为None(设计上不可行)
     
     print(f"\n  本文(★II-1)单次通过: MAE={mae_our:.3f}cm, RMSE={rmse_our:.3f}cm, n={n_our}, 成功率={success_rate_our*100:.1f}%")
     zhou_mae_str = f"{mae_zhou:.3f}cm" if mae_zhou is not None else "N/A"
     print(f"  Zhou双高度:           MAE={zhou_mae_str}, n={n_zhou}, 成功率={success_rate_zhou*100:.1f}%")
-    print(f"  Zhou单次通过:         成功率={zhou_single_rate*100:.1f}% (期望≈0%, Zhou必须双高度)")
+    print(f"  Zhou单次通过:         {zhou_single_note}")
     
     # === 验收 ===
     if mae_zhou is not None and mae_our is not None and mae_our > 0:
@@ -173,7 +212,7 @@ def run_scene(scene_name):
         "z_s_center": z_s_center,
         "heave_m": heave,
         "delta_z_s_m": round(dz, 4),
-        "D_far_m": D_far,
+        "D_far_m": "per_beam(10.66~10.87)",
         "z1_m": round(z1, 4),
         "z2_m": round(z2, 4),
         "our_single_pass": {

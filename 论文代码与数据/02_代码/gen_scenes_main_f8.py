@@ -103,6 +103,11 @@ def make_cfg(h, heave, seed, speckle, noise_floor):
         cfg.noise.speckle_sigma = speckle
         cfg.noise.noise_floor_db = noise_floor
     except Exception:
+        # 2026-10-13审计发现: speckle_sigma/noise_floor_db属于SonarCfg而非SensorNoiseCfg,
+        # 此赋值在当前config.py下必然失败(AttributeError)被静默吞掉.
+        # 且shadow_f8_fixed.render_all_fixed为纯二值掩码渲染, 不读这两个参数.
+        # 因此M1-M5在像素层面只有h和heave不同, 阴影掩码均为无噪声理想二值图.
+        # M5的"低SNR"标签在当前实现下不成立(几何等同M1), 需在论文中诚实说明.
         pass
     cfg.traj = TrajCfg(
         n_frames=N_FRAMES,
@@ -424,10 +429,14 @@ def gen_one(name, h, heave, role, expected, seed, speckle, noise_floor,
             "bias_cm": float(np.mean(err) * 100) if err.size else None,
             "std_cm": float(np.std(err, ddof=1) * 100) if err.size > 1 else None,
             "sigma_h_pred_cm": float(np.median(s_h_all) * 100) if s_h_all.size else None,
-            "leak_free": True,
+            "leak_free": False,
             "leak_note": (
-                "L_s 由 obs/shadow_masks 量测远端跳变得到；D_t 与 z_s 由 ★I(BA) "
-                "提供并注入定位噪声。反演路径不读任何解析几何量 ⇒ 非恒等式（C7）。"),
+                "2026-10-13审计修正: D_far由GT柱心坐标(D_T,0)+柱半径r=0.25计算,"
+                "注入σ_Dt=0.02高斯噪声模拟BA定位误差, 但D_far的基准值仍来自GT."
+                "严格意义上leak_free=False(用GT参数计算D_far基准). "
+                "L_s由obs/shadow_masks量测远端跳变得到(非解析值), "
+                "反演路径不读解析L_s/D_t ⇒ 非恒等式(C7), "
+                "但D_far的GT依赖需在论文中诚实说明."),
         },
         "timing_s": round(time.time() - t0, 1),
     }

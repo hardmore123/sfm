@@ -123,19 +123,24 @@ def confidence_init(kappa_j, s_i, g_i, q_i):
     return w
 
 
-def kappa_to_s(kappa_j, thresholds=(0.05, 1.0)):
+def kappa_to_s(kappa_j, thresholds=(0.05, np.inf)):
     """
     κ_j → s_i 几何可信度
     
-    理论: λ_3/λ_2 > 0.05为良约束(T2判据)
-      κ_j = λ_3/λ_2 > 0.05 → s_i = 1.0 (良约束)
-      κ_j ∈ (0.01, 0.05) → s_i = 0.5 (弱约束)
+    理论(T2判据): κ_j = λ_3/λ_2 > 0.05为良约束
+      κ_j >= 0.05 → s_i = 1.0 (良约束)
+      κ_j ∈ [0.01, 0.05) → s_i = 0.5 (弱约束)
       κ_j < 0.01 → s_i = 0.0 (盲区)
+    
+    注: 2026-10-13审计修正 — 旧默认thresholds=(0.05,1.0)要求κ≥1.0才算良约束,
+        与T2判据(κ>0.05即良约束)矛盾, 导致κ=0.15被判弱约束. 
+        ARIS几何下λ₃/λ₂理论上限≈sin²(7.5°)=0.017, 0.05~0.18的良约束值全被压成0.5.
+        修正为thresholds=(0.05, inf), 即κ≥0.05即良约束.
     """
     s = np.zeros_like(kappa_j, dtype=float)
-    s[kappa_j >= thresholds[1]] = 1.0
-    s[(kappa_j >= thresholds[0]) & (kappa_j < thresholds[1])] = 0.5
-    s[kappa_j < thresholds[0]] = 0.0
+    s[kappa_j >= thresholds[0]] = 1.0           # 良约束(κ≥0.05)
+    s[(kappa_j >= 0.01) & (kappa_j < thresholds[0])] = 0.5  # 弱约束
+    s[kappa_j < 0.01] = 0.0                     # 盲区
     return s
 
 
@@ -184,9 +189,11 @@ def joint_carve_with_height(voxel_centers, poses_se3, form_masks,
     from R_x6_carve_fixed import voxel_carve
     
     # 第1步: 纯空间雕刻(AND语义)
-    alive = voxel_carve(poses_se3, form_masks, voxel_centers, 
-                        voxel_centers.shape, range_axis, beam_axis, 
-                        fov_azim, fov_elev)
+    # 注: voxel_carve返回(alive, alive_hist)二元组, 取alive数组
+    result = voxel_carve(poses_se3, form_masks, voxel_centers, 
+                         voxel_centers.shape, range_axis, beam_axis, 
+                         fov_azim, fov_elev)
+    alive = result[0] if isinstance(result, tuple) else result
     
     # 第2步: ★II-1高度约束(z ≤ h)
     # 对每个目标, z > h的体素删除
@@ -258,12 +265,12 @@ def test_step6():
     """测试步骤6: 置信度初值"""
     print("\n=== 步骤6测试: 置信度初值 ===")
     
-    # κ_j → s_i
+    # κ_j → s_i (用默认阈值, 覆盖默认路径)
     kappa = np.array([0.15, 0.03, 0.001])  # 良/弱/盲
-    s = kappa_to_s(kappa, thresholds=(0.01, 0.05))
+    s = kappa_to_s(kappa)  # 默认thresholds=(0.05, inf)
     print(f"  κ_j = {kappa} → s_i = {s}")
     assert s[0] == 1.0 and s[1] == 0.5 and s[2] == 0.0
-    print("  [PASS] κ_j→s_i映射正确")
+    print("  [PASS] κ_j→s_i映射正确(默认阈值: κ≥0.05良约束)")
     
     # 包线 → g_i
     env = np.array([True, True, False])
