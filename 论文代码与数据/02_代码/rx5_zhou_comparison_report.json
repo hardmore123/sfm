@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-10-13",
+  "version": "v2_f8_valid_sceneset",
+  "scenes": [
+    {
+      "scene": "M1_well_constrained",
+      "h_gt_m": 0.85,
+      "z_s_center": 4.5,
+      "heave_m": 1.2,
+      "delta_z_s_m": 1.1996,
+      "D_far_m": 10.85,
+      "z1_m": 4.5,
+      "z2_m": 5.6996,
+      "our_single_pass": {
+        "mae_cm": 2.2179,
+        "rmse_cm": 3.1243,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_dual_height": {
+        "mae_cm": 0.2735,
+        "rmse_cm": 0.4256,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_single_pass_rate": 0.0,
+      "zhou_our_ratio": 0.1233,
+      "within_20pct": false
+    },
+    {
+      "scene": "M2_blind_low_spread",
+      "h_gt_m": 0.85,
+      "z_s_center": 4.5,
+      "heave_m": 0.1,
+      "delta_z_s_m": 0.1,
+      "D_far_m": 10.85,
+      "z1_m": 4.5,
+      "z2_m": 4.6,
+      "our_single_pass": {
+        "mae_cm": 2.2179,
+        "rmse_cm": 3.1243,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_dual_height": {
+        "mae_cm": 4.5115,
+        "rmse_cm": 4.617,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_single_pass_rate": 0.0,
+      "zhou_our_ratio": 2.0341,
+      "within_20pct": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "h_gt_m": 1.05,
+      "z_s_center": 4.5,
+      "heave_m": 1.2,
+      "delta_z_s_m": 1.1996,
+      "D_far_m": 10.85,
+      "z1_m": 4.5,
+      "z2_m": 5.6996,
+      "our_single_pass": {
+        "mae_cm": 2.0746,
+        "rmse_cm": 2.9033,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_dual_height": {
+        "mae_cm": 0.3909,
+        "rmse_cm": 0.4471,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_single_pass_rate": 0.0,
+      "zhou_our_ratio": 0.1884,
+      "within_20pct": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "h_gt_m": 1.12,
+      "z_s_center": 4.5,
+      "heave_m": 1.2,
+      "delta_z_s_m": 1.1996,
+      "D_far_m": 10.85,
+      "z1_m": 4.5,
+      "z2_m": 5.6996,
+      "our_single_pass": {
+        "mae_cm": 3.6739,
+        "rmse_cm": 3.8135,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_dual_height": {
+        "mae_cm": 6.4204,
+        "rmse_cm": 8.0373,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_single_pass_rate": 0.0,
+      "zhou_our_ratio": 1.7476,
+      "within_20pct": false
+    },
+    {
+      "scene": "M5_low_snr",
+      "h_gt_m": 0.85,
+      "z_s_center": 4.5,
+      "heave_m": 1.2,
+      "delta_z_s_m": 1.1996,
+      "D_far_m": 10.85,
+      "z1_m": 4.5,
+      "z2_m": 5.6996,
+      "our_single_pass": {
+        "mae_cm": 2.2179,
+        "rmse_cm": 3.1243,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_dual_height": {
+        "mae_cm": 0.2735,
+        "rmse_cm": 0.4256,
+        "n_valid": 12,
+        "success_rate": 1.0
+      },
+      "zhou_single_pass_rate": 0.0,
+      "zhou_our_ratio": 0.1233,
+      "within_20pct": false
+    }
+  ],
+  "summary": {
+    "cond1_dual_height_close": false,
+    "cond2_single_pass_advantage": true,
+    "cond3_zhou_degeneracy_m2": false
+  }
+}

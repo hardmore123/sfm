@@ -1,0 +1,216 @@
+{
+  "generated_at": "2026-10-13",
+  "version": "F-4b_v2",
+  "results": [
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.05,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.7988,
+      "V_recon_L": 792.8,
+      "V_gt_L": 170.0,
+      "V_intersect_L": 161.3,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.774,
+      "V_recon_L": 165.0,
+      "V_gt_L": 170.0,
+      "V_intersect_L": 61.8,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.7467,
+      "V_recon_L": 135.5,
+      "V_gt_L": 170.0,
+      "V_intersect_L": 61.8,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.05,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.7977,
+      "V_recon_L": 986.0,
+      "V_gt_L": 210.0,
+      "V_intersect_L": 201.3,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.743,
+      "V_recon_L": 251.0,
+      "V_gt_L": 210.0,
+      "V_intersect_L": 94.3,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.7001,
+      "V_recon_L": 198.5,
+      "V_gt_L": 210.0,
+      "V_intersect_L": 94.3,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.05,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.7968,
+      "V_recon_L": 1032.3,
+      "V_gt_L": 220.0,
+      "V_intersect_L": 211.5,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.7376,
+      "V_recon_L": 276.8,
+      "V_gt_L": 220.0,
+      "V_intersect_L": 103.3,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.05,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.7001,
+      "V_recon_L": 227.5,
+      "V_gt_L": 220.0,
+      "V_intersect_L": 103.3,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.03,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.799,
+      "V_recon_L": 811.5,
+      "V_gt_L": 172.3,
+      "V_intersect_L": 164.6,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.7835,
+      "V_recon_L": 170.8,
+      "V_gt_L": 172.3,
+      "V_intersect_L": 61.0,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.7526,
+      "V_recon_L": 137.7,
+      "V_gt_L": 166.3,
+      "V_intersect_L": 60.3,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.03,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.7975,
+      "V_recon_L": 982.3,
+      "V_gt_L": 207.9,
+      "V_intersect_L": 200.4,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.7551,
+      "V_recon_L": 253.2,
+      "V_gt_L": 207.9,
+      "V_intersect_L": 90.7,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.7034,
+      "V_recon_L": 204.7,
+      "V_gt_L": 207.9,
+      "V_intersect_L": 94.4,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.03,
+      "use_shadow": false,
+      "bbox_mode": "wide",
+      "E": 0.791,
+      "V_recon_L": 1035.5,
+      "V_gt_L": 225.7,
+      "V_intersect_L": 218.1,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "wide",
+      "E": 0.7345,
+      "V_recon_L": 282.2,
+      "V_gt_L": 225.7,
+      "V_intersect_L": 106.6,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.03,
+      "use_shadow": true,
+      "bbox_mode": "tight",
+      "E": 0.6976,
+      "V_recon_L": 233.3,
+      "V_gt_L": 219.8,
+      "V_intersect_L": 105.2,
+      "passed": false
+    }
+  ],
+  "best": {
+    "scene": "M4_envelope_outside",
+    "voxel_size": 0.03,
+    "use_shadow": true,
+    "bbox_mode": "tight",
+    "E": 0.6976,
+    "V_recon_L": 233.3,
+    "V_gt_L": 219.8,
+    "V_intersect_L": 105.2,
+    "passed": false
+  },
+  "target": 0.1
+}
