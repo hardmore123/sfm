@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-10-13",
-  "version": "F-4b_v2",
+  "version": "F-4b_v3_joint",
   "results": [
     {
       "scene": "M1_well_constrained",
@@ -199,18 +199,83 @@
       "V_gt_L": 219.8,
       "V_intersect_L": 105.2,
       "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.05,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.7228,
+      "V_recon_L": 114.5,
+      "V_gt_L": 170.0,
+      "V_intersect_L": 61.8,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.05,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.673,
+      "V_recon_L": 172.5,
+      "V_gt_L": 210.0,
+      "V_intersect_L": 94.3,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.05,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.6637,
+      "V_recon_L": 190.3,
+      "V_gt_L": 220.0,
+      "V_intersect_L": 103.3,
+      "passed": false
+    },
+    {
+      "scene": "M1_well_constrained",
+      "voxel_size": 0.03,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.7286,
+      "V_recon_L": 116.2,
+      "V_gt_L": 166.3,
+      "V_intersect_L": 60.3,
+      "passed": false
+    },
+    {
+      "scene": "M3_envelope_inside",
+      "voxel_size": 0.03,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.6755,
+      "V_recon_L": 177.3,
+      "V_gt_L": 207.9,
+      "V_intersect_L": 94.4,
+      "passed": false
+    },
+    {
+      "scene": "M4_envelope_outside",
+      "voxel_size": 0.03,
+      "mode": "shadow+tight+H_constraint",
+      "E": 0.6636,
+      "V_recon_L": 198.1,
+      "V_gt_L": 219.8,
+      "V_intersect_L": 105.2,
+      "passed": false
     }
   ],
   "best": {
     "scene": "M4_envelope_outside",
     "voxel_size": 0.03,
-    "use_shadow": true,
-    "bbox_mode": "tight",
-    "E": 0.6976,
-    "V_recon_L": 233.3,
+    "mode": "shadow+tight+H_constraint",
+    "E": 0.6636,
+    "V_recon_L": 198.1,
     "V_gt_L": 219.8,
     "V_intersect_L": 105.2,
     "passed": false
   },
-  "target": 0.1
+  "target": 0.1,
+  "analysis": {
+    "pure_shadow_tight": "E=0.70 (shadow删除目标边缘体素, V∩下降)",
+    "joint_H_constraint": "E=0.66-0.72 (高度约束减少V_r, 但V∩仍低)",
+    "root_cause": "2D FLS 15°方位孔径无法环绕目标→后方自由空间从未被观测→过度膨胀; shadow约束与目标边界耦合→误删目标体素",
+    "conclusion": "高度约束有改进(0.70→0.66)但未达标, 需更强约束(如已知柱半径r或顶面平面拟合)"
+  }
 }

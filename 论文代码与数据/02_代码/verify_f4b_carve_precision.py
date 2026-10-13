@@ -164,9 +164,77 @@ def run_scene(scene_name, voxel_size=0.05, use_shadow=True, bbox_mode="tight"):
         "passed": bool(E <= 0.10),
     }
 
+def run_scene_joint(scene_name, voxel_size=0.05, use_shadow=True, bbox_mode="tight"):
+    """
+    F-4b联合: 纯空间雕刻 + ★II-1高度约束(z≤h)
+    理论: 纯E=0.70(过度膨胀), 加z≤h硬约束删除目标上方体素 → 预计E≤0.10
+    """
+    meta, poses, target_masks, shadow_masks, unlit_masks = load_scene(scene_name)
+    
+    h_gt = meta["config"]["h_m"]
+    D_t = meta["config"]["D_t_m"]
+    z_s = meta["config"]["z_s_m"]
+    r_cyl = 0.25
+    H_bins = meta["config"]["range_bin_count"]
+    W_beams = meta["config"]["beam_count"]
+    rho_max = meta["config"]["rho_max_m"]
+    rho_min = meta["config"]["range_min_m"]
+    fov_elev = np.deg2rad(7.5)
+    fov_azim = np.deg2rad(15.0)
+    range_axis = np.linspace(rho_min, rho_max, H_bins)
+    beam_axis = np.linspace(-fov_azim, fov_azim, W_beams)
+    
+    poses_se3 = poses6_to_se3(poses)
+    pillar_top = np.array([D_t, 0, h_gt])
+    
+    # 紧包围盒
+    lo = np.array([D_t - 0.5, -0.5, -0.05])
+    hi = np.array([D_t + 0.5, 0.5, h_gt + 0.15])
+    
+    nx, ny, nz = np.ceil((hi - lo) / voxel_size).astype(int)
+    xs = lo[0] + (np.arange(nx) + 0.5) * voxel_size
+    ys = lo[1] + (np.arange(ny) + 0.5) * voxel_size
+    zs = lo[2] + (np.arange(nz) + 0.5) * voxel_size
+    X, Y, Z = np.meshgrid(xs, ys, zs, indexing='ij')
+    centers = np.stack([X.ravel(), Y.ravel(), Z.ravel()], 1)
+    voxel_vol = voxel_size**3
+    
+    # 第1步: 纯空间雕刻(+shadow)
+    alive = voxel_carve_both(poses_se3, target_masks, shadow_masks, centers,
+                              range_axis, beam_axis, fov_azim, fov_elev, use_shadow)
+    
+    # 第2步: ★II-1高度约束(z≤h) — 删除目标上方体素
+    # h来自★II-1反演, 这里用h_gt(理想情况)或反演值(实际)
+    # 目标附近的体素: |x - D_t| < r_cyl + margin
+    h_constraint = h_gt  # 用真值h(理想上界), 实际用反演h(略低于真值)
+    margin = 0.1  # 10cm余量
+    mask_target = np.abs(centers[:, 0] - D_t) < (r_cyl + margin)
+    mask_above = centers[:, 2] > h_constraint
+    alive[mask_target & mask_above] = False
+    
+    gt_occ = gt_occupancy_cylinder(pillar_top, centers, r_cyl, h_gt)
+    
+    V_r = alive.sum() * voxel_vol
+    V_g = gt_occ.sum() * voxel_vol
+    V_i = (alive & gt_occ).sum() * voxel_vol
+    denom = V_r + V_g - V_i
+    E = (V_r + V_g - 2*V_i) / max(denom, 1e-12)
+    
+    print(f"  {scene_name:<22} vs={voxel_size:.2f} +shadow+tight+H约束 "
+          f"E={E:.4f} V_r={V_r*1000:.1f}L V_g={V_g*1000:.1f}L V∩={V_i*1000:.1f}L "
+          f"{'✅达标' if E<=0.10 else '⚠️未达标'}")
+    
+    return {
+        "scene": scene_name, "voxel_size": voxel_size,
+        "mode": "shadow+tight+H_constraint",
+        "E": round(float(E),4), "V_recon_L": round(float(V_r*1000),1),
+        "V_gt_L": round(float(V_g*1000),1), "V_intersect_L": round(float(V_i*1000),1),
+        "passed": bool(E <= 0.10),
+    }
+
 def main():
     print("=" * 60)
-    print("F-4b v2: 雕刻精度——阴影约束+紧包围盒")
+    print("F-4b v3: 雕刻精度——阴影约束+紧包围盒+★II-1高度约束")
     print("=" * 60)
     results = []
     
@@ -179,20 +247,36 @@ def main():
             # +shadow + tight bbox
             results.append(run_scene(scene, vs, True, "tight"))
     
+    # F-4b联合: +shadow + tight + H约束
+    print(f"\n--- F-4b联合: ★II-1高度约束(z≤h) ---")
+    for vs in [0.05, 0.03]:
+        for scene in ["M1_well_constrained", "M3_envelope_inside", "M4_envelope_outside"]:
+            results.append(run_scene_joint(scene, vs, True, "tight"))
+    
     print(f"\n{'='*60}")
     best = min(results, key=lambda x: x["E"])
-    print(f"最佳: {best['scene']} vs={best['voxel_size']} shadow={best['use_shadow']} bbox={best['bbox_mode']} E={best['E']:.4f} {'✅达标' if best['passed'] else '⚠️未达标'}")
+    mode = best.get("mode", f"shadow={best.get('use_shadow','?')} bbox={best.get('bbox_mode','?')}")
+    print(f"最佳: {best['scene']} vs={best['voxel_size']} {mode} E={best['E']:.4f} {'✅达标' if best['passed'] else '⚠️未达标'}")
     
     # 分析: shadow约束的效果
     print(f"\n阴影约束效果:")
     for scene in ["M1_well_constrained"]:
-        ns = [r for r in results if r["scene"]==scene and not r["use_shadow"] and r["voxel_size"]==0.05]
-        ss = [r for r in results if r["scene"]==scene and r["use_shadow"] and r["bbox_mode"]=="wide" and r["voxel_size"]==0.05]
-        st = [r for r in results if r["scene"]==scene and r["use_shadow"] and r["bbox_mode"]=="tight" and r["voxel_size"]==0.05]
+        ns = [r for r in results if r["scene"]==scene and r.get("use_shadow")==False and r["voxel_size"]==0.05]
+        ss = [r for r in results if r["scene"]==scene and r.get("use_shadow")==True and r.get("bbox_mode")=="wide" and r["voxel_size"]==0.05]
+        st = [r for r in results if r["scene"]==scene and r.get("use_shadow")==True and r.get("bbox_mode")=="tight" and r["voxel_size"]==0.05]
+        sj = [r for r in results if r["scene"]==scene and r.get("mode","").startswith("shadow+tight+H") and r["voxel_size"]==0.05]
         if ns and ss and st:
             print(f"  {scene}: no_shadow E={ns[0]['E']} → +shadow E={ss[0]['E']} → +shadow+tight E={st[0]['E']}")
+            if sj:
+                print(f"  {scene}: → +H约束 E={sj[0]['E']} (高度约束改进: {st[0]['E']:.4f}→{sj[0]['E']:.4f})")
     
-    report = {"generated_at":"2026-10-13","version":"F-4b_v2","results":results,"best":best,"target":0.10}
+    report = {"generated_at":"2026-10-13","version":"F-4b_v3_joint","results":results,"best":best,"target":0.10,
+              "analysis": {
+                  "pure_shadow_tight": "E=0.70 (shadow删除目标边缘体素, V∩下降)",
+                  "joint_H_constraint": "E=0.66-0.72 (高度约束减少V_r, 但V∩仍低)",
+                  "root_cause": "2D FLS 15°方位孔径无法环绕目标→后方自由空间从未被观测→过度膨胀; shadow约束与目标边界耦合→误删目标体素",
+                  "conclusion": "高度约束有改进(0.70→0.66)但未达标, 需更强约束(如已知柱半径r或顶面平面拟合)"
+              }}
     with open(os.path.join(OUT_DIR, "f4b_carve_precision_report.json"), "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     print(f"\n报告已写入")

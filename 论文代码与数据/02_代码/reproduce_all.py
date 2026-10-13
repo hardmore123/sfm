@@ -135,6 +135,8 @@ def main():
         ("S6",   "verify_s6_sensitivity.py",      "S6 假设敏感性分析（6个假设）", False),
         ("S2",   "verify_s2_ba_audit.py",         "S2 BA代码审计（5项检查）", False),
         ("SH",   "verify_sigma_h_independent.py",  "3.4 σ_h传播独立验证（解析vs MC）", True),
+        ("E2E",  "closed_loop_e2e.py",              "9环节闭环端到端验证（M1场景）", False),
+        ("TERM", "terminal_evaluation.py",          "步骤9 终端评价指标测试", False),
         ("RX5",  "verify_rx5_zhou_comparison.py",  "★II-1 R-X5: 本文vs Zhou 2025对比", True),
         ("F4b",  "verify_f4b_carve_precision.py",  "★II-2 F-4b: 雕刻精度分析", True),
     ]
