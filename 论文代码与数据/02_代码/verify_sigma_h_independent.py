@@ -45,15 +45,16 @@ def load_measurements(scene_name):
 def analytic_sigma_h(rho_end, D_far, z_s, sigma_rho, sigma_Dt, sigma_zs):
     """路径1: 解析一阶传播
     h = z_s * (1 - D_far/D_e),  D_e = sqrt(ρ_end² - z_s²)
+    三个独立观测: ρ_end, D_far, z_s 各自独立加噪
     
-    ∂h/∂ρ_end = z_s * D_far * ρ_end / D_e³    (链式法则: ∂(1/D_e)/∂ρ_end = -ρ_end/D_e³)
-    ∂h/∂D_far = -z_s / D_e
-    ∂h/∂z_s = (1 - D_far/D_e) + z_s * D_far * z_s / D_e³   (两项: 显式z_s + D_e对z_s的依赖)
+    ∂h/∂ρ_end = z_s * D_far * ρ_end / D_e³    (D_e随ρ_end变, z_s固定)
+    ∂h/∂D_far = -z_s / D_e                     (D_e不依赖D_far)
+    ∂h/∂z_s = 1 - D_far/D_e - z_s²·D_far/D_e³  (D_e随z_s变, ρ_end固定; 注意第二项是减号)
     """
     D_e = np.sqrt(rho_end**2 - z_s**2)
     dh_drho = z_s * D_far * rho_end / D_e**3
     dh_dDfar = -z_s / D_e
-    dh_dzs = (1 - D_far / D_e) + z_s * D_far * z_s / D_e**3
+    dh_dzs = 1 - D_far / D_e - z_s**2 * D_far / D_e**3
     sigma_h_sq = (dh_drho * sigma_rho)**2 + (dh_dDfar * sigma_Dt)**2 + (dh_dzs * sigma_zs)**2
     return np.sqrt(sigma_h_sq)
 
