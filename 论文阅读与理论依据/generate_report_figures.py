@@ -25,7 +25,8 @@ plt.rcParams['figure.dpi'] = 150
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DELIV = os.path.dirname(HERE)
-FIG_DIR = os.path.join(DELIV, "05_成果图")
+# 2026-10-13: 成果图输出到本文件夹的"成果图"子目录
+FIG_DIR = os.path.join(HERE, "成果图")
 os.makedirs(FIG_DIR, exist_ok=True)
 
 def save_fig(fig, name):
@@ -251,6 +252,10 @@ def fig6_g6_two_round():
 # ===== 图7: 最终3D重建可视化(柱体重建效果) =====
 def fig7_3d_reconstruction():
     """最终3D重建可视化: v4 vs v5对比(M1场景)"""
+    # 2026-10-13: 脚本移至论文阅读与理论依据/, 需添加02_代码到sys.path
+    code_dir = os.path.join(DELIV, "论文代码与数据", "02_代码")
+    if code_dir not in sys.path:
+        sys.path.insert(0, code_dir)
     from verify_f4b_carve_precision import (
         load_scene, voxel_carve_both, poses6_to_se3, gt_occupancy_cylinder
     )
@@ -273,7 +278,7 @@ def fig7_3d_reconstruction():
     pillar_top = np.array([D_t_gt, 0, h_gt])
     
     # 从measurements获取反演h_inv和BA估计D_t
-    meas_path = os.path.join(DELIV, "04_数据", "scene_set_main_f8", scene_name, "innov2", "measurements.npy")
+    meas_path = os.path.join(DELIV, "论文代码与数据", "04_数据", "scene_set_main_f8", scene_name, "innov2", "measurements.npy")
     if os.path.exists(meas_path):
         meas = np.load(meas_path)
         h_inv = float(np.mean(meas[:, 5]))
